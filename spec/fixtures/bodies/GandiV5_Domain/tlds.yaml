@@ -1,0 +1,7 @@
+---
+- name: a
+  href: https://api.gandi.net/v5/domain/tlds/a
+- name: b
+  href: https://api.gandi.net/v5/domain/tlds/b
+- name: c
+  href: https://api.gandi.net/v5/domain/tlds/c

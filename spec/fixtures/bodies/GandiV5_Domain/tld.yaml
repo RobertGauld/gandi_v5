@@ -1,0 +1,10 @@
+---
+category: ccTLD
+name: eu
+lock: false
+change_owner: true
+authinfo_for_transfer: true
+full_tld: eu
+corporate: false
+ext_trade: true
+href: https://api.test/v5/domain/tlds/eu

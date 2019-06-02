@@ -1,0 +1,15 @@
+---
+currency: GBP
+grid: A
+products:
+- status: unavailable
+  name: example.com
+  process: create
+  taxes:
+  - type: service
+    rate: 0
+    name: vat
+taxes:
+- type: service
+  rate: 0
+  name: vat

@@ -1,0 +1,5 @@
+---
+restorable: true
+contracts:
+  - id: uuid
+    name: Name

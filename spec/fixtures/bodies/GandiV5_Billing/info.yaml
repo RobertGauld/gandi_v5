@@ -1,0 +1,10 @@
+---
+annual_balance: 123.45
+grid: A
+prepaid:
+  currency: GBP
+  amount: 1
+  warning_threshold: 
+  created_at: '2011-02-19T11:23:25Z'
+  updated_at: '2019-02-23T21:47:22Z'
+outstanding_amount: 0

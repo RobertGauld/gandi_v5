@@ -1,0 +1,23 @@
+language: ruby
+rvm:
+  - 2.6.0
+  - 2.6.1
+  - 2.6.2
+gemfile:
+  - Gemfile
+branches:
+  only:
+    - master
+    - staging
+    - /gh(?:\d)+(?:-.+)?/
+    - /dev_ver_\d+\.\d+/
+before_install: gem update bundler
+script:
+  - bundle exec rubocop
+  - bundle exec rspec
+notifications:
+  slack:
+    on_success: always
+    on_failure: always
+    rooms:
+    - secure: Nx1TmVs32ILAvH3Cv+jX6rZh1hgx3YaY9azC3PIaJba/bF9xXY1l8L4wF0dJGupQlFP3lWN3Y/aPIJo3SNbH+qll9o317105FfTecPWloyiDgWvz5qPz+oh5MImBUs220jW2XsaACfZkGTUsQt8OUCfhtUeUiW+YqqfAZEwnl+0TyTSFBSLKSNdMcT0sKYPb0IuX5WrOspokSoE9+QL5k0cNN8d78MvtUIC6Em5/ffKVbk4TulQhbzyUhIlPDoxVELq16dQ7njyWJb58khOCaJGV7a2NdFvFCJqImFVQPRT5Ad6EJMQ461cdPY5+ZwxDGlIkA5Srt1L+CyV2wJtMarCIPoGQaxuOTVjNiedEmzblg3K9VXkI7Q5LupJ+vOBhtUS54ODYVBnQgoNVPuRe6T81VZ7NCejeest9bqga8QAVVNhKvMvb6l+YXabnPo7okDZM4+4AlaG/pBKWKjxDJ5QXlbRUZqnJt36sA7y3wvIxnYMX45oaqLD9OS8DQ7Va9+9bsPGZnI0oQrkoPGazGnCryvNtEdl+Qy2KSFaocJL7XLavmAYCmqnNGIaO0eiI+VoX9rvOadDNaPJoa6G4YpO+yTBlx1mxLjneY3FfCHZ1lma7UxzV0t0AVYZtnYBalXbw3mvIWEg6PPRI2uXGCvwUBrNCQqonULsRTFSseMw=

@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://dns.api.gandi.net/api/v5/zones
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      X-Api-Key:
+      - abdce12345
+      Host:
+      - api.gandi.net
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: |-
+        [
+          {
+            "retry": 3600,
+            "uuid": "uuid-of-zone",
+            "minimum": 10800,
+            "refresh": 10800,
+            "expire": 604800,
+            "serial": 1432798405,
+            "user_uuid": "uuid-of-user",
+            "email": "hostmaster.gandi.net.",
+            "primary_ns": "a.dns.gandi.net.",
+            "name": "Zone Name"
+          }
+        ]
+    http_version: 
+  recorded_at: Thu, 30 May 2019 06:22:02 GMT
+recorded_with: VCR 4.0.0

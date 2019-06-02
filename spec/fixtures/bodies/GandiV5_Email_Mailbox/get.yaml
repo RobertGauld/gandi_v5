@@ -1,0 +1,16 @@
+---
+address: address@example.com
+aliases:
+- alias-1
+- alias-2
+domain: example.com
+href: https://api.test/api/v5/email/example.com/mailbox-uuid
+id: mailbox-uuid
+login: address
+mailbox_type: standard
+quota_used: 1000000
+responder:
+  enabled: false
+  starts_at: '2000-01-01T00:00:00Z'
+  ends_at: '2000-01-02T00:00:00Z'
+  message: This is an autoresponse.

@@ -1,0 +1,37 @@
+---
+status: []
+dates:
+  created_at: '2011-02-21T10:39:00Z'
+  registry_created_at: '2003-03-12T12:02:11Z'
+  registry_ends_at: '2020-03-12T12:02:11Z'
+  updated_at: '2019-02-06T09:49:37Z'
+tags:
+- Tag
+fqdn: example.com
+id: domain-uuid
+autorenew:
+  href: http://api.test/v5/domain/domains/example.com/autorenew
+  dates:
+  - '2021-01-13T09:04:18Z'
+  - '2021-01-29T10:04:18Z'
+  duration: 1
+  enabled: true
+  org_id: org-uuid
+tld: com
+nameservers:
+  - '192.168.0.1'
+  - '192.168.0.2'
+href: https://api.gandi.net/v5/domain/domains/example.com
+fqdn_unicode: example.com
+can_tld_lock: true
+contacts:
+  owner:
+    country: GB
+    email: owner@example.com
+    family: Fam
+    given: Giv
+    streetaddr: Somestreet
+    type: 1
+services:
+- gandilivedns
+- dnssec

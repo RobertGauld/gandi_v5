@@ -1,0 +1,133 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.gandi.net/v5/domain/domains/example.net
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Authorization:
+      - Apikey abdce12345
+      Host:
+      - api.gandi.net
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "status": [
+            "clientTransferProhibited"
+          ],
+          "dates": {
+            "created_at": "2019-02-13T11:04:18Z",
+            "deletes_at": "2021-03-30T00:04:18Z",
+            "hold_begins_at": "2021-02-13T10:04:18Z",
+            "hold_ends_at": "2021-03-30T10:04:18Z",
+            "pending_delete_ends_at": "2021-05-04T10:04:18Z",
+            "registry_created_at": "2019-02-13T10:04:18Z",
+            "registry_ends_at": "2021-02-13T10:04:18Z",
+            "renew_begins_at": "2012-01-01T00:00:00Z",
+            "restore_ends_at": "2021-04-29T10:04:18Z",
+            "updated_at": "2019-02-25T16:20:49Z",
+            "authinfo_expires_at": "2020-02-25T16:20:49Z"
+          },
+          "can_tld_lock": true,
+          "tags": [],
+          "nameservers": [
+            "ns-25-a.gnadi.net",
+            "ns-113-b.gnadi.net",
+            "ns-58-c.gnadi.net"
+          ],
+          "contacts": {
+            "owner": {
+              "city": "Paris",
+              "given": "Alice",
+              "reachability": "pending",
+              "family": "Doe",
+              "zip": "75001",
+              "extra_parameters": {
+                "birth_date": "",
+                "birth_department": "",
+                "birth_city": "",
+                "birth_country": ""
+              },
+              "country": "FR",
+              "streetaddr": "5 rue neuve",
+              "data_obfuscated": true,
+              "mail_obfuscated": true,
+              "phone": "+33.123456789",
+              "state": "FR-J",
+              "validation": "none",
+              "type": 0,
+              "email": "alice@example.org"
+            }
+          },
+          "fqdn": "example.net",
+          "autorenew": {
+            "dates": [
+              "2021-01-13T09:04:18Z",
+              "2021-01-29T10:04:18Z",
+              "2021-02-12T10:04:18Z"
+            ],
+            "org_id": "fe0b931c-18c5-11e9-b9b5-00163ec4cb00",
+            "duration": 1,
+            "href": "http://api.test/v5/domain/domains/example.net/autorenew",
+            "enabled": false
+          },
+          "authinfo": "8vyhljvJg+",
+          "sharing_space": {
+            "id": "fe0b931c-18c5-11e9-b9b5-00163ec4cb00",
+            "name": "alice_doe"
+          },
+          "tld": "net",
+          "services": [
+            "gandilivedns",
+            "mailboxv2"
+          ],
+          "id": "ba1167be-2f76-11e9-9dfb-00163ec4cb00",
+          "trustee_roles": [],
+          "href": "http://api.test/v5/domain/domains/example.net",
+          "fqdn_unicode": "example.net"
+        }
+    http_version: 
+  recorded_at: Thu, 30 May 2019 06:22:02 GMT
+
+- request:
+    method: post
+    uri: https://api.gandi.net/v5/domain/domains/example.net/renew
+    body:
+      encoding: US-ASCII
+      string: '{"duration":2}'
+    headers:
+      Accept:
+      - application/json
+      Authorization:
+      - Apikey abdce12345
+      Host:
+      - api.gandi.net
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "message":"Domain renewed."
+        }
+    http_version: 
+  recorded_at: Thu, 30 May 2019 06:22:02 GMT
+
+recorded_with: VCR 4.0.0

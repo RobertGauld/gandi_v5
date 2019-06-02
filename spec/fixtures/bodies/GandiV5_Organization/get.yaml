@@ -1,0 +1,17 @@
+---
+username: UserName
+city: City
+streetaddr: Street Address
+zip: Post Code
+name: FirstLast
+firstname: First
+lastname: Last
+security_email: security@example.com
+id: organization-uuid
+phone: '+12.34567890'
+security_phone: '+23.45678901'
+country: GB
+security_email_validated: true
+security_email_validation_deadline: '2017-11-22T17:13:33Z'
+email: username@example.com
+lang: en

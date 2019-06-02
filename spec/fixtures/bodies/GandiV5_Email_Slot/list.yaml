@@ -1,0 +1,8 @@
+---
+- status: inactive
+  capacity: 3072
+  mailbox_type: standard
+  refundable: true
+  id: 125
+  href: http://api.test/v5/email/slots/mailbox-api-test-1.fr/125
+  created_at: '2019-04-08T08:48:41Z'

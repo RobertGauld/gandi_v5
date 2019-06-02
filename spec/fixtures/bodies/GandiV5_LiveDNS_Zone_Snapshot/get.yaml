@@ -1,0 +1,9 @@
+---
+date_created: '2016-12-16T16:51:26Z'
+uuid: snapshot-uuid
+zone_uuid: zone-uuid
+zone_data:
+- rrset_type: A
+  rrset_ttl: 10800
+  rrset_name: www
+  rrset_values: ['10.0.1.42']

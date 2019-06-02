@@ -1,0 +1,8 @@
+---
+- address: address@example.com
+  domain: example.com
+  href: https://api.test/api/v5/email/example.com/mailbox-uuid
+  id: mailbox-uuid
+  login: address
+  mailbox_type: standard
+  quota_used: 1000000

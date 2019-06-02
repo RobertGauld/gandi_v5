@@ -1,0 +1,20 @@
+---
+- status: []
+  dates:
+    created_at: '2011-02-21T10:39:00Z'
+    registry_created_at: '2003-03-12T12:02:11Z'
+    registry_ends_at: '2020-03-12T12:02:11Z'
+    updated_at: '2019-02-06T09:49:37Z'
+  tags:
+  - Tag
+  fqdn: example.com
+  id: domain-uuid
+  autorenew: false
+  tld: com
+  owner: Example Owner
+  orga_owner: Example Organisation
+  domain_owner: Example Owner
+  nameserver:
+    current: livedns
+  href: https://api.gandi.net/v5/domain/domains/example.com
+  fqdn_unicode: example.com
