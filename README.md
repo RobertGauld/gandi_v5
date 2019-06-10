@@ -38,8 +38,8 @@ But then you were going to be careful anyway as this gem is currently in the ver
 
 Details of the API can be found at:
 
-* (https://api.gandi.net/docs/)
-* (https://doc.livedns.gandi.net/)
+* <https://api.gandi.net/docs/>
+* <https://doc.livedns.gandi.net/>
 
 
 ## Installation
@@ -90,5 +90,5 @@ We follow the [Semantic Versioning](http://semver.org/) concept.
 | --------------- | ---------------------- |
 | 0.1.0           | 2019-05-16             |
 
-See (https://api.gandi.net/docs/reference#API-Changelog) to find out what
+See <https://api.gandi.net/docs/reference#API-Changelog> to find out what
 Gandi changed on each date.
