@@ -257,7 +257,6 @@ class GandiV5
       # @param sharing_id [String] the UUID of the account to ceate the zone under.
       # @return [String] The confirmation message from Gandi.
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
-      # TODO: Fetch created zone
       def self.create(name, sharing_id: nil)
         params = sharing_id ? { sharing_id: sharing_id } : {}
 

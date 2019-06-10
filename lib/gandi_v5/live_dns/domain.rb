@@ -153,9 +153,6 @@ class GandiV5
 
       GandiV5::LiveDNS::RECORD_TYPES.each do |type|
         # Replace records of a given type for a name in this domain.
-        # TODO: @param name [Type] description.
-        # TODO: @param ttl [Type] description.
-        # TODO: documentation for *values
         # @return [String] The confirmation message from Gandi.
         # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
         define_method "replace_#{type.downcase}_records_for" do |name, ttl, *values|

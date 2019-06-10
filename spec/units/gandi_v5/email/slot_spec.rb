@@ -10,8 +10,6 @@ describe GandiV5::Email::Slot do
                                        .and_return('message' => 'Confirmation message.')
     expect(subject.delete).to eq 'Confirmation message.'
   end
-  # TODO: check for inactiveness
-  # TODO: check for refundableness
 
   describe '#refresh' do
     before :each do

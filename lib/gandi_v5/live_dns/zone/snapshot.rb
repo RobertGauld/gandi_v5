@@ -44,8 +44,6 @@ class GandiV5
           from_gandi data
         end
 
-        # TODO: Move listing snapshots to here
-
         private
 
         def url

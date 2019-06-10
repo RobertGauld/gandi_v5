@@ -109,11 +109,8 @@ class GandiV5
       # @param type [:standard, :premium] the type of mailbox slot to use.
       # @return [String] The confirmation message from Gandi.
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
-      # TODO: Fetch created mailbox
       def self.create(fqdn, login, password, aliases: [], type: :standard)
-        # TODO: Check type is valid
         check_password password
-        # TODO: Check if a slot is available
 
         body = {
           mailbox_type: type,

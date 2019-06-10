@@ -219,9 +219,6 @@ describe GandiV5::Email::Mailbox do
       expect(described_class).to receive(:check_password).with('password').and_raise(ArgumentError, 'message')
       expect { described_class.create 'example.com', 'login', 'password' }.to raise_error ArgumentError, 'message'
     end
-
-    # TODO: pending 'Bad type'
-    # TODO: pending 'No available slots'
   end
 
   describe '.fetch' do

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: Allow enable/disable from here too ???
-
 class GandiV5
   class Email
     class Mailbox

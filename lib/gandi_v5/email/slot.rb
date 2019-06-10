@@ -54,8 +54,6 @@ class GandiV5
       # @see https://api.gandi.net/docs/email#delete-v5-email-slots-domain-slot_id
       # @return [String] The confirmation message from Gandi.
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
-      # TODO: check for inactiveness
-      # TODO: check for refundableness
       def delete
         data = GandiV5.delete url
         data['message']
@@ -78,7 +76,6 @@ class GandiV5
       # @param type [:standard, :premium] Tyhe type of slot to add.
       # @return [String] The confirmation message from Gandi.
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
-      # TODO: Fetch created slot
       def self.create(fqdn, type = :standard)
         body = {
           mailbox_type: type

@@ -1,21 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: Add method renewal_price(currency: 'GBP', period: 1, sharing_id: self.sharing_id)
-
-# TODO: Glue Record Management
-#  * get-v5-domain-domains-domain-hosts
-#  * post-v5-domain-domains-domain-hosts
-# TODO: Glue Record Information
-#  * get-v5-domain-domains-domain-hosts-name
-#  * put-v5-domain-domains-domain-hosts-name
-#  * delete-v5-domain-domains-domain-hosts-name
-# TODO: LiveDNS Management
-#  * get-v5-domain-domains-domain-livedns
-#  * post-v5-domain-domains-domain-livedns
-# TODO: Nameservers Management
-#  * get-v5-domain-domains-domain-nameservers
-#  * put-v5-domain-domains-domain-nameservers
-
 require_relative 'domain/auto_renew'
 require_relative 'domain/contact'
 require_relative 'domain/contract'
@@ -241,7 +225,6 @@ class GandiV5
       data['message']
     end
 
-    # TODO: Test when I have a restorable domain
     # Restoration information for the domain.
     # @see https://docs.gandi.net/en/domain_names/renew/restore.html
     # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain-restore
@@ -251,7 +234,6 @@ class GandiV5
       @restore_information ||= fetch_restore_information
     end
 
-    # TODO: Test when I have a restorable domain
     # Requery Gandi for the domain's restore information.
     # @see https://docs.gandi.net/en/domain_names/renew/restore.html
     # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain-restore
@@ -323,7 +305,6 @@ class GandiV5
     # @return [Hash] if actually creating, you get what Gandi returns.
     # @return [Hash] if doing a dry run, you get what Gandi returns.
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
-    # TODO: Return created domain unless dry_run
     def self.create(fqdn, dry_run: false, **params)
       fail ArgumentError, 'missing keyword: owner' unless params.key?(:owner)
 
@@ -388,7 +369,6 @@ class GandiV5
     #   list of at least 1 process for which pricing is to be made.
     # @param sharing_id [String, #to_s] (optional) organization for which the pricing is to be made.
     # @return [Hash]
-    # TODO: Return an Availabillity object ???
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
     def self.availability(fqdn, **options)
       GandiV5.get "#{BASE}domain/check", params: { name: fqdn }.merge(options)
@@ -397,7 +377,6 @@ class GandiV5
     # List of available TLDs.
     # @see https://api.gandi.net/docs/domains#get-v5-domain-tlds
     # @return Array<String>
-    # TODO: Maybe return an array of TLD objects ???
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
     def self.tlds
       GandiV5.get("#{BASE}domain/tlds")
@@ -408,7 +387,6 @@ class GandiV5
     # @see https://api.gandi.net/docs/domains#get-v5-domain-tlds-name
     # @param name [String, #to_s] the top level domain to get information for.
     # @return [Hash]
-    # TODO: Return a TLD object ???
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
     def self.tld(name)
       GandiV5.get("#{BASE}domain/tlds/#{CGI.escape name}").transform_keys(&:to_sym)
