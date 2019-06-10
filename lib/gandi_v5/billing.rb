@@ -11,7 +11,7 @@ class GandiV5
     # @param url [sharing_id] the Sharing ID of the organisation to get info for
     #   defaults to the user the api key belomgs to.
     # @return [GandiV5::Billing::Info]
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def self.info(sharing_id = nil)
       _response, data = GandiV5.get url(sharing_id)
       GandiV5::Billing::Info.from_gandi data

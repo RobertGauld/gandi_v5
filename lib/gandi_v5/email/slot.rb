@@ -53,7 +53,7 @@ class GandiV5
       # @see GandiV5::Email::Mailbox#delete
       # @see https://api.gandi.net/docs/email#delete-v5-email-slots-domain-slot_id
       # @return [String] The confirmation message from Gandi.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def delete
         data = GandiV5.delete url
         data['message']
@@ -62,7 +62,7 @@ class GandiV5
       # Requery Gandi for this slot's information.
       # @see https://api.gandi.net/docs/email#get-v5-email-slots-domain-slot_id
       # @return [GandiV5::Email::Slot]
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def refresh
         data = GandiV5.get url
         from_gandi data
@@ -75,7 +75,7 @@ class GandiV5
       # @param fqdn [String, #to_s] the fully qualified domain name to add the slot to.
       # @param type [:standard, :premium] Tyhe type of slot to add.
       # @return [String] The confirmation message from Gandi.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.create(fqdn, type = :standard)
         body = {
           mailbox_type: type
@@ -90,7 +90,7 @@ class GandiV5
       # @param fqdn [String, #to_s] the fully qualified domain name the slot is on.
       # @param id [String, #to_s] the ID of the slot to fetch.
       # @return [GandiV5::Email::Slot]
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.fetch(fqdn, id)
         data = GandiV5.get url(fqdn, id)
         slot = from_gandi data
@@ -102,7 +102,7 @@ class GandiV5
       # @see https://api.gandi.net/docs/email#
       # @param fqdn [String, #to_s] the fully qualified domain name to list slots for.
       # @return [Array<GandiV5::Email::Slot>]
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.list(fqdn)
         data = GandiV5.get url(fqdn)
         data.map { |item| from_gandi item }

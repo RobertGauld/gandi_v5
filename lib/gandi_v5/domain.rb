@@ -159,7 +159,7 @@ class GandiV5
     # Contacts for the domain.
     # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain-contacts
     # @return [Hash{:owner, :admin, :bill, :tech => GandiV5::Domain::Contact}]
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def contacts
       @contacts ||= fetch_contacts
     end
@@ -167,7 +167,7 @@ class GandiV5
     # Requery Gandi for the domain's contacts.
     # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain-contacts
     # @return [Hash{:owner, :admin, :bill, :tech => GandiV5::Domain::Contact}]
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def fetch_contacts
       _response, data = GandiV5.get url('contacts')
       self.contacts = data.transform_keys(&:to_sym)
@@ -183,7 +183,7 @@ class GandiV5
     # @param tech [GandiV5::Domain::Contact, #to_gandi, #to_h]
     #   details for the new technical contact.
     # @return [Hash{:owner, :admin, :bill, :tech => GandiV5::Domain::Contact}]
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def update_contacts(admin: nil, bill: nil, tech: nil)
       body = {
         admin: admin.respond_to?(:to_gandi) ? admin.to_gandi : admin,
@@ -198,7 +198,7 @@ class GandiV5
     # Renewal information for the domain.
     # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain-renew
     # @return [GandiV5::Domain::RenewalInformation]
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def renewal_information
       @renewal_information ||= fetch_renewal_information
     end
@@ -206,7 +206,7 @@ class GandiV5
     # Requery Gandi for the domain's renewal information.
     # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain-renew
     # @return [GandiV5::Domain::RenewalInformation]
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def fetch_renewal_information
       _response, data = GandiV5.get url('renew')
       data = data['renew'].merge('contracts' => data['contracts'])
@@ -218,7 +218,7 @@ class GandiV5
     # @see https://api.gandi.net/docs/domains#post-v5-domain-domains-domain-renew
     # @param duration [Integer, #to_s] how long to renew for (in years).
     # @return [String] confirmation message from Gandi.
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def renew_for(duration = 1)
       body = { duration: duration }.to_json
       _response, data = GandiV5.post url('renew'), body
@@ -229,7 +229,7 @@ class GandiV5
     # @see https://docs.gandi.net/en/domain_names/renew/restore.html
     # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain-restore
     # @return [GandiV5::Domain::RestoreInformation]
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def restore_information
       @restore_information ||= fetch_restore_information
     end
@@ -238,7 +238,7 @@ class GandiV5
     # @see https://docs.gandi.net/en/domain_names/renew/restore.html
     # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain-restore
     # @return [GandiV5::Domain::RestoreInformation]
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def fetch_restore_information
       _response, data = GandiV5.get url('restore')
       @restore_information = GandiV5::Domain::RestoreInformation.from_gandi data
@@ -251,7 +251,7 @@ class GandiV5
     # @see https://docs.gandi.net/en/domain_names/renew/restore.html
     # @see https://api.gandi.net/docs/domains#post-v5-domain-domains-domain-restore
     # @return [String] The confirmation message from Gandi.
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def restore
       _response, data = GandiV5.post url('restore'), '{}'
       data['message']
@@ -259,7 +259,7 @@ class GandiV5
 
     # Requery Gandi fo this domain's information.
     # @return [GandiV5::Domain]
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def refresh
       _response, data = GandiV5.get url
       from_gandi data
@@ -304,7 +304,7 @@ class GandiV5
     #   instead of actually creating the domain.
     # @return [Hash] if actually creating, you get what Gandi returns.
     # @return [Hash] if doing a dry run, you get what Gandi returns.
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def self.create(fqdn, dry_run: false, **params)
       fail ArgumentError, 'missing keyword: owner' unless params.key?(:owner)
 
@@ -318,7 +318,7 @@ class GandiV5
     # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain
     # @param fqdn [String, #to_s] the fully qualified domain name to fetch.
     # @return [GandiV5::Domain]
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def self.fetch(fqdn)
       _response, data = GandiV5.get url(fqdn)
       domain = from_gandi data
@@ -338,7 +338,7 @@ class GandiV5
     # @param sort_by [String, #to_s] (optional default "fqdn") how to sort the list.
     # @param tld [String, #to_s] (optional) used to filter by just the top level domain.
     # @return [Array<GandiV5::Domain>]
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def self.list(page: (1..), per_page: 100, **params)
       page = [page.to_i] unless page.respond_to?(:each)
 
@@ -369,7 +369,7 @@ class GandiV5
     #   list of at least 1 process for which pricing is to be made.
     # @param sharing_id [String, #to_s] (optional) organization for which the pricing is to be made.
     # @return [Hash]
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def self.availability(fqdn, **options)
       GandiV5.get("#{BASE}domain/check", params: { name: fqdn }.merge(options)).last
     end
@@ -377,7 +377,7 @@ class GandiV5
     # List of available TLDs.
     # @see https://api.gandi.net/docs/domains#get-v5-domain-tlds
     # @return Array<String>
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def self.tlds
       GandiV5.get("#{BASE}domain/tlds")
              .last
@@ -388,7 +388,7 @@ class GandiV5
     # @see https://api.gandi.net/docs/domains#get-v5-domain-tlds-name
     # @param name [String, #to_s] the top level domain to get information for.
     # @return [Hash]
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def self.tld(name)
       GandiV5.get("#{BASE}domain/tlds/#{CGI.escape name}").last.transform_keys(&:to_sym)
     end

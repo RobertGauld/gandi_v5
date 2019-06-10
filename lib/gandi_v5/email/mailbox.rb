@@ -50,7 +50,7 @@ class GandiV5
       # for use with a new mailbox, or for deletion.
       # @see https://api.gandi.net/docs/email#delete-v5-email-mailboxes-domain-mailbox_id
       # @return [String] The confirmation message from Gandi.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def delete
         _response, data = GandiV5.delete url
         data['message']
@@ -59,7 +59,7 @@ class GandiV5
       # Purge the contents of the mailbox.
       # @see https://api.gandi.net/docs/email#delete-v5-email-mailboxes-domain-mailbox_id-contents
       # @return [String] The confirmation message from Gandi.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def purge
         _response, data = GandiV5.delete "#{url}/contents"
         data['message']
@@ -67,7 +67,7 @@ class GandiV5
 
       # Requery Gandi fo this mailbox's information.
       # @return [GandiV5::Email::Mailbox]
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def refresh
         _response, data = GandiV5.get url
         from_gandi data
@@ -81,7 +81,7 @@ class GandiV5
       # @param responder [Hash, GandiV5::Mailbox::Responder, #to_gandi, #to_h]
       #   auto responder settings.
       # @return [String] The confirmation message from Gandi.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def update(**body)
         return 'Nothing to update.' if body.empty?
 
@@ -132,7 +132,7 @@ class GandiV5
       # @param fqdn [String, #to_s] the fully qualified domain name for the mailbox.
       # @param uuid [String, #to_s] unique identifier of the mailbox.
       # @return [GandiV5::Email::Mailbox]
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.fetch(fqdn, uuid)
         _response, data = GandiV5.get url(fqdn, uuid)
         from_gandi data
@@ -150,7 +150,7 @@ class GandiV5
       # @param login [String] (optional) filter the list by login (pattern)
       #   e.g. ("alice" "*lice", "alic*").
       # @return [Array<GandiV5::Email::Mailbox>]
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.list(fqdn, page: (1..), **params)
         page = [page.to_i] unless page.respond_to?(:each)
 

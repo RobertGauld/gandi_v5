@@ -21,7 +21,7 @@ class GandiV5
 
       # Disable auto renewal for the associated domain.
       # @return [String] The confirmation message from Gandi.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def disable
         body = { enabled: false }.to_json
         _response, data = GandiV5.patch url, body
@@ -35,7 +35,7 @@ class GandiV5
       # @return [String] The confirmation message from Gandi.
       # @raise [ArgumentError] if duration is invalid (not 1 to 9 (inclusive)).
       # @raise [ArgumentError] if org_id is not passed and not set for this domain.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def enable(duration: self.duration || 1, org_id: self.org_id)
         fail ArgumentError, 'duration can not be less than 1' if duration < 1
         fail ArgumentError, 'duration can not be more than 9' if duration > 9

@@ -17,7 +17,7 @@ class GandiV5
       # @see https://api.gandi.net/docs/email#get-v5-email-offers-domain
       # @param fqdn [String, #to_s] the fully qualified domain name to get the offer for.
       # @return [GandiV5::Email::Offer]
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.fetch(fqdn)
         _response, data = GandiV5.get "#{BASE}email/offers/#{CGI.escape fqdn}"
         from_gandi data

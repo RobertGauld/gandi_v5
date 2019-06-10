@@ -57,7 +57,7 @@ class GandiV5
     # Get information about the current authenticated user.
     # @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
     # @return [GandiV5::Organization]
-    # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def self.fetch
       _response, data = GandiV5.get "#{BASE}organization/user-info"
       from_gandi data

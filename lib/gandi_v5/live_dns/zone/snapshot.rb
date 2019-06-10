@@ -28,7 +28,7 @@ class GandiV5
 
         # Delete this snapshot.
         # @return [String] The confirmation message from Gandi.
-        # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+        # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
         def delete
           _response, data = GandiV5.delete url
           data['message']
@@ -38,7 +38,7 @@ class GandiV5
         # @param zone_uuid [String, #to_s] the UUID of the zone the snapshot was made of.
         # @param snapshot_uuid [String, #to_s] the UUID of the snapshot to fetch.
         # @return [GandiV5::LiveDNS::Zone::Snapshot]
-        # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+        # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
         def self.fetch(zone_uuid, snapshot_uuid)
           _response, data = GandiV5.get url(zone_uuid, snapshot_uuid)
           from_gandi data

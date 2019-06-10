@@ -63,7 +63,7 @@ class GandiV5
       #   @param name [String] the name to fetch records for.
       #   @param type [String] the record type to fetch.
       # @return [Array<GandiV5::LiveDNS::RecordSet>]
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def fetch_records(name = nil, type = nil)
         GandiV5::LiveDNS.require_valid_record_type type if type
 
@@ -86,7 +86,7 @@ class GandiV5
       #   @param name [String] the name to fetch records for.
       #   @param type [String] the record type to fetch.
       # @return [String]
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def fetch_zone_lines(name = nil, type = nil)
         GandiV5::LiveDNS.require_valid_record_type type if type
 
@@ -103,7 +103,7 @@ class GandiV5
       # @param ttl [Integer]
       # @param values [Array<String>]
       # @return [String] The confirmation message from Gandi.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def add_record(name, type, ttl, *values)
         GandiV5::LiveDNS.require_valid_record_type type
         fail ArgumentError, 'ttl must be positive and non-zero' unless ttl.positive?
@@ -129,7 +129,7 @@ class GandiV5
       #   @param name [String] the name to delete records for.
       #   @param type [String] the record type to delete.
       # @return [nil]
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def delete_records(name = nil, type = nil)
         GandiV5::LiveDNS.require_valid_record_type type if type
 
@@ -146,7 +146,7 @@ class GandiV5
       # @param text [String] zone file lines to replace the records with.
       # @return [String] The confirmation message from Gandi.
       # @raise [ArgumentError] if neither/both of records & test are passed.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def replace_records(records: nil, text: nil)
         unless [records, text].count(&:nil?).eql?(1)
           fail ArgumentError, 'you must pass ONE of records: or text:'
@@ -169,7 +169,7 @@ class GandiV5
       #   [Array<Hash<type: String, ttl: Integer, values: Array<String>>>]
       #   the records to add.
       # @return [String] The confirmation message from Gandi.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def replace_records_for(name, *records)
         body = {
           items: records.map { |r| r.transform_keys { |k| "rrset_#{k}" } }
@@ -181,7 +181,7 @@ class GandiV5
       GandiV5::LiveDNS::RECORD_TYPES.each do |type|
         # Replace records of a given type for a name in this zone.
         # @return [String] The confirmation message from Gandi.
-        # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+        # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
         define_method "replace_#{type.downcase}_records_for" do |name, ttl, *values|
           body = {
             rrset_ttl: ttl,
@@ -194,7 +194,7 @@ class GandiV5
 
       # List the domains that use this zone.
       # @return [Array<String>] The FQDNs.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def list_domains
         _response, data = GandiV5.get "#{url}/domains"
         data.map { |item| item['fqdn'] }
@@ -204,7 +204,7 @@ class GandiV5
       # @param fqdn [String, #fqdn, #to_s] the fully qualified domain name
       #   that should start using this zone.
       # @return [String] The confirmation message from Gandi.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def attach_domain(fqdn)
         fqdn = fqdn.fqdn if fqdn.respond_to?(:fqdn)
         _resp, data = GandiV5.patch "#{BASE}domains/#{CGI.escape fqdn}", { zone_uuid: uuid }.to_json
@@ -213,7 +213,7 @@ class GandiV5
 
       # Get snapshot UUIDs for this zone from Gandi.lib/gandi_v5/domain/auto_renew.rb
       # @return [Hash{String => Time}] Mapping UUID to time made.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def snapshots
         _response, data = GandiV5.get "#{url}/snapshots"
         Hash[data.map { |snapshot| [snapshot['uuid'], Time.parse(snapshot['date_created'])] }]
@@ -222,14 +222,14 @@ class GandiV5
       # Get snapshot from Gandi.
       # @param uuid [String] the UUID of the snapshot to fetch.
       # @return [GandiV5::LiveDNS::Zone::Snapshot]
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def snapshot(uuid)
         GandiV5::LiveDNS::Zone::Snapshot.fetch self.uuid, uuid
       end
 
       # Take a snapshot of this zone.
       # @return [GandiV5::LiveDNS::Zone::Snapshot]
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def take_snapshot
         _response, data = GandiV5.post "#{url}/snapshots"
         snapshot data['uuid']
@@ -238,7 +238,7 @@ class GandiV5
       # Update this zone.
       # @param name [String, #to_s] new name for the zone.
       # @return [String] The confirmation message from Gandi.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def update(name:)
         _response, data = GandiV5.patch url, { name: name }.to_json
         self.name = name
@@ -247,7 +247,7 @@ class GandiV5
 
       # Delete this zone from Gandi.
       # @return [nil]
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def delete
         GandiV5.delete url
       end
@@ -256,7 +256,7 @@ class GandiV5
       # @param name [String] the name for the created zone.
       # @param sharing_id [String] the UUID of the account to ceate the zone under.
       # @return [String] The confirmation message from Gandi.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.create(name, sharing_id: nil)
         params = sharing_id ? { sharing_id: sharing_id } : {}
 
@@ -270,7 +270,7 @@ class GandiV5
 
       # List the zones.
       # @return [Array<GandiV5::LiveDNS::Zone>]
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.list
         _response, data = GandiV5.get url
         data.map { |item| from_gandi item }
@@ -279,7 +279,7 @@ class GandiV5
       # Get a zone from Gandi.
       # @param uuid [String, #to_s] the UUID of the zone to fetch.
       # @return [GandiV5::LiveDNS::Zone]
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.fetch(uuid)
         _response, data = GandiV5.get url(uuid)
         from_gandi data
