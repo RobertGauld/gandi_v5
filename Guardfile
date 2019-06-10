@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 guard :bundler do
-  watch(/^Gemfile(?:\.lock)$'/)
-  watch(/^.+\.gemspec$'/)
+  watch(/^Gemfile(?:\.lock)$/)
+  watch(/^.+\.gemspec$/)
 end
 
 # rubocop:disable Metrics/BlockLength
 group :red_green_refactor, halt_on_fail: true do
   group :rspec do
     guard(
-      'rspec',
+      :rspec,
       all_on_start: true,
       all_after_pass: false,
       notification: :failed,
@@ -24,12 +24,11 @@ group :red_green_refactor, halt_on_fail: true do
 
   group :rubocop do
     guard(
-      'rubocop',
+      :rubocop,
       all_on_start: true,
       all_after_pass: false,
       notification: :failed,
-      keep_failed: false,
-      cmd: 'bundle exec rubocop'
+      keep_failed: false
     ) do
       watch(%r{^lib/(.+)\.rb$}) { |m| [m[0], "spec/units/#{m[1]}_spec.rb"] }
       watch(%r{^spec/.+?/(.+)_spec\.rb$}) { |m| [m[0], "lib/#{m[1]}.rb"] }
