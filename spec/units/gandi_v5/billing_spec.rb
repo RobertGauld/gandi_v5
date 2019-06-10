@@ -6,7 +6,7 @@ describe GandiV5::Billing do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Billing', 'info.yaml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/billing/info')
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
     end
 
     its('annual_balance') { should eq 123.45 }
@@ -25,7 +25,7 @@ describe GandiV5::Billing do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Billing', 'info.yaml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/billing/info/sharing-id')
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
     end
 
     its('annual_balance') { should eq 123.45 }

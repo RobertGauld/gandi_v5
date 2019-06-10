@@ -71,7 +71,7 @@ class GandiV5
         url_ += "/#{CGI.escape name}" if name
         url_ += "/#{CGI.escape type}" if type
 
-        data = GandiV5.get url_
+        _response, data = GandiV5.get url_
         data = [data] unless data.is_a?(Array)
         data.map { |item| GandiV5::LiveDNS::RecordSet.from_gandi item }
       end
@@ -94,7 +94,7 @@ class GandiV5
         url_ += "/#{CGI.escape name}" if name
         url_ += "/#{CGI.escape type}" if type
 
-        GandiV5.get url_, accept: 'text/plain'
+        GandiV5.get(url_, accept: 'text/plain').last
       end
 
       # Add record to this zone.
@@ -115,7 +115,7 @@ class GandiV5
           rrset_ttl: ttl,
           rrset_values: values
         }.to_json
-        data = GandiV5.post "#{url}/records", body
+        _response, data = GandiV5.post "#{url}/records", body
         data['message']
       end
 
@@ -136,7 +136,7 @@ class GandiV5
         url_ = "#{url}/records"
         url_ += "/#{CGI.escape name}" if name
         url_ += "/#{CGI.escape type}" if type
-        GandiV5.delete url_
+        GandiV5.delete(url_).last
       end
 
       # Replace all records for this zone.
@@ -156,9 +156,9 @@ class GandiV5
           body = {
             items: records.map { |r| r.transform_keys { |k| "rrset_#{k}" } }
           }.to_json
-          data = GandiV5.put "#{url}/records", body
+          _response, data = GandiV5.put "#{url}/records", body
         elsif text
-          data = GandiV5.put "#{url}/records", text, 'content-type': 'text/plain'
+          _response, data = GandiV5.put "#{url}/records", text, 'content-type': 'text/plain'
         end
         data['message']
       end
@@ -174,7 +174,7 @@ class GandiV5
         body = {
           items: records.map { |r| r.transform_keys { |k| "rrset_#{k}" } }
         }.to_json
-        data = GandiV5.put "#{url}/records/#{name}", body
+        _response, data = GandiV5.put "#{url}/records/#{name}", body
         data['message']
       end
 
@@ -187,7 +187,7 @@ class GandiV5
             rrset_ttl: ttl,
             rrset_values: values
           }.to_json
-          data = GandiV5.put "#{url}/records/#{name}/#{type}", body
+          _response, data = GandiV5.put "#{url}/records/#{name}/#{type}", body
           data['message']
         end
       end
@@ -196,7 +196,7 @@ class GandiV5
       # @return [Array<String>] The FQDNs.
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
       def list_domains
-        data = GandiV5.get "#{url}/domains"
+        _response, data = GandiV5.get "#{url}/domains"
         data.map { |item| item['fqdn'] }
       end
 
@@ -207,7 +207,7 @@ class GandiV5
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
       def attach_domain(fqdn)
         fqdn = fqdn.fqdn if fqdn.respond_to?(:fqdn)
-        data = GandiV5.patch "#{BASE}domains/#{CGI.escape fqdn}", { zone_uuid: uuid }.to_json
+        _resp, data = GandiV5.patch "#{BASE}domains/#{CGI.escape fqdn}", { zone_uuid: uuid }.to_json
         data['message']
       end
 
@@ -215,7 +215,7 @@ class GandiV5
       # @return [Hash{String => Time}] Mapping UUID to time made.
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
       def snapshots
-        data = GandiV5.get "#{url}/snapshots"
+        _response, data = GandiV5.get "#{url}/snapshots"
         Hash[data.map { |snapshot| [snapshot['uuid'], Time.parse(snapshot['date_created'])] }]
       end
 
@@ -231,7 +231,7 @@ class GandiV5
       # @return [GandiV5::LiveDNS::Zone::Snapshot]
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
       def take_snapshot
-        data = GandiV5.post "#{url}/snapshots"
+        _response, data = GandiV5.post "#{url}/snapshots"
         snapshot data['uuid']
       end
 
@@ -240,7 +240,7 @@ class GandiV5
       # @return [String] The confirmation message from Gandi.
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
       def update(name:)
-        data = GandiV5.patch url, { name: name }.to_json
+        _response, data = GandiV5.patch url, { name: name }.to_json
         self.name = name
         data['message']
       end
@@ -260,7 +260,7 @@ class GandiV5
       def self.create(name, sharing_id: nil)
         params = sharing_id ? { sharing_id: sharing_id } : {}
 
-        data = GandiV5.post(
+        _response, data = GandiV5.post(
           url,
           { name: name }.to_json,
           params: params
@@ -272,7 +272,7 @@ class GandiV5
       # @return [Array<GandiV5::LiveDNS::Zone>]
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
       def self.list
-        data = GandiV5.get url
+        _response, data = GandiV5.get url
         data.map { |item| from_gandi item }
       end
 
@@ -281,7 +281,7 @@ class GandiV5
       # @return [GandiV5::LiveDNS::Zone]
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
       def self.fetch(uuid)
-        data = GandiV5.get url(uuid)
+        _response, data = GandiV5.get url(uuid)
         from_gandi data
       end
 

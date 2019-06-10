@@ -42,6 +42,69 @@ describe GandiV5::Email::Slot do
     end
   end
 
+  describe '#inactive?' do
+    it 'When active' do
+      slot = described_class.new status: :active
+      expect(slot.inactive?).to be false
+    end
+
+    it 'When inactive' do
+      slot = described_class.new status: :inactive
+      expect(slot.inactive?).to be true
+    end
+  end
+
+  describe '#free?' do
+    it 'When free' do
+      slot = described_class.new mailbox_type: :free
+      expect(slot.free?).to be true
+    end
+
+    it 'When standard' do
+      slot = described_class.new mailbox_type: :standard
+      expect(slot.free?).to be false
+    end
+
+    it 'When premium' do
+      slot = described_class.new mailbox_type: :premium
+      expect(slot.free?).to be false
+    end
+  end
+
+  describe '#standard?' do
+    it 'When free' do
+      slot = described_class.new mailbox_type: :free
+      expect(slot.standard?).to be false
+    end
+
+    it 'When standard' do
+      slot = described_class.new mailbox_type: :standard
+      expect(slot.standard?).to be true
+    end
+
+    it 'When premium' do
+      slot = described_class.new mailbox_type: :premium
+      expect(slot.standard?).to be false
+    end
+  end
+
+  describe '#premium?' do
+    it 'When free' do
+      slot = described_class.new mailbox_type: :free
+      expect(slot.premium?).to be false
+    end
+
+    it 'When standard' do
+      slot = described_class.new mailbox_type: :standard
+      expect(slot.premium?).to be false
+    end
+
+    it 'When premium' do
+      slot = described_class.new mailbox_type: :premium
+      expect(slot.premium?).to be true
+    end
+  end
+
   describe '.create' do
     let(:url) { 'https://api.gandi.net/v5/email/slots/example.com' }
     it 'With default type' do

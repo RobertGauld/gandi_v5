@@ -13,7 +13,7 @@ class GandiV5
     # @return [GandiV5::Billing::Info]
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
     def self.info(sharing_id = nil)
-      data = GandiV5.get url(sharing_id)
+      _response, data = GandiV5.get url(sharing_id)
       GandiV5::Billing::Info.from_gandi data
     end
 

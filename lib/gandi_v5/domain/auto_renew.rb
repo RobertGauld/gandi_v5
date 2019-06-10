@@ -24,7 +24,7 @@ class GandiV5
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
       def disable
         body = { enabled: false }.to_json
-        data = GandiV5.patch url, body
+        _response, data = GandiV5.patch url, body
         self.enabled = false
         data['message']
       end
@@ -47,7 +47,7 @@ class GandiV5
           org_id: org_id
         }.to_json
 
-        data = GandiV5.patch url, body
+        _response, data = GandiV5.patch url, body
         self.enabled = true
         self.duration = duration
         self.org_id = org_id

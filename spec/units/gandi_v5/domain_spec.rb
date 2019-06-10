@@ -12,7 +12,7 @@ describe GandiV5::Domain do
       before :each do
         headers = { params: { page: 1, per_page: 100 } }
         expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains', headers)
-                                        .and_return(YAML.load_file(body_fixture))
+                                        .and_return([nil, YAML.load_file(body_fixture)])
       end
 
       its('count') { should eq 1 }
@@ -51,10 +51,10 @@ describe GandiV5::Domain do
       # https://github.com/rubocop-hq/rubocop/issues/7088
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains', headers1)
                                       .ordered
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains', headers2)
                                       .ordered
-                                      .and_return([])
+                                      .and_return([nil, []])
       # rubocop:enable Layout/MultilineMethodCallIndentation
 
       expect(described_class.list(per_page: 1).count).to eq 1
@@ -67,10 +67,10 @@ describe GandiV5::Domain do
       # https://github.com/rubocop-hq/rubocop/issues/7088
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains', headers1)
                                       .ordered
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains', headers2)
                                       .ordered
-                                      .and_return([])
+                                      .and_return([nil, []])
       # rubocop:enable Layout/MultilineMethodCallIndentation
 
       expect(described_class.list(page: (1..2), per_page: 1).count).to eq 1
@@ -82,7 +82,7 @@ describe GandiV5::Domain do
           param = { param => 5 }
           headers = { params: { page: 1, per_page: 100 }.merge(param) }
           expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains', headers)
-                                          .and_return([])
+                                          .and_return([nil, []])
           expect(described_class.list(**param)).to eq []
         end
       end
@@ -95,7 +95,7 @@ describe GandiV5::Domain do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'get.yaml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com')
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
     end
 
     its('uuid') { should eq 'domain-uuid' }
@@ -137,24 +137,24 @@ describe GandiV5::Domain do
       let(:body) { '{"owner":{},"fqdn":"example.com"}' }
 
       it 'False by default' do
-        expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0)
+        expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0).and_return([nil, nil])
         described_class.create 'example.com', owner: {}
       end
 
       it 'True' do
-        expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 1)
+        expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 1).and_return([nil, nil])
         described_class.create 'example.com', owner: {}, dry_run: true
       end
 
       it 'False' do
-        expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0)
+        expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0).and_return([nil, nil])
         described_class.create 'example.com', owner: {}, dry_run: false
       end
 
       it 'Dry run was successful' do
         returns = { 'status' => 'success' }
         expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 1)
-                                         .and_return(returns)
+                                         .and_return([nil, returns])
         expect(described_class.create('example.com', owner: {}, dry_run: true)).to be returns
       end
 
@@ -164,7 +164,7 @@ describe GandiV5::Domain do
           'errors' => [{ 'description' => 'd', 'location' => 'l', 'name' => 'n' }]
         }
         expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 1)
-                                         .and_return(returns)
+                                         .and_return([nil, returns])
         expect(described_class.create('example.com', owner: {}, dry_run: true)).to be returns
       end
     end
@@ -173,7 +173,7 @@ describe GandiV5::Domain do
       returns = { 'message' => 'Confirmation message.' }
       body = '{"owner":{},"fqdn":"example.com"}'
       expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0)
-                                       .and_return(returns)
+                                       .and_return([nil, returns])
       expect(described_class.create('example.com', owner: {})).to be returns
     end
 
@@ -183,13 +183,13 @@ describe GandiV5::Domain do
 
     it 'Given contact as hash' do
       body = '{"owner":{"email":"owner@example.com"},"fqdn":"example.com"}'
-      expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0)
+      expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0).and_return([nil, nil])
       described_class.create 'example.com', owner: { email: 'owner@example.com' }
     end
 
     it 'Given contact as GandiV5::Domain::Contact' do
       body = '{"owner":{"email":"owner@example.com"},"fqdn":"example.com"}'
-      expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0)
+      expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0).and_return([nil, nil])
       owner = double GandiV5::Domain::Contact, to_gandi: { 'email' => 'owner@example.com' }
       described_class.create 'example.com', owner: owner
     end
@@ -199,7 +199,7 @@ describe GandiV5::Domain do
     it 'With default values' do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'availability.yaml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/check', params: { name: 'example.com' })
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
       expect(described_class.availability('example.com')).to eq(
         'currency' => 'GBP',
         'grid' => 'A',
@@ -219,7 +219,7 @@ describe GandiV5::Domain do
       %i[country currency duration_unit extension grid lang max_duration period processes sharing_uuid].each do |param|
         it param.to_s do
           url = 'https://api.gandi.net/v5/domain/check'
-          expect(GandiV5).to receive(:get).with(url, params: { name: 'example.com', param => 5 }).and_return([])
+          expect(GandiV5).to receive(:get).with(url, params: { name: 'example.com', param => 5 }).and_return([nil, []])
           expect(described_class.availability('example.com', param => 5)).to eq []
         end
       end
@@ -229,14 +229,14 @@ describe GandiV5::Domain do
   it '.tlds' do
     body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'tlds.yaml'))
     expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/tlds')
-                                    .and_return(YAML.load_file(body_fixture))
+                                    .and_return([nil, YAML.load_file(body_fixture)])
     expect(described_class.tlds).to match_array %w[a b c]
   end
 
   it '.tld' do
     body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'tld.yaml'))
     expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/tlds/name')
-                                    .and_return(YAML.load_file(body_fixture))
+                                    .and_return([nil, YAML.load_file(body_fixture)])
     expect(described_class.tld('name')).to eq(
       category: 'ccTLD',
       name: 'eu',
@@ -266,7 +266,7 @@ describe GandiV5::Domain do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'get.yaml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com')
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
       subject.refresh
     end
 
@@ -322,7 +322,7 @@ describe GandiV5::Domain do
       before(:each) do
         body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch_contacts.yaml'))
         expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/contacts')
-                                        .and_return(YAML.load_file(body_fixture))
+                                        .and_return([nil, YAML.load_file(body_fixture)])
       end
 
       its('owner.country') { should eq 'GB' }
@@ -379,7 +379,7 @@ describe GandiV5::Domain do
       before(:each) do
         body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'renewal_info.yaml'))
         expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/renew')
-                                        .and_return(YAML.load_file(body_fixture))
+                                        .and_return([nil, YAML.load_file(body_fixture)])
       end
 
       its('begins_at') { should eq Time.new(2012, 1, 1, 0, 0, 0) }
@@ -394,7 +394,7 @@ describe GandiV5::Domain do
 
     it '#renew_for' do
       expect(GandiV5).to receive(:post).with('https://api.gandi.net/v5/domain/domains/example.com/renew', '{"duration":2}')
-                                       .and_return('message' => 'Confirmation message.')
+                                       .and_return([nil, { 'message' => 'Confirmation message.' }])
       expect(subject.renew_for(2)).to eq 'Confirmation message.'
     end
   end
@@ -422,7 +422,7 @@ describe GandiV5::Domain do
         before(:each) do
           body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'restore_info.yaml'))
           expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/restore')
-                                          .and_return(YAML.load_file(body_fixture))
+                                          .and_return([nil, YAML.load_file(body_fixture)])
         end
 
         its('restorable') { should be true }
@@ -444,7 +444,7 @@ describe GandiV5::Domain do
 
     it '#restore' do
       expect(GandiV5).to receive(:post).with('https://api.gandi.net/v5/domain/domains/example.com/restore', '{}')
-                                       .and_return('message' => 'Confirmation message.')
+                                       .and_return([nil, { 'message' => 'Confirmation message.' }])
       expect(subject.restore).to eq 'Confirmation message.'
     end
   end

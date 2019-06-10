@@ -30,7 +30,7 @@ describe GandiV5 do
           response = double RestClient::Response, body: response_data.to_json, headers: { content_type: 'application/json' }
           expect(described_class).to receive(:prepare_headers)
           expect(RestClient).to receive(method).with('url', hash_including(accept: 'application/json')).and_return(response)
-          expect(described_class.send(method, 'url', accept: 'application/json')).to eq response_data
+          expect(described_class.send(method, 'url', accept: 'application/json')).to match_array [response, response_data]
         end
 
         it 'As text' do
@@ -38,26 +38,26 @@ describe GandiV5 do
           response = double RestClient::Response, body: response_data, headers: { content_type: 'text/plain' }
           expect(described_class).to receive(:prepare_headers)
           expect(RestClient).to receive(method).with('url', hash_including(accept: 'text/plain')).and_return(response)
-          expect(described_class.send(method, 'url', accept: 'text/plain')).to eq response_data
+          expect(described_class.send(method, 'url', accept: 'text/plain')).to match_array [response, response_data]
         end
 
         it 'Passes request headers' do
           expect(described_class).to receive(:prepare_headers)
           expect(described_class).to receive(:parse_response)
           expect(RestClient).to receive(method).with(anything, header: 'value')
-          expect(described_class.send(method, 'url', header: 'value')).to be_nil
+          expect(described_class.send(method, 'url', header: 'value')).to match_array [nil, nil]
         end
 
         it 'Adds authentication header' do
           expect(RestClient).to receive(method).with(anything, hash_including(Authorization: 'Apikey abdce12345'))
           expect(described_class).to receive(:parse_response)
-          expect(described_class.send(method, 'https://api.gandi.net/v5/')).to be_nil
+          expect(described_class.send(method, 'https://api.gandi.net/v5/')).to match_array [nil, nil]
         end
 
         it 'Default accept header' do
           expect(RestClient).to receive(method).with(any_args, hash_including(accept: 'application/json'))
           expect(described_class).to receive(:parse_response)
-          expect(described_class.send(method, 'https://api.gandi.net/v5/')).to be_nil
+          expect(described_class.send(method, 'https://api.gandi.net/v5/')).to match_array [nil, nil]
         end
 
         it 'Converts a 406 (bad request) exception' do
@@ -78,7 +78,8 @@ describe GandiV5 do
           expect(described_class).to receive(:prepare_headers)
           expect(RestClient).to receive(method).with('url', payload, hash_including(accept: 'application/json'))
                                                .and_return(response)
-          expect(described_class.send(method, 'url', payload, accept: 'application/json')).to eq response_data
+          expect(described_class.send(method, 'url', payload, accept: 'application/json'))
+            .to match_array [response, response_data]
         end
 
         it 'As text' do
@@ -87,39 +88,39 @@ describe GandiV5 do
           expect(described_class).to receive(:prepare_headers)
           expect(RestClient).to receive(method).with('url', payload, hash_including(accept: 'text/plain'))
                                                .and_return(response)
-          expect(described_class.send(method, 'url', payload, accept: 'text/plain')).to eq response_data
+          expect(described_class.send(method, 'url', payload, accept: 'text/plain')).to match_array [response, response_data]
         end
 
         it 'Passes payload' do
           expect(described_class).to receive(:prepare_headers)
           expect(described_class).to receive(:parse_response)
           expect(RestClient).to receive(method).with(anything, payload, any_args)
-          expect(described_class.send(method, 'url', payload)).to be_nil
+          expect(described_class.send(method, 'url', payload)).to match_array [nil, nil]
         end
 
         it 'Passes request headers' do
           expect(described_class).to receive(:prepare_headers)
           expect(described_class).to receive(:parse_response)
           expect(RestClient).to receive(method).with(any_args, hash_including(header: 'value'))
-          expect(described_class.send(method, 'url', payload, header: 'value')).to be_nil
+          expect(described_class.send(method, 'url', payload, header: 'value')).to match_array [nil, nil]
         end
 
         it 'Adds content type header' do
           expect(RestClient).to receive(method).with(any_args, hash_including('content-type': 'application/json'))
           expect(described_class).to receive(:parse_response)
-          expect(described_class.send(method, 'https://api.gandi.net/v5/', payload)).to be_nil
+          expect(described_class.send(method, 'https://api.gandi.net/v5/', payload)).to match_array [nil, nil]
         end
 
         it 'Adds authentication header' do
           expect(RestClient).to receive(method).with(any_args, hash_including(Authorization: 'Apikey abdce12345'))
           expect(described_class).to receive(:parse_response)
-          expect(described_class.send(method, 'https://api.gandi.net/v5/', payload)).to be_nil
+          expect(described_class.send(method, 'https://api.gandi.net/v5/', payload)).to match_array [nil, nil]
         end
 
         it 'Default accept header' do
           expect(RestClient).to receive(method).with(any_args, hash_including(accept: 'application/json'))
           expect(described_class).to receive(:parse_response)
-          expect(described_class.send(method, 'https://api.gandi.net/v5/', payload)).to be_nil
+          expect(described_class.send(method, 'https://api.gandi.net/v5/', payload)).to match_array [nil, nil]
         end
 
         it 'Converts a 406 (bad request) exception' do

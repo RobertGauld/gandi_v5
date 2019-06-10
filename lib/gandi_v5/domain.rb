@@ -169,7 +169,7 @@ class GandiV5
     # @return [Hash{:owner, :admin, :bill, :tech => GandiV5::Domain::Contact}]
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
     def fetch_contacts
-      data = GandiV5.get url('contacts')
+      _response, data = GandiV5.get url('contacts')
       self.contacts = data.transform_keys(&:to_sym)
       CONTACTS_CONVERTER.call contacts
     end
@@ -208,7 +208,7 @@ class GandiV5
     # @return [GandiV5::Domain::RenewalInformation]
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
     def fetch_renewal_information
-      data = GandiV5.get url('renew')
+      _response, data = GandiV5.get url('renew')
       data = data['renew'].merge('contracts' => data['contracts'])
       @renewal_information = GandiV5::Domain::RenewalInformation.from_gandi data
     end
@@ -221,7 +221,7 @@ class GandiV5
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
     def renew_for(duration = 1)
       body = { duration: duration }.to_json
-      data = GandiV5.post url('renew'), body
+      _response, data = GandiV5.post url('renew'), body
       data['message']
     end
 
@@ -240,7 +240,7 @@ class GandiV5
     # @return [GandiV5::Domain::RestoreInformation]
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
     def fetch_restore_information
-      data = GandiV5.get url('restore')
+      _response, data = GandiV5.get url('restore')
       @restore_information = GandiV5::Domain::RestoreInformation.from_gandi data
     rescue RestClient::NotFound
       @restore_information = GandiV5::Domain::RestoreInformation.from_gandi restorable: false
@@ -253,7 +253,7 @@ class GandiV5
     # @return [String] The confirmation message from Gandi.
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
     def restore
-      data = GandiV5.post url('restore'), '{}'
+      _response, data = GandiV5.post url('restore'), '{}'
       data['message']
     end
 
@@ -261,7 +261,7 @@ class GandiV5
     # @return [GandiV5::Domain]
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
     def refresh
-      data = GandiV5.get url
+      _response, data = GandiV5.get url
       from_gandi data
       auto_renew.domain = self
     end
@@ -311,7 +311,7 @@ class GandiV5
       body = params.merge(fqdn: fqdn)
                    .transform_values { |val| val.respond_to?(:to_gandi) ? val.to_gandi : val }
                    .to_json
-      GandiV5.post url, body, 'Dry-Run': dry_run ? 1 : 0
+      GandiV5.post(url, body, 'Dry-Run': dry_run ? 1 : 0).last
     end
 
     # Get information on a domain.
@@ -320,7 +320,7 @@ class GandiV5
     # @return [GandiV5::Domain]
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
     def self.fetch(fqdn)
-      data = GandiV5.get url(fqdn)
+      _response, data = GandiV5.get url(fqdn)
       domain = from_gandi data
       domain.auto_renew.domain = fqdn
       domain
@@ -344,7 +344,7 @@ class GandiV5
 
       domains = []
       page.each do |page_number|
-        data = GandiV5.get url, params: params.merge(page: page_number, per_page: per_page)
+        _resp, data = GandiV5.get url, params: params.merge(page: page_number, per_page: per_page)
         break if data.empty?
 
         domains += data.map { |domain| from_gandi domain }
@@ -371,7 +371,7 @@ class GandiV5
     # @return [Hash]
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
     def self.availability(fqdn, **options)
-      GandiV5.get "#{BASE}domain/check", params: { name: fqdn }.merge(options)
+      GandiV5.get("#{BASE}domain/check", params: { name: fqdn }.merge(options)).last
     end
 
     # List of available TLDs.
@@ -380,6 +380,7 @@ class GandiV5
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
     def self.tlds
       GandiV5.get("#{BASE}domain/tlds")
+             .last
              .map { |hash| hash['name'] }
     end
 
@@ -389,7 +390,7 @@ class GandiV5
     # @return [Hash]
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
     def self.tld(name)
-      GandiV5.get("#{BASE}domain/tlds/#{CGI.escape name}").transform_keys(&:to_sym)
+      GandiV5.get("#{BASE}domain/tlds/#{CGI.escape name}").last.transform_keys(&:to_sym)
     end
 
     private

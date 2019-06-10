@@ -115,6 +115,30 @@ class GandiV5
         status.eql?(:active)
       end
 
+      # Check if the slot is inactive (not in use)
+      # @return [Boolean]
+      def inactive?
+        status.eql?(:inactive)
+      end
+
+      # Check if the slot's mailbox_type is :free
+      # @return [Boolean]
+      def free?
+        mailbox_type.eql?(:free)
+      end
+
+      # Check if the slot's mailbox_type is :standard
+      # @return [Boolean]
+      def standard?
+        mailbox_type.eql?(:standard)
+      end
+
+      # Check if the slot's mailbox_type is :premium
+      # @return [Boolean]
+      def premium?
+        mailbox_type.eql?(:premium)
+      end
+
       private
 
       def url

@@ -10,9 +10,9 @@
     * [ ] Add method
           renewal_price(currency: 'GBP', period: 1, sharing_id: self.sharing_id)
   * Email Mailbox:
-    * [ ] .create - check type is valid
-    * [ ] .create - check a slot is available
-    * [ ] .create - fetch created mailbox
+    * [X] .create - check type is valid
+    * [X] .create - check a slot is available
+    * [X] .create - fetch created mailbox
   * Email Mailbox Responder:
     * [ ] Allow enable/disable from here too
   * Email Slot:

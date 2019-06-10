@@ -59,7 +59,7 @@ class GandiV5
     # @return [GandiV5::Organization]
     # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
     def self.fetch
-      data = GandiV5.get "#{BASE}organization/user-info"
+      _response, data = GandiV5.get "#{BASE}organization/user-info"
       from_gandi data
     end
   end

@@ -11,7 +11,7 @@ describe GandiV5::Email::Mailbox do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Mailbox', 'get.yaml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com/mailbox-uuid')
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
       subject.refresh
     end
 
@@ -33,14 +33,14 @@ describe GandiV5::Email::Mailbox do
 
     it 'Aliases' do
       expect(GandiV5).to receive(:patch).with(url, '{"aliases":["alias-1"]}')
-                                        .and_return('message' => 'Confirmation message.')
+                                        .and_return([nil, { 'message' => 'Confirmation message.' }])
       expect(subject).to receive(:refresh)
       expect(subject.update(aliases: ['alias-1'])).to eq 'Confirmation message.'
     end
 
     it 'Login' do
       expect(GandiV5).to receive(:patch).with(url, '{"login":"new-login"}')
-                                        .and_return('message' => 'Confirmation message.')
+                                        .and_return([nil, { 'message' => 'Confirmation message.' }])
       expect(subject).to receive(:refresh)
       expect(subject.update(login: 'new-login')).to eq 'Confirmation message.'
     end
@@ -48,7 +48,7 @@ describe GandiV5::Email::Mailbox do
     describe 'Password' do
       it 'Password is good' do
         expect(GandiV5).to receive(:patch).with(url, '{"password":"crypted_password"}')
-                                          .and_return('message' => 'Confirmation message.')
+                                          .and_return([nil, { 'message' => 'Confirmation message.' }])
         expect(subject).to receive(:refresh)
         expect(subject).to receive(:crypt_password).with(good_password).and_return('crypted_password')
         expect(subject.update(password: good_password)).to eq 'Confirmation message.'
@@ -63,7 +63,7 @@ describe GandiV5::Email::Mailbox do
     describe 'Responder' do
       before(:each) do
         expect(GandiV5).to receive(:patch).with(url, '{"responder":{"enabled":false}}')
-                                          .and_return('message' => 'Confirmation message.')
+                                          .and_return([nil, { 'message' => 'Confirmation message.' }])
 
         expect(subject).to receive(:refresh)
       end
@@ -89,14 +89,14 @@ describe GandiV5::Email::Mailbox do
   it '#delete' do
     url = 'https://api.gandi.net/v5/email/mailboxes/example.com/mailbox-uuid'
     expect(GandiV5).to receive(:delete).with(url)
-                                       .and_return('message' => 'Confirmation message.')
+                                       .and_return([nil, { 'message' => 'Confirmation message.' }])
     expect(subject.delete).to eq 'Confirmation message.'
   end
 
   it '#purge' do
     url = 'https://api.gandi.net/v5/email/mailboxes/example.com/mailbox-uuid/contents'
     expect(GandiV5).to receive(:delete).with(url)
-                                       .and_return('message' => 'Confirmation message.')
+                                       .and_return([nil, { 'message' => 'Confirmation message.' }])
     expect(subject.purge).to eq 'Confirmation message.'
   end
 
@@ -186,38 +186,72 @@ describe GandiV5::Email::Mailbox do
 
   describe '.create' do
     let(:url) { 'https://api.gandi.net/v5/email/mailboxes/example.com' }
+    let(:created_response) do
+      double(
+        RestClient::Response,
+        headers: { location: 'https://api.gandi.net/v5/email/mailboxes/example.com/created-mailbox-uuid' }
+      )
+    end
+    let(:created_mailbox) { double GandiV5::Email::Mailbox }
+
+    before :each do
+      allow(GandiV5::Email::Slot).to receive(:list).and_return [
+        GandiV5::Email::Slot.new(mailbox_type: :standard, status: :inactive),
+        GandiV5::Email::Slot.new(mailbox_type: :premium, status: :inactive)
+      ]
+    end
 
     it 'No aliases and :standard type' do
       body = '{"mailbox_type":"standard","login":"login","password":"crypted_password","aliases":[]}'
       expect(GandiV5).to receive(:post).with(url, body)
-                                       .and_return('message' => 'Confirmation message.')
+                                       .and_return([created_response, { 'message' => 'Confirmation message.' }])
       expect(described_class).to receive(:crypt_password).with(good_password).and_return('crypted_password')
+      expect(described_class).to receive(:fetch).with('example.com', 'created-mailbox-uuid').and_return(created_mailbox)
 
-      expect(described_class.create('example.com', 'login', good_password)).to eq 'Confirmation message.'
+      expect(described_class.create('example.com', 'login', good_password)).to be created_mailbox
     end
 
     it 'With aliases' do
       body = '{"mailbox_type":"standard","login":"login","password":"crypted_password","aliases":["alias-1"]}'
       expect(GandiV5).to receive(:post).with(url, body)
-                                       .and_return('message' => 'Confirmation message.')
+                                       .and_return([created_response, { 'message' => 'Confirmation message.' }])
       expect(described_class).to receive(:crypt_password).with(good_password).and_return('crypted_password')
+      expect(described_class).to receive(:fetch).with('example.com', 'created-mailbox-uuid').and_return(created_mailbox)
 
-      expect(described_class.create('example.com', 'login', good_password, aliases: ['alias-1']))
-        .to eq 'Confirmation message.'
+      expect(described_class.create('example.com', 'login', good_password, aliases: ['alias-1'])).to be created_mailbox
     end
 
     it 'With different type' do
       body = '{"mailbox_type":"premium","login":"login","password":"crypted_password","aliases":[]}'
       expect(GandiV5).to receive(:post).with(url, body)
-                                       .and_return('message' => 'Confirmation message.')
+                                       .and_return([created_response, { 'message' => 'Confirmation message.' }])
       expect(described_class).to receive(:crypt_password).with(good_password).and_return('crypted_password')
+      expect(described_class).to receive(:fetch).with('example.com', 'created-mailbox-uuid').and_return(created_mailbox)
 
-      expect(described_class.create('example.com', 'login', good_password, type: :premium)).to eq 'Confirmation message.'
+      expect(described_class.create('example.com', 'login', good_password, type: :premium)).to be created_mailbox
     end
 
     it 'Bad password' do
       expect(described_class).to receive(:check_password).with('password').and_raise(ArgumentError, 'message')
       expect { described_class.create 'example.com', 'login', 'password' }.to raise_error ArgumentError, 'message'
+    end
+
+    it 'Bad type' do
+      expect { described_class.create 'example.com', 'login', good_password, type: :invalid }.to raise_error(
+        ArgumentError,
+        ':invalid is not a valid type'
+      )
+    end
+
+    it 'No free slot' do
+      expect(GandiV5::Email::Slot).to receive(:list).and_return [
+        GandiV5::Email::Slot.new(mailbox_type: :standard, status: :active),
+        GandiV5::Email::Slot.new(mailbox_type: :premium, status: :inactive)
+      ]
+      expect { described_class.create 'example.com', 'login', good_password }.to raise_error(
+        GandiV5::Error,
+        'no available standard slots'
+      )
     end
   end
 
@@ -227,7 +261,7 @@ describe GandiV5::Email::Mailbox do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Mailbox', 'get.yaml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com/mailbox-uuid')
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
     end
 
     its('address') { should eq 'address@example.com' }
@@ -254,7 +288,7 @@ describe GandiV5::Email::Mailbox do
       before :each do
         headers = { params: { page: 1 } }
         expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com', headers)
-                                        .and_return(YAML.load_file(body_fixture))
+                                        .and_return([nil, YAML.load_file(body_fixture)])
       end
 
       its('count') { should eq 1 }
@@ -273,10 +307,10 @@ describe GandiV5::Email::Mailbox do
       # https://github.com/rubocop-hq/rubocop/issues/7088
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com', headers1)
                                       .ordered
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com', headers2)
                                       .ordered
-                                      .and_return([])
+                                      .and_return([nil, []])
       # rubocop:enable Layout/MultilineMethodCallIndentation
 
       expect(described_class.list('example.com', per_page: 1).count).to eq 1
@@ -289,10 +323,10 @@ describe GandiV5::Email::Mailbox do
       # https://github.com/rubocop-hq/rubocop/issues/7088
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com', headers1)
                                       .ordered
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com', headers2)
                                       .ordered
-                                      .and_return([])
+                                      .and_return([nil, []])
       # rubocop:enable Layout/MultilineMethodCallIndentation
 
       expect(described_class.list('example.com', page: (1..2), per_page: 1).count).to eq 1
@@ -306,7 +340,7 @@ describe GandiV5::Email::Mailbox do
         it param.to_s do
           headers = { params: { page: 1 }.merge(query_param => 'value') }
           expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com', headers)
-                                          .and_return([])
+                                          .and_return([nil, []])
           expect(described_class.list('example.com', param => 'value')).to eq []
         end
       end

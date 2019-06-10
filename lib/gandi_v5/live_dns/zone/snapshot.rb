@@ -30,7 +30,7 @@ class GandiV5
         # @return [String] The confirmation message from Gandi.
         # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
         def delete
-          data = GandiV5.delete url
+          _response, data = GandiV5.delete url
           data['message']
         end
 
@@ -40,7 +40,7 @@ class GandiV5
         # @return [GandiV5::LiveDNS::Zone::Snapshot]
         # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
         def self.fetch(zone_uuid, snapshot_uuid)
-          data = GandiV5.get url(zone_uuid, snapshot_uuid)
+          _response, data = GandiV5.get url(zone_uuid, snapshot_uuid)
           from_gandi data
         end
 

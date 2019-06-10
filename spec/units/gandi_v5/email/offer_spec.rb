@@ -8,7 +8,7 @@ describe GandiV5::Email::Offer do
 
     before :each do
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/offers/example.com')
-                                      .and_return('status' => 'active', 'version' => 2)
+                                      .and_return([nil, { 'status' => 'active', 'version' => 2 }])
     end
 
     its('status') { should be :active }

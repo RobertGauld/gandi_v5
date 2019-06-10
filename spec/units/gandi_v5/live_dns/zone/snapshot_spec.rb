@@ -12,7 +12,7 @@ describe GandiV5::LiveDNS::Zone::Snapshot do
 
   it '#delete' do
     expect(GandiV5).to receive(:delete).with('https://dns.api.gandi.net/api/v5/zones/zone-uuid/snapshots/snapshot-uuid')
-                                       .and_return('message' => 'Confirmation message.')
+                                       .and_return([nil, { 'message' => 'Confirmation message.' }])
     expect(subject.delete).to eq 'Confirmation message.'
   end
 
@@ -22,7 +22,7 @@ describe GandiV5::LiveDNS::Zone::Snapshot do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Zone_Snapshot', 'get.yaml'))
       expect(GandiV5).to receive(:get).with('https://dns.api.gandi.net/api/v5/zones/zone-uuid/snapshots/snapshot-uuid')
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
     end
 
     its('created_at') { should eq Time.new(2016, 12, 16, 16, 51, 26, 0) }

@@ -9,7 +9,7 @@ describe GandiV5::LiveDNS::Domain do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Domain', 'get.yaml'))
       expect(GandiV5).to receive(:get).with('https://dns.api.gandi.net/api/v5/domains/example.com')
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
       subject.refresh
     end
 
@@ -20,14 +20,14 @@ describe GandiV5::LiveDNS::Domain do
   describe '#fetch_records' do
     it 'All of them' do
       expect(GandiV5).to receive(:get).with('https://dns.api.gandi.net/api/v5/domains/example.com/records')
-                                      .and_return([])
+                                      .and_return([nil, []])
 
       expect(subject.fetch_records).to eq []
     end
 
     it 'All for a name' do
       expect(GandiV5).to receive(:get).with('https://dns.api.gandi.net/api/v5/domains/example.com/records/name')
-                                      .and_return([])
+                                      .and_return([nil, []])
 
       expect(subject.fetch_records('name')).to eq []
     end
@@ -36,12 +36,15 @@ describe GandiV5::LiveDNS::Domain do
       expect(GandiV5).to receive(:get).with('https://dns.api.gandi.net/api/v5/domains/example.com/records/name/TXT')
                                       .and_return(
                                         [
-                                          {
-                                            'rrset_type' => 'TXT',
-                                            'rrset_name' => 'name',
-                                            'rrset_ttl' => 600,
-                                            'rrset_values' => %w[a b]
-                                          }
+                                          nil,
+                                          [
+                                            {
+                                              'rrset_type' => 'TXT',
+                                              'rrset_name' => 'name',
+                                              'rrset_ttl' => 600,
+                                              'rrset_values' => %w[a b]
+                                            }
+                                          ]
                                         ]
                                       )
 
@@ -61,19 +64,19 @@ describe GandiV5::LiveDNS::Domain do
   describe '#fetch_zone_lines' do
     it 'All of them' do
       url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records'
-      expect(GandiV5).to receive(:get).with(url, accept: 'text/plain').and_return('returned')
+      expect(GandiV5).to receive(:get).with(url, accept: 'text/plain').and_return([nil, 'returned'])
       expect(subject.fetch_zone_lines).to eq 'returned'
     end
 
     it 'All for a name' do
       url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records/name'
-      expect(GandiV5).to receive(:get).with(url, accept: 'text/plain').and_return('returned')
+      expect(GandiV5).to receive(:get).with(url, accept: 'text/plain').and_return([nil, 'returned'])
       expect(subject.fetch_zone_lines('name')).to eq 'returned'
     end
 
     it 'A type for a name' do
       url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records/name/TXT'
-      expect(GandiV5).to receive(:get).with(url, accept: 'text/plain').and_return('returned')
+      expect(GandiV5).to receive(:get).with(url, accept: 'text/plain').and_return([nil, 'returned'])
       expect(subject.fetch_zone_lines('name', 'TXT')).to eq 'returned'
     end
 
@@ -86,7 +89,7 @@ describe GandiV5::LiveDNS::Domain do
     it 'Success' do
       url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records'
       body = '{"rrset_name":"name","rrset_type":"TXT","rrset_ttl":900,"rrset_values":["a","b"]}'
-      expect(GandiV5).to receive(:post).with(url, body).and_return('message' => 'Confirmation message.')
+      expect(GandiV5).to receive(:post).with(url, body).and_return([nil, { 'message' => 'Confirmation message.' }])
       expect(subject.add_record('name', 'TXT', 900, 'a', 'b')).to eq 'Confirmation message.'
     end
 
@@ -112,19 +115,19 @@ describe GandiV5::LiveDNS::Domain do
   describe '#delete_records' do
     it 'All of them' do
       url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records'
-      expect(GandiV5).to receive(:delete).with(url)
+      expect(GandiV5).to receive(:delete).with(url).and_return([nil, nil])
       subject.delete_records
     end
 
     it 'All for a name' do
       url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records/name'
-      expect(GandiV5).to receive(:delete).with(url)
+      expect(GandiV5).to receive(:delete).with(url).and_return([nil, nil])
       subject.delete_records 'name'
     end
 
     it 'A type for a name' do
       url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records/name/TXT'
-      expect(GandiV5).to receive(:delete).with(url)
+      expect(GandiV5).to receive(:delete).with(url).and_return([nil, nil])
       subject.delete_records 'name', 'TXT'
     end
 
@@ -142,7 +145,7 @@ describe GandiV5::LiveDNS::Domain do
       url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records'
       body = '{"items":[{"rrset_name":"name","rrset_ttl":600,"rrset_type":"TXT","rrset_values":["a"]}]}'
       expect(GandiV5).to receive(:put).with(url, body)
-                                      .and_return('message' => 'Confirmation message.')
+                                      .and_return([nil, { 'message' => 'Confirmation message.' }])
       expect(subject.replace_records(records: records)).to eq 'Confirmation message.'
     end
 
@@ -154,7 +157,7 @@ describe GandiV5::LiveDNS::Domain do
 
       url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records'
       expect(GandiV5).to receive(:put).with(url, records, 'content-type': 'text/plain')
-                                      .and_return('message' => 'Confirmation message.')
+                                      .and_return([nil, { 'message' => 'Confirmation message.' }])
       expect(subject.replace_records(text: records)).to eq 'Confirmation message.'
     end
 
@@ -174,7 +177,7 @@ describe GandiV5::LiveDNS::Domain do
     url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records/name'
     body = '{"items":[{"rrset_type":"TXT","rrset_values":["a"]}]}'
     expect(GandiV5).to receive(:put).with(url, body)
-                                    .and_return('message' => 'Confirmation message.')
+                                    .and_return([nil, { 'message' => 'Confirmation message.' }])
     records = { type: 'TXT', values: ['a'] }
     expect(subject.replace_records_for('name', records)).to eq 'Confirmation message.'
   end
@@ -184,7 +187,7 @@ describe GandiV5::LiveDNS::Domain do
       url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records/name/A'
       body = '{"rrset_ttl":600,"rrset_values":["192.168.0.1","192.168.0.2"]}'
       expect(GandiV5).to receive(:put).with(url, body)
-                                      .and_return('message' => 'Confirmation message.')
+                                      .and_return([nil, { 'message' => 'Confirmation message.' }])
       expect(subject.replace_a_records_for('name', 600, '192.168.0.1', '192.168.0.2')).to eq 'Confirmation message.'
     end
 
@@ -192,7 +195,7 @@ describe GandiV5::LiveDNS::Domain do
       url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records/name/TXT'
       body = '{"rrset_ttl":600,"rrset_values":["a","b"]}'
       expect(GandiV5).to receive(:put).with(url, body)
-                                      .and_return('message' => 'Confirmation message.')
+                                      .and_return([nil, { 'message' => 'Confirmation message.' }])
       expect(subject.replace_txt_records_for('name', 600, 'a', 'b')).to eq 'Confirmation message.'
     end
   end
@@ -202,7 +205,7 @@ describe GandiV5::LiveDNS::Domain do
       url = 'https://dns.api.gandi.net/api/v5/domains/example.com'
       body = '{"zone_uuid":"zone-uuid"}'
       expect(GandiV5).to receive(:patch).with(url, body)
-                                        .and_return('message' => 'Confirmation message.')
+                                        .and_return([nil, { 'message' => 'Confirmation message.' }])
       expect(subject.change_zone('zone-uuid')).to eq 'Confirmation message.'
       expect(subject.zone_uuid).to eq 'zone-uuid'
     end
@@ -211,7 +214,7 @@ describe GandiV5::LiveDNS::Domain do
       url = 'https://dns.api.gandi.net/api/v5/domains/example.com'
       body = '{"zone_uuid":"zone-uuid"}'
       expect(GandiV5).to receive(:patch).with(url, body)
-                                        .and_return('message' => 'Confirmation message.')
+                                        .and_return([nil, { 'message' => 'Confirmation message.' }])
       zone = double GandiV5::LiveDNS::Zone, uuid: 'zone-uuid'
       expect(subject.change_zone(zone)).to eq 'Confirmation message.'
       expect(subject.zone_uuid).to eq 'zone-uuid'
@@ -224,7 +227,7 @@ describe GandiV5::LiveDNS::Domain do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Domain', 'list.yaml'))
       expect(GandiV5).to receive(:get).with('https://dns.api.gandi.net/api/v5/domains')
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
     end
 
     its('count') { should eq 1 }
@@ -238,7 +241,7 @@ describe GandiV5::LiveDNS::Domain do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Domain', 'get.yaml'))
       expect(GandiV5).to receive(:get).with('https://dns.api.gandi.net/api/v5/domains/example.com')
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
     end
 
     its('fqdn') { should eq 'example.com' }

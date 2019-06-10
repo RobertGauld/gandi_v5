@@ -41,7 +41,7 @@ class GandiV5
     def get(url, **headers)
       prepare_headers headers, url
       response = RestClient.get url, **headers
-      parse_response response
+      [response, parse_response(response)]
     rescue RestClient::BadRequest => e
       handle_bad_request(e)
     end
@@ -59,7 +59,7 @@ class GandiV5
     def delete(url, **headers)
       prepare_headers headers, url
       response = RestClient.delete url, **headers
-      parse_response response
+      [response, parse_response(response)]
     rescue RestClient::BadRequest => e
       handle_bad_request(e)
     end
@@ -79,7 +79,7 @@ class GandiV5
       prepare_headers headers, url
       headers[:'content-type'] ||= 'application/json'
       response = RestClient.patch url, payload, **headers
-      parse_response response
+      [response, parse_response(response)]
     rescue RestClient::BadRequest => e
       handle_bad_request(e)
     end
@@ -99,7 +99,7 @@ class GandiV5
       prepare_headers headers, url
       headers[:'content-type'] ||= 'application/json'
       response = RestClient.post url, payload, **headers
-      parse_response response
+      [response, parse_response(response)]
     rescue RestClient::BadRequest => e
       handle_bad_request(e)
     end
@@ -119,7 +119,7 @@ class GandiV5
       prepare_headers headers, url
       headers[:'content-type'] ||= 'application/json'
       response = RestClient.put url, payload, **headers
-      parse_response response
+      [response, parse_response(response)]
     rescue RestClient::BadRequest => e
       handle_bad_request(e)
     end

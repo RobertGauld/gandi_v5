@@ -52,7 +52,7 @@ class GandiV5
       # @return [String] The confirmation message from Gandi.
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
       def delete
-        data = GandiV5.delete url
+        _response, data = GandiV5.delete url
         data['message']
       end
 
@@ -61,7 +61,7 @@ class GandiV5
       # @return [String] The confirmation message from Gandi.
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
       def purge
-        data = GandiV5.delete "#{url}/contents"
+        _response, data = GandiV5.delete "#{url}/contents"
         data['message']
       end
 
@@ -69,7 +69,7 @@ class GandiV5
       # @return [GandiV5::Email::Mailbox]
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
       def refresh
-        data = GandiV5.get url
+        _response, data = GandiV5.get url
         from_gandi data
       end
 
@@ -82,7 +82,6 @@ class GandiV5
       #   auto responder settings.
       # @return [String] The confirmation message from Gandi.
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
-      # rubocop:disable Metrics/AbcSize
       def update(**body)
         return 'Nothing to update.' if body.empty?
 
@@ -93,11 +92,10 @@ class GandiV5
           body[:responder] = responder.respond_to?(:to_gandi) ? responder.to_gandi : responder.to_h
         end
 
-        data = GandiV5.patch url, body.to_json
+        _response, data = GandiV5.patch url, body.to_json
         refresh
         data['message']
       end
-      # rubocop:enable Metrics/AbcSize
 
       # Create a new mailbox.
       # Note that before you can create a mailbox, you must have a slot available.
@@ -107,9 +105,15 @@ class GandiV5
       # @param password [String, #to_s] the password to use.
       # @param aliases [Array<String, #to_s>] any alternative email address to be used.
       # @param type [:standard, :premium] the type of mailbox slot to use.
-      # @return [String] The confirmation message from Gandi.
-      # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
+      # @return [GandiV5::Email::Mailbox] The created mailbox.
+      # @raise [GandiV5::Error] if no slots are available.
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.create(fqdn, login, password, aliases: [], type: :standard)
+        fail ArgumentError, "#{type.inspect} is not a valid type" unless TYPES.include?(type)
+        if GandiV5::Email::Slot.list.none? { |slot| slot.mailbox_type == type && slot.inactive? }
+          fail GandiV5::Error, "no available #{type} slots"
+        end
+
         check_password password
 
         body = {
@@ -119,8 +123,8 @@ class GandiV5
           aliases: aliases.push
         }.to_json
 
-        data = GandiV5.post url(fqdn), body
-        data['message']
+        response, _data = GandiV5.post url(fqdn), body
+        fetch fqdn, response.headers[:location].split('/').last
       end
 
       # Get information for a mailbox.
@@ -130,7 +134,7 @@ class GandiV5
       # @return [GandiV5::Email::Mailbox]
       # @raise [GandiV5::Error::GandiError::GandiError] if Gandi returns an error.
       def self.fetch(fqdn, uuid)
-        data = GandiV5.get url(fqdn, uuid)
+        _response, data = GandiV5.get url(fqdn, uuid)
         from_gandi data
       end
 
@@ -155,7 +159,7 @@ class GandiV5
 
         mailboxes = []
         page.each do |page_number|
-          data = GandiV5.get url(fqdn), params: params.merge(page: page_number)
+          _response, data = GandiV5.get url(fqdn), params: params.merge(page: page_number)
           break if data.empty?
 
           mailboxes += data.map { |mailbox| from_gandi mailbox }

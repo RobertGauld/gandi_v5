@@ -7,7 +7,7 @@ describe GandiV5::Organization do
     subject { described_class.fetch }
     before :each do
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/organization/user-info')
-                                      .and_return(YAML.load_file(File.join(body_fixtures, 'get.yaml')))
+                                      .and_return([nil, YAML.load_file(File.join(body_fixtures, 'get.yaml'))])
     end
 
     its('uuid') { should eq 'organization-uuid' }
