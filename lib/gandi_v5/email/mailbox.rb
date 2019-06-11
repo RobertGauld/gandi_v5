@@ -44,6 +44,14 @@ class GandiV5
 
       alias mailbox_uuid uuid
 
+      # Create a new GandiV5::Email::Mailbox
+      # @param members [Hash<Symbol => Object>]
+      # @return [GandiV5::Email::Slot]
+      def initialize(**members)
+        super(**members)
+        responder.instance_exec(self) { |mb| @mailbox = mb } if responder?
+      end
+
       # Delete the mailbox and it's contents.
       # If you delete a mailbox for which you have purchased a slot,
       # this action frees the slot so it once again becomes available
@@ -71,6 +79,8 @@ class GandiV5
       def refresh
         _response, data = GandiV5.get url
         from_gandi data
+        responder.instance_exec(self) { |mb| @mailbox = mb } if responder?
+        self
       end
 
       # Update the mailbox's settings.

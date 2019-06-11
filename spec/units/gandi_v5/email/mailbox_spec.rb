@@ -22,6 +22,7 @@ describe GandiV5::Email::Mailbox do
     its('login') { should eq 'address' }
     its('type') { should eq :standard }
     its('quota_used') { should eq 1_000_000 }
+    its('responder.mailbox') { should be subject }
     its('responder.enabled') { should be false }
     its('responder.starts_at') { should eq Time.new(2000, 1, 1, 0, 0, 0) }
     its('responder.ends_at') { should eq Time.new(2000, 1, 2, 0, 0, 0) }
@@ -271,6 +272,7 @@ describe GandiV5::Email::Mailbox do
     its('login') { should eq 'address' }
     its('type') { should eq :standard }
     its('quota_used') { should eq 1_000_000 }
+    its('responder.mailbox') { should be subject }
     its('responder.enabled') { should be false }
     its('responder.starts_at') { should eq Time.new(2000, 1, 1, 0, 0, 0) }
     its('responder.ends_at') { should eq Time.new(2000, 1, 2, 0, 0, 0) }

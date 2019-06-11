@@ -39,12 +39,12 @@ class GandiV5
       alias slot_id id
 
       # Create a new GandiV5::Email::Slot
-      # @param string [fqdn] the fully qualified domain this slot belongs to.
+      # @param fqdn [String] the fully qualified domain this slot belongs to.
       # @param members [Hash<Symbol => Object>]
       # @return [GandiV5::Email::Slot]
       def initialize(fqdn: nil, **members)
         super(**members)
-        @fqdn = fqdn if fqdn
+        @fqdn = fqdn
       end
 
       # Delete this slot if it is inactive and refundable.

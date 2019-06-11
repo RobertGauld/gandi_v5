@@ -14,7 +14,7 @@
     * [X] .create - check a slot is available
     * [X] .create - fetch created mailbox
   * Email Mailbox Responder:
-    * [ ] Allow enable/disable from here too
+    * [X] Allow enable/disable from here too
   * Email Slot:
     * [ ] #delete - check for inactiveness
     * [ ] #delete - check for refundableness

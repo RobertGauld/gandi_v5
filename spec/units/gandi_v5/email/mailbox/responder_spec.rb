@@ -128,4 +128,56 @@ describe GandiV5::Email::Mailbox::Responder do
       end
     end
   end
+
+  describe '#enable' do
+    let(:mailbox) { double GandiV5::Email::Mailbox }
+    let(:update) do
+      {
+        starts_at: '2019-01-01T00:00:00Z',
+        ends_at: '2020-01-01T00:00:00Z',
+        message: 'Auto response message.',
+        enabled: true
+      }
+    end
+
+    it 'Uses now as default starts_at' do
+      starts_at = Time.new(2019, 1, 1, 0, 0, 0, 0)
+      Timecop.freeze(starts_at) do
+        ends_at = Time.new(2020, 1, 1, 0, 0, 0, 0)
+        subject = described_class.new mailbox: mailbox
+        expect(mailbox).to receive(:update).with(responder: update)
+
+        subject.enable message: 'Auto response message.', ends_at: ends_at
+        expect(subject.enabled).to be true
+        expect(subject.message).to eq 'Auto response message.'
+        expect(subject.starts_at).to eq starts_at
+        expect(subject.ends_at).to eq ends_at
+      end
+    end
+
+    it 'Uses passed starts_at' do
+      starts_at = Time.new(2019, 1, 1, 0, 0, 0, 0)
+      ends_at = Time.new(2020, 1, 1, 0, 0, 0, 0)
+      subject = described_class.new mailbox: mailbox
+      expect(mailbox).to receive(:update).with(responder: update)
+
+      subject.enable message: 'Auto response message.', starts_at: starts_at, ends_at: ends_at
+      expect(subject.enabled).to be true
+      expect(subject.message).to eq 'Auto response message.'
+      expect(subject.starts_at).to eq starts_at
+      expect(subject.ends_at).to eq ends_at
+    end
+  end
+
+  it '#disable' do
+    mailbox = double GandiV5::Email::Mailbox
+    subject = described_class.new mailbox: mailbox
+    expect(mailbox).to receive(:update).with(responder: { enabled: false })
+
+    subject.disable
+    expect(subject.enabled).to be false
+    expect(subject.message).to be nil
+    expect(subject.starts_at).to be nil
+    expect(subject.ends_at).to be nil
+  end
 end
