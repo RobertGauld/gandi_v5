@@ -22,7 +22,7 @@ Travis CI monitors two branches (versions) of the code:
 This gem supports the following versions of ruby, it may work on other versions but is not tested against them so don't rely on it.
 
 * ruby:
-  * 2.6.0 - 2.6.2
+  * 2.6.0 - 2.6.3
 * jruby, once it's reached parity with ruby 2.6.x
 
 
