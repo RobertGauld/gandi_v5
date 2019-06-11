@@ -5,17 +5,32 @@ describe GandiV5::Email::Slot do
     described_class.new id: 123, capacity: 1, mailbox_type: :standard, status: :inactive, fqdn: 'example.com'
   end
 
-  it '#delete' do
-    expect(GandiV5).to receive(:delete).with('https://api.gandi.net/v5/email/slots/example.com/123')
-                                       .and_return('message' => 'Confirmation message.')
-    expect(subject.delete).to eq 'Confirmation message.'
+  describe '#delete' do
+    it 'Is deletable' do
+      subject = described_class.new fqdn: 'example.com', id: 123, status: :inactive, refundable: true
+      expect(GandiV5).to receive(:delete).with('https://api.gandi.net/v5/email/slots/example.com/123')
+                                         .and_return([nil, { 'message' => 'Confirmation message.' }])
+      expect(subject.delete).to eq 'Confirmation message.'
+    end
+
+    it 'Is in use' do
+      subject = described_class.new fqdn: 'example.com', id: 123, status: :active, refundable: true
+      expect(GandiV5).to_not receive(:delete)
+      expect { subject.delete }.to raise_error GandiV5::Error, 'slot can\'t be deleted whilst active'
+    end
+
+    it 'Is not refundable' do
+      subject = described_class.new fqdn: 'example.com', id: 123, status: :inactive, refundable: false
+      expect(GandiV5).to_not receive(:delete)
+      expect { subject.delete }.to raise_error GandiV5::Error, 'slot can\'t be deleted if it\'s not refundable'
+    end
   end
 
   describe '#refresh' do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Slot', 'get.yaml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/slots/example.com/123')
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
       subject.refresh
     end
 
@@ -107,16 +122,28 @@ describe GandiV5::Email::Slot do
 
   describe '.create' do
     let(:url) { 'https://api.gandi.net/v5/email/slots/example.com' }
+    let(:created_response) do
+      double(
+        RestClient::Response,
+        headers: { location: 'https://api.gandi.net/v5/email/slots/example.com/created-slot-uuid' }
+      )
+    end
+    let(:created_slot) { double GandiV5::Email::Slot }
+
     it 'With default type' do
       expect(GandiV5).to receive(:post).with(url, '{"mailbox_type":"standard"}')
-                                       .and_return('message' => 'Confirmation message.')
-      expect(described_class.create('example.com')).to eq 'Confirmation message.'
+                                       .and_return([created_response, { 'message' => 'Confirmation message.' }])
+      expect(described_class).to receive(:fetch).with('example.com', 'created-slot-uuid').and_return(created_slot)
+
+      expect(described_class.create('example.com')).to be created_slot
     end
 
     it 'With passed type' do
       expect(GandiV5).to receive(:post).with(url, '{"mailbox_type":"premium"}')
-                                       .and_return('message' => 'Confirmation message.')
-      expect(described_class.create('example.com', :premium)).to eq 'Confirmation message.'
+                                       .and_return([created_response, { 'message' => 'Confirmation message.' }])
+      expect(described_class).to receive(:fetch).with('example.com', 'created-slot-uuid').and_return(created_slot)
+
+      expect(described_class.create('example.com', :premium)).to be created_slot
     end
   end
 
@@ -126,7 +153,7 @@ describe GandiV5::Email::Slot do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Slot', 'get.yaml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/slots/example.com/123')
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
     end
 
     its('fqdn') { should eq 'example.com' }
@@ -146,7 +173,7 @@ describe GandiV5::Email::Slot do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Slot', 'list.yaml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/slots/example.com')
-                                      .and_return(YAML.load_file(body_fixture))
+                                      .and_return([nil, YAML.load_file(body_fixture)])
     end
 
     its('count') { should eq 1 }

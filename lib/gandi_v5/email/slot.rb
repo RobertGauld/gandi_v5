@@ -53,9 +53,14 @@ class GandiV5
       # @see GandiV5::Email::Mailbox#delete
       # @see https://api.gandi.net/docs/email#delete-v5-email-slots-domain-slot_id
       # @return [String] The confirmation message from Gandi.
+      # @raise [GandiV5::Error] if slot is active.
+      # @raise [GandiV5::Error] if slot is not refundable.
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def delete
-        data = GandiV5.delete url
+        fail GandiV5::Error, 'slot can\'t be deleted whilst active' if active?
+        fail GandiV5::Error, 'slot can\'t be deleted if it\'s not refundable' unless refundable
+
+        _response, data = GandiV5.delete url
         data['message']
       end
 
@@ -64,7 +69,7 @@ class GandiV5
       # @return [GandiV5::Email::Slot]
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def refresh
-        data = GandiV5.get url
+        _response, data = GandiV5.get url
         from_gandi data
       end
 
@@ -81,8 +86,8 @@ class GandiV5
           mailbox_type: type
         }.to_json
 
-        data = GandiV5.post url(fqdn), body
-        data['message']
+        response, _data = GandiV5.post url(fqdn), body
+        fetch fqdn, response.headers[:location].split('/').last
       end
 
       # Get information for a slot.
@@ -92,7 +97,7 @@ class GandiV5
       # @return [GandiV5::Email::Slot]
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.fetch(fqdn, id)
-        data = GandiV5.get url(fqdn, id)
+        _response, data = GandiV5.get url(fqdn, id)
         slot = from_gandi data
         slot.instance_eval { @fqdn = fqdn }
         slot
@@ -104,7 +109,7 @@ class GandiV5
       # @return [Array<GandiV5::Email::Slot>]
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.list(fqdn)
-        data = GandiV5.get url(fqdn)
+        _response, data = GandiV5.get url(fqdn)
         data.map { |item| from_gandi item }
             .each { |item| item.instance_eval { @fqdn = fqdn } }
       end

@@ -16,9 +16,9 @@
   * Email Mailbox Responder:
     * [X] Allow enable/disable from here too
   * Email Slot:
-    * [ ] #delete - check for inactiveness
-    * [ ] #delete - check for refundableness
-    * [ ] .create - fetch created slot
+    * [X] #delete - check for inactiveness
+    * [X] #delete - check for refundableness
+    * [X] .create - fetch created slot
   * LiveDNS Domain:
     * [ ] #replace_??_records_for - incorporate into #replace_records_for
           <https://www.rubydoc.info/gems/yard/file/docs/Tags.md#override>
