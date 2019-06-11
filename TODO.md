@@ -38,3 +38,7 @@
     * [ ] Domain API: Domain hosts (glue records)
     * [ ] Domain API: Domain nameservers
     * [ ] DomainAPI: LiveDNS management ?
+
+* Version 0.1.3
+  * [ ] Test against truffleruby if aligned with ruby 2.6.0
+  * [ ] Test against jruby if aligned with ruby 2.6.0
