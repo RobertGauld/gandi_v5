@@ -13,6 +13,8 @@ class GandiV5
       #   @return [nil, Time]
       # @!attribute [r] message
       #   @return [nil, String]
+      # @!attribute [r] mailbox
+      #   @return [GandiV5::Email::Mailbox] the mailbox this repsonder belongs to.
       class Responder
         include GandiV5::Data
 
