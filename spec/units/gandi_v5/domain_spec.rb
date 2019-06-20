@@ -210,8 +210,9 @@ describe GandiV5::Domain do
   end
 
   describe '.availability' do
+    let(:body_fixture) { File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'availability.yaml')) }
+
     it 'With default values' do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'availability.yaml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/check', params: { name: 'example.com' })
                                       .and_return([nil, YAML.load_file(body_fixture)])
       expect(described_class.availability('example.com')).to eq(
@@ -238,30 +239,6 @@ describe GandiV5::Domain do
         end
       end
     end
-  end
-
-  it '.tlds' do
-    body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'tlds.yaml'))
-    expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/tlds')
-                                    .and_return([nil, YAML.load_file(body_fixture)])
-    expect(described_class.tlds).to match_array %w[a b c]
-  end
-
-  it '.tld' do
-    body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'tld.yaml'))
-    expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/tlds/name')
-                                    .and_return([nil, YAML.load_file(body_fixture)])
-    expect(described_class.tld('name')).to eq(
-      category: 'ccTLD',
-      name: 'eu',
-      lock: false,
-      change_owner: true,
-      authinfo_for_transfer: true,
-      full_tld: 'eu',
-      corporate: false,
-      ext_trade: true,
-      href: 'https://api.test/v5/domain/tlds/eu'
-    )
   end
 
   describe '#to_s' do

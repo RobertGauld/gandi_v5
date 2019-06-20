@@ -7,6 +7,7 @@ require_relative 'domain/dates'
 require_relative 'domain/renewal_information'
 require_relative 'domain/restore_information'
 require_relative 'domain/sharing_space'
+require_relative 'domain/tld'
 
 class GandiV5
   # Gandi Domain Management API.
@@ -367,32 +368,13 @@ class GandiV5
     # @param max_duration [Integer, #to_s] (optional)
     #   set a limit on the duration range for returned prices.
     # @param period [String, #to_s] (optional) specific registration period to query.
-    # @param _ [Array<:create, :renew, :transfer etc.>] (optional default [:create])
+    # @param processes [Array<:create, :renew, :transfer etc.>] (optional default [:create])
     #   list of at least 1 process for which pricing is to be made.
     # @param sharing_id [String, #to_s] (optional) organization for which the pricing is to be made.
     # @return [Hash]
     # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def self.availability(fqdn, **options)
       GandiV5.get("#{BASE}domain/check", params: { name: fqdn }.merge(options)).last
-    end
-
-    # List of available TLDs.
-    # @see https://api.gandi.net/docs/domains#get-v5-domain-tlds
-    # @return Array<String>
-    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
-    def self.tlds
-      GandiV5.get("#{BASE}domain/tlds")
-             .last
-             .map { |hash| hash['name'] }
-    end
-
-    # Get TLD information.
-    # @see https://api.gandi.net/docs/domains#get-v5-domain-tlds-name
-    # @param name [String, #to_s] the top level domain to get information for.
-    # @return [Hash]
-    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
-    def self.tld(name)
-      GandiV5.get("#{BASE}domain/tlds/#{CGI.escape name}").last.transform_keys(&:to_sym)
     end
 
     private
