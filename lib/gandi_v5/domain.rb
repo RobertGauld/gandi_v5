@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'domain/auto_renew'
+require_relative 'domain/availability'
 require_relative 'domain/contact'
 require_relative 'domain/contract'
 require_relative 'domain/dates'
@@ -354,27 +355,6 @@ class GandiV5
         break if data.count < per_page
       end
       domains
-    end
-
-    # Check domain availability and pricing.
-    # @see https://api.gandi.net/docs/domains#get-v5-domain-check
-    # @param fqdn [String, #to_s] the fully qualified domain name to check.
-    # @param country [String, #to_s] (optional) ISO country code for which taxes are to be applied.
-    # @param currency [String, #to_s] (optional) request price for a specific ISO currency code.
-    # @param duration_unit [String, #to_s] (optional) define the unit for max_duration.
-    # @param extension [String, #to_s] (optional) query a specific extension for product options.
-    # @param grid [String, #to_s] (optional) request price for a specific rate.
-    # @param lang [String, #to_s] (optional) language code.
-    # @param max_duration [Integer, #to_s] (optional)
-    #   set a limit on the duration range for returned prices.
-    # @param period [String, #to_s] (optional) specific registration period to query.
-    # @param processes [Array<:create, :renew, :transfer etc.>] (optional default [:create])
-    #   list of at least 1 process for which pricing is to be made.
-    # @param sharing_id [String, #to_s] (optional) organization for which the pricing is to be made.
-    # @return [Hash]
-    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
-    def self.availability(fqdn, **options)
-      GandiV5.get("#{BASE}domain/check", params: { name: fqdn }.merge(options)).last
     end
 
     private

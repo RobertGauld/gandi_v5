@@ -209,38 +209,6 @@ describe GandiV5::Domain do
     end
   end
 
-  describe '.availability' do
-    let(:body_fixture) { File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'availability.yaml')) }
-
-    it 'With default values' do
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/check', params: { name: 'example.com' })
-                                      .and_return([nil, YAML.load_file(body_fixture)])
-      expect(described_class.availability('example.com')).to eq(
-        'currency' => 'GBP',
-        'grid' => 'A',
-        'products' => [
-          {
-            'status' => 'unavailable',
-            'name' => 'example.com',
-            'process' => 'create',
-            'taxes' => [{ 'type' => 'service', 'rate' => 0, 'name' => 'vat' }]
-          }
-        ],
-        'taxes' => [{ 'type' => 'service', 'rate' => 0, 'name' => 'vat' }]
-      )
-    end
-
-    describe 'Passes optional query params' do
-      %i[country currency duration_unit extension grid lang max_duration period processes sharing_uuid].each do |param|
-        it param.to_s do
-          url = 'https://api.gandi.net/v5/domain/check'
-          expect(GandiV5).to receive(:get).with(url, params: { name: 'example.com', param => 5 }).and_return([nil, []])
-          expect(described_class.availability('example.com', param => 5)).to eq []
-        end
-      end
-    end
-  end
-
   describe '#to_s' do
     it 'Has identical fqdn and fqdn_unicode' do
       domain = described_class.new fqdn: 'example.com', fqdn_unicode: 'example.com'

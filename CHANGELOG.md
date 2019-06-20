@@ -3,6 +3,7 @@
 ## Version 0.1.1
 
 * Enhancements to GandiV5::Domain
+  * .availability(fqdn, **options) moved to GandiV5::Domain::Availability.fetch(fqdn, **options)
   * .create now returns created domain (except in dry-run mode)
   * .tlds moved to GandiV5::Domain::TLD.list
   * .tld(name) moved to GandiV5::Domain::TLD.fetch(name)

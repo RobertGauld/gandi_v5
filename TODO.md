@@ -4,7 +4,7 @@
   * Domain:
     * [ ] .restore_information - test when I have a restorable domain
     * [X] .create - return created domain (unless a dry run)
-    * [ ] .availability - return a new Availability object
+    * [X] .availability - return a new Availability object
     * [X] .tld - return a new TLD object
     * [X] .tlds - return an array of new TLD object
     * [ ] Add method
