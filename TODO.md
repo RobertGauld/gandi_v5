@@ -3,7 +3,7 @@
 * Version 0.2.0
   * Domain:
     * [ ] .restore_information - test when I have a restorable domain
-    * [ ] .create - return created domain (unless a dry run)
+    * [X] .create - return created domain (unless a dry run)
     * [ ] .availability - return a new Availability object
     * [ ] .tld - return a new TLD object
     * [ ] .tlds - return an array of new TLD object

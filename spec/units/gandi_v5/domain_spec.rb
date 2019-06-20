@@ -137,7 +137,10 @@ describe GandiV5::Domain do
       let(:body) { '{"owner":{},"fqdn":"example.com"}' }
 
       it 'False by default' do
-        expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0).and_return([nil, nil])
+        returns = double described_class
+        response = double RestClient::Response, headers: { location: 'https://api.gandi.net/v5/domains/example.com' }
+        expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0).and_return([response, nil])
+        expect(described_class).to receive(:fetch).with('example.com').and_return(returns)
         described_class.create 'example.com', owner: {}
       end
 
@@ -147,7 +150,10 @@ describe GandiV5::Domain do
       end
 
       it 'False' do
-        expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0).and_return([nil, nil])
+        returns = double described_class
+        response = double RestClient::Response, headers: { location: 'https://api.gandi.net/v5/domains/example.com' }
+        expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0).and_return([response, nil])
+        expect(described_class).to receive(:fetch).with('example.com').and_return(returns)
         described_class.create 'example.com', owner: {}, dry_run: false
       end
 
@@ -170,10 +176,12 @@ describe GandiV5::Domain do
     end
 
     it 'Success' do
-      returns = { 'message' => 'Confirmation message.' }
+      returns = double described_class
+      response = double RestClient::Response, headers: { location: 'https://api.gandi.net/v5/domains/example.com' }
       body = '{"owner":{},"fqdn":"example.com"}'
       expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0)
-                                       .and_return([nil, returns])
+                                       .and_return([response, nil])
+      expect(described_class).to receive(:fetch).with('example.com').and_return(returns)
       expect(described_class.create('example.com', owner: {})).to be returns
     end
 
@@ -182,14 +190,20 @@ describe GandiV5::Domain do
     end
 
     it 'Given contact as hash' do
+      returns = double described_class
       body = '{"owner":{"email":"owner@example.com"},"fqdn":"example.com"}'
-      expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0).and_return([nil, nil])
+      response = double RestClient::Response, headers: { location: 'https://api.gandi.net/v5/domains/example.com' }
+      expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0).and_return([response, nil])
+      expect(described_class).to receive(:fetch).with('example.com').and_return(returns)
       described_class.create 'example.com', owner: { email: 'owner@example.com' }
     end
 
     it 'Given contact as GandiV5::Domain::Contact' do
+      returns = double described_class
       body = '{"owner":{"email":"owner@example.com"},"fqdn":"example.com"}'
-      expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0).and_return([nil, nil])
+      response = double RestClient::Response, headers: { location: 'https://api.gandi.net/v5/domains/example.com' }
+      expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0).and_return([response, nil])
+      expect(described_class).to receive(:fetch).with('example.com').and_return(returns)
       owner = double GandiV5::Domain::Contact, to_gandi: { 'email' => 'owner@example.com' }
       described_class.create 'example.com', owner: owner
     end

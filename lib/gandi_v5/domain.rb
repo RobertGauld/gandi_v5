@@ -302,7 +302,7 @@ class GandiV5
     #   @see https://docs.gandi.net/en/domain_names/register/new_gtld.html
     # @param dry_run [Boolean] whether the details should be checked
     #   instead of actually creating the domain.
-    # @return [Hash] if actually creating, you get what Gandi returns.
+    # @return [GandiV5::Domain] the created domain.
     # @return [Hash] if doing a dry run, you get what Gandi returns.
     # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def self.create(fqdn, dry_run: false, **params)
@@ -311,7 +311,9 @@ class GandiV5
       body = params.merge(fqdn: fqdn)
                    .transform_values { |val| val.respond_to?(:to_gandi) ? val.to_gandi : val }
                    .to_json
-      GandiV5.post(url, body, 'Dry-Run': dry_run ? 1 : 0).last
+
+      response, data = GandiV5.post(url, body, 'Dry-Run': dry_run ? 1 : 0)
+      dry_run ? data : fetch(response.headers[:location].split('/').last)
     end
 
     # Get information on a domain.
