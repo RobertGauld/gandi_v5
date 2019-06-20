@@ -1,6 +1,6 @@
 # To Do List
 
-* Version 0.1.1
+* Version 0.2.0
   * Domain:
     * [ ] .restore_information - test when I have a restorable domain
     * [ ] .create - return created domain (unless a dry run)
@@ -33,12 +33,16 @@
   * LiveDNS Zone Snapshot:
     * [ ] Move method for getting listing to here
 
-* Version 0.1.2
+* Version 0.2.1
   * Gandi updates from 2019-05-23:
     * [ ] Domain API: Domain hosts (glue records)
     * [ ] Domain API: Domain nameservers
     * [ ] DomainAPI: LiveDNS management ?
 
-* Version 0.1.3
-  * [ ] Test against truffleruby if aligned with ruby 2.6.0
-  * [ ] Test against jruby if aligned with ruby 2.6.0
+* Version 0.2.2
+  * [ ] Add LiveDNS::Domain#zone to get the LiveDNS::Zone for the domain
+  * [ ] Add LiveDNS::Zone::Snapshot#.zone to get the LiveDNS::Zone for the snapshot.
+
+* Version 0.2.3
+  * [ ] Test against truffleruby if aligned with ruby 2.6.0 (looks like it is)
+  * [ ] Test against jruby 9.3.0.0 when released (if aligned with ruby 2.6.0)
