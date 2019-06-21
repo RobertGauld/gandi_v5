@@ -356,6 +356,59 @@ describe GandiV5::Domain do
                                        .and_return([nil, { 'message' => 'Confirmation message.' }])
       expect(subject.renew_for(2)).to eq 'Confirmation message.'
     end
+
+    describe '#renewal_price' do
+      it 'Default values' do
+        price = double GandiV5::Domain::Availability::Product::Price
+        arguments = { processes: [:renew], currency: 'GBP', period: 1 }
+        expect(GandiV5::Domain::Availability).to receive(:fetch).with('example.com', **arguments).and_return(
+          double(
+            GandiV5::Domain::Availability,
+            products: [
+              double(
+                GandiV5::Domain::Availability::Product,
+                prices: [price]
+              )
+            ]
+          )
+        )
+        expect(subject.renewal_price).to be price
+      end
+
+      it 'Passed currency' do
+        price = double GandiV5::Domain::Availability::Product::Price
+        arguments = { processes: [:renew], currency: 'EUR', period: 1 }
+        expect(GandiV5::Domain::Availability).to receive(:fetch).with('example.com', **arguments).and_return(
+          double(
+            GandiV5::Domain::Availability,
+            products: [
+              double(
+                GandiV5::Domain::Availability::Product,
+                prices: [price]
+              )
+            ]
+          )
+        )
+        expect(subject.renewal_price(currency: 'EUR')).to be price
+      end
+
+      it 'Passed period' do
+        price = double GandiV5::Domain::Availability::Product::Price
+        arguments = { processes: [:renew], currency: 'GBP', period: 2 }
+        expect(GandiV5::Domain::Availability).to receive(:fetch).with('example.com', **arguments).and_return(
+          double(
+            GandiV5::Domain::Availability,
+            products: [
+              double(
+                GandiV5::Domain::Availability::Product,
+                prices: [price]
+              )
+            ]
+          )
+        )
+        expect(subject.renewal_price(period: 2)).to be price
+      end
+    end
   end
 
   describe 'Domain restoration' do

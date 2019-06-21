@@ -268,6 +268,18 @@ class GandiV5
       auto_renew.domain = self
     end
 
+    # Get the price for renewing this domain.
+    # @param currency [String] the currency to get the price in (e.g. GBP)
+    # @param period [Integer] the number of year(s) renewal to get the price for
+    # @return [GandiV5::Domain::Availability::Product::Price]
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error
+    def renewal_price(currency: 'GBP', period: 1)
+      arguments = { processes: [:renew], currency: currency, period: period }
+      GandiV5::Domain::Availability.fetch(fqdn, **arguments)
+                                   .products.first
+                                   .prices.first
+    end
+
     # Create (register) a new domain.
     # Warning! This is not a free operation. Please ensure your prepaid account has enough credit.
     # @see https://api.gandi.net/docs/domains#post-v5-domain-domains
@@ -303,10 +315,10 @@ class GandiV5
     #   "eap7", "eap8", "eap9", "golive", #to_gandi, #to_json] (optional)
     #   @see https://docs.gandi.net/en/domain_names/register/new_gtld.html
     # @param dry_run [Boolean] whether the details should be checked
-    #   instead of actually creating the domain.
-    # @return [GandiV5::Domain] the created domain.
-    # @return [Hash] if doing a dry run, you get what Gandi returns.
-    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    #   instead of actually creating the domain
+    # @return [GandiV5::Domain] the created domain
+    # @return [Hash] if doing a dry run, you get what Gandi returns
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error
     def self.create(fqdn, dry_run: false, **params)
       fail ArgumentError, 'missing keyword: owner' unless params.key?(:owner)
 

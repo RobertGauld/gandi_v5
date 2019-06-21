@@ -7,8 +7,7 @@
     * [X] .availability - return a new Availability object
     * [X] .tld - return a new TLD object
     * [X] .tlds - return an array of new TLD object
-    * [ ] Add method
-          renewal_price(currency: 'GBP', period: 1, sharing_id: self.sharing_id)
+    * [X] Add method renewal_price(currency: 'GBP', period: 1)
   * Email Mailbox:
     * [X] .create - check type is valid
     * [X] .create - check a slot is available

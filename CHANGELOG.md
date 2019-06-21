@@ -7,6 +7,7 @@
   * .create now returns created domain (except in dry-run mode)
   * .tlds moved to GandiV5::Domain::TLD.list
   * .tld(name) moved to GandiV5::Domain::TLD.fetch(name)
+  * #renewal_price(currency: 'GBP', period: 1) added
 * Enhancements to GandiV5::Email::Mailbox
   * .create now returns created mailbox
   * .create now checks for available slots and a valid type has been passed
