@@ -21,13 +21,11 @@
   * LiveDNS Domain:
     * [ ] #replace_??_records_for - incorporate into #replace_records_for
           <https://www.rubydoc.info/gems/yard/file/docs/Tags.md#override>
-    * [ ] Make record type a symbol
     * [ ] Add #zone method
   * LiveDNS Zone:
     * [ ] .create - fetch created zone
     * [ ] #replace_??_records_for - incorporate into #replace_records_for
           <https://www.rubydoc.info/gems/yard/file/docs/Tags.md#override>
-    * [ ] Make record type a symbol
     * [ ] Add #zone method
   * LiveDNS Zone Snapshot:
     * [ ] Move method for getting listing to here
@@ -45,3 +43,13 @@
 * Version 0.2.3
   * [ ] Test against truffleruby if aligned with ruby 2.6.0 (looks like it is)
   * [ ] Test against jruby 9.3.0.0 when released (if aligned with ruby 2.6.0)
+  * Consider adding:
+    * [ ] GandiV5.domains aliasing to GandiV5::Domain.list
+    * [ ] GandiV5.domain(fqdn) aliasing to GandiV5::Domain.fetch(fqdn)
+    * [ ] GandiV5.domain_availalility aliasing to GandiV5::Domain::Availability.fetch
+    * [ ] GandiV5.mailboxes(fqdn) aliasing to GandiV5::Email::Mailbox.list(fqdn)
+    * [ ] GandiV5.mailbox_slots(fqdn) aliasing to GandiV5::Email::Slot.list(fqdn)
+    * [ ] GandiV5.live_dns_domains aliasing to GandiV5::LiveDNS::Domain.list
+    * [ ] GandiV5.live_dns_domain(fqdn) aliasing to GandiV5::LiveDNS::Domain.fetch(fqdn)
+    * [ ] GandiV5.live_dns_zones aliasing to GandiV5::LiveDNS::Zone.list
+    * [ ] GandiV5.live_dns_zone(uuid) aliasing to GandiV5::LiveDNS::Zone.fetch(uuid)
