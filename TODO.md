@@ -34,7 +34,13 @@
   * Gandi updates from 2019-05-23:
     * [ ] Domain API: Domain hosts (glue records)
     * [ ] Domain API: Domain nameservers
-    * [ ] DomainAPI: LiveDNS management ?
+    * [ ] Domain API: LiveDNS management ?
+  * Gandi updates from 2019-06-24:
+    * [ ] Organization API: Organization list
+  * Gandi updates from 2019-07-08:
+    * [ ] Email API: Forwarding address management
+  * Gandi updates from 2019-07-10:
+    * [ ] Domain API: Domain renew information (GET) returned schema simplified
 
 * Version 0.2.2
   * [ ] Add LiveDNS::Domain#zone to get the LiveDNS::Zone for the domain
