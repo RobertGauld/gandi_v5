@@ -305,7 +305,6 @@ describe GandiV5::Email::Mailbox do
     it 'Keeps fetching until no more to get' do
       headers1 = { params: { page: 1, per_page: 1 } }
       headers2 = { params: { page: 2, per_page: 1 } }
-      # rubocop:disable Layout/MultilineMethodCallIndentation
       # https://github.com/rubocop-hq/rubocop/issues/7088
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com', headers1)
                                       .ordered
@@ -313,7 +312,6 @@ describe GandiV5::Email::Mailbox do
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com', headers2)
                                       .ordered
                                       .and_return([nil, []])
-      # rubocop:enable Layout/MultilineMethodCallIndentation
 
       expect(described_class.list('example.com', per_page: 1).count).to eq 1
     end
@@ -321,7 +319,6 @@ describe GandiV5::Email::Mailbox do
     it 'Given a range as page number' do
       headers1 = { params: { page: 1, per_page: 1 } }
       headers2 = { params: { page: 2, per_page: 1 } }
-      # rubocop:disable Layout/MultilineMethodCallIndentation
       # https://github.com/rubocop-hq/rubocop/issues/7088
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com', headers1)
                                       .ordered
@@ -329,7 +326,6 @@ describe GandiV5::Email::Mailbox do
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com', headers2)
                                       .ordered
                                       .and_return([nil, []])
-      # rubocop:enable Layout/MultilineMethodCallIndentation
 
       expect(described_class.list('example.com', page: (1..2), per_page: 1).count).to eq 1
     end

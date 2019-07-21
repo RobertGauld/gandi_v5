@@ -47,7 +47,6 @@ describe GandiV5::Domain do
     it 'Keeps fetching until no more to get' do
       headers1 = { params: { page: 1, per_page: 1 } }
       headers2 = { params: { page: 2, per_page: 1 } }
-      # rubocop:disable Layout/MultilineMethodCallIndentation
       # https://github.com/rubocop-hq/rubocop/issues/7088
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains', headers1)
                                       .ordered
@@ -55,7 +54,6 @@ describe GandiV5::Domain do
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains', headers2)
                                       .ordered
                                       .and_return([nil, []])
-      # rubocop:enable Layout/MultilineMethodCallIndentation
 
       expect(described_class.list(per_page: 1).count).to eq 1
     end
@@ -63,7 +61,6 @@ describe GandiV5::Domain do
     it 'Given a range as page number' do
       headers1 = { params: { page: 1, per_page: 1 } }
       headers2 = { params: { page: 2, per_page: 1 } }
-      # rubocop:disable Layout/MultilineMethodCallIndentation
       # https://github.com/rubocop-hq/rubocop/issues/7088
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains', headers1)
                                       .ordered
@@ -71,7 +68,6 @@ describe GandiV5::Domain do
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains', headers2)
                                       .ordered
                                       .and_return([nil, []])
-      # rubocop:enable Layout/MultilineMethodCallIndentation
 
       expect(described_class.list(page: (1..2), per_page: 1).count).to eq 1
     end
