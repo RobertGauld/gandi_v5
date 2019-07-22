@@ -33,6 +33,7 @@
 * Add aliasing methods:
   * GandiV5.domains -> GandiV5::Domain.list
   * GandiV5.domain -> GandiV5::Domain.fetch
+  * GandiV5.mailboxes -> GandiV5::Email::Mailbox.list
 
 ## Version 0.1.0
 

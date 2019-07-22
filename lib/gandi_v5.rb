@@ -36,6 +36,11 @@ class GandiV5
     GandiV5::Domain.list(**params)
   end
 
+  # @see GandiV5::Email::Mailbox.list
+  def self.mailboxes(fqdn, **params)
+    GandiV5::Email::Mailbox.list(fqdn, **params)
+  end
+
   class << self
     attr_writer :api_key
 

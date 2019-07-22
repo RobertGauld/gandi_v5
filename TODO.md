@@ -45,7 +45,7 @@
   * Consider adding:
     * [X] GandiV5.domains aliasing to GandiV5::Domain.list
     * [X] GandiV5.domain(fqdn) aliasing to GandiV5::Domain.fetch(fqdn)
-    * [ ] GandiV5.mailboxes(fqdn) aliasing to GandiV5::Email::Mailbox.list(fqdn)
+    * [X] GandiV5.mailboxes(fqdn) aliasing to GandiV5::Email::Mailbox.list(fqdn)
     * [ ] GandiV5.mailbox_slots(fqdn) aliasing to GandiV5::Email::Slot.list(fqdn)
     * [ ] GandiV5.live_dns_domains aliasing to GandiV5::LiveDNS::Domain.list
     * [ ] GandiV5.live_dns_domain(fqdn) aliasing to GandiV5::LiveDNS::Domain.fetch(fqdn)
