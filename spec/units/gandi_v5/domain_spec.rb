@@ -342,9 +342,6 @@ describe GandiV5::Domain do
       its('minimum') { should eq 1 }
       its('maximum') { should eq 2 }
       its('durations') { should match_array [1, 2] }
-      its('contracts.count') { should eq 1 }
-      its('contracts.first.id') { should eq 'uuid' }
-      its('contracts.first.name') { should eq 'Name' }
     end
 
     it '#renew_for' do

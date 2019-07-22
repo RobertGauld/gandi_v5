@@ -7,6 +7,3 @@ renew:
   maximum: 2
   minimum: 1
   prohibited: false
-contracts:
-  - id: uuid
-    name: Name

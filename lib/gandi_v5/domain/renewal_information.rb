@@ -17,8 +17,6 @@ class GandiV5
     #   @return [Integer]
     # @!attribute [r] minimum
     #   @return [Integer]
-    # @!attribute [r] contracts
-    #   @return [Array<GandiV5::Domain::Contract>]
     class RenewalInformation
       include GandiV5::Data
 
@@ -26,7 +24,6 @@ class GandiV5
 
       member :begins_at, converter: GandiV5::Data::Converter::Time
       member :ends_at, converter: GandiV5::Data::Converter::Time
-      member :contracts, converter: GandiV5::Domain::Contract, array: true
 
       # Check if the domain is currently renewable.
       # @return [Boolean]
