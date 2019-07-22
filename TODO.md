@@ -50,4 +50,4 @@
     * [X] GandiV5.live_dns_domains aliasing to GandiV5::LiveDNS::Domain.list
     * [X] GandiV5.live_dns_domain(fqdn) aliasing to GandiV5::LiveDNS::Domain.fetch(fqdn)
     * [X] GandiV5.live_dns_zones aliasing to GandiV5::LiveDNS::Zone.list
-    * [ ] GandiV5.live_dns_zone(uuid) aliasing to GandiV5::LiveDNS::Zone.fetch(uuid)
+    * [X] GandiV5.live_dns_zone(uuid) aliasing to GandiV5::LiveDNS::Zone.fetch(uuid)

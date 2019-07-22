@@ -21,6 +21,11 @@ class GandiV5
       GandiV5::LiveDNS::Domain.list
     end
 
+    # @see GandiV5::LiveDNS::Zone.fetch
+    def self.zone(uuid)
+      GandiV5::LiveDNS::Zone.fetch(uuid)
+    end
+
     # @see GandiV5::LiveDNS::Zone.list
     def self.zones
       GandiV5::LiveDNS::Zone.list

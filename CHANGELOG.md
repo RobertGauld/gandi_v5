@@ -38,6 +38,7 @@
   * GandiV5::LiveDNS.domains -> GandiV5::LiveDNS::Domain.list
   * GandiV5::LiveDNS.domain -> GandiV5::LiveDNS::Domain.fetch
   * GandiV5::LiveDNS.zones -> GandiV5::LiveDNS::Zone.list
+  * GandiV5::LiveDNS.zone -> GandiV5::LiveDNS::Zone.fetch
 
 ## Version 0.1.0
 
