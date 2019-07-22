@@ -28,7 +28,7 @@
           <https://www.rubydoc.info/gems/yard/file/docs/Tags.md#override>
     * [ ] Add #zone method
   * LiveDNS Zone Snapshot:
-    * [ ] Move method for getting listing to here
+    * [X] Move method for getting listing to here
 
 * Version 0.2.1
   * Gandi updates from 2019-05-23:

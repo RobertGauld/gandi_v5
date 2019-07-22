@@ -34,6 +34,14 @@ class GandiV5
           data['message']
         end
 
+        # Get snapshot UUIDs for this zone from Gandi.
+        # @return [Hash{String => Time}] Mapping UUID to time made.
+        # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+        def self.list(zone_uuid)
+          _response, data = GandiV5.get url(zone_uuid)
+          Hash[data.map { |snapshot| [snapshot['uuid'], Time.parse(snapshot['date_created'])] }]
+        end
+
         # Get snapshot from Gandi.
         # @param zone_uuid [String, #to_s] the UUID of the zone the snapshot was made of.
         # @param snapshot_uuid [String, #to_s] the UUID of the snapshot to fetch.
@@ -50,8 +58,9 @@ class GandiV5
           "#{BASE}zones/#{CGI.escape zone_uuid}/snapshots/#{CGI.escape uuid}"
         end
 
-        def self.url(zone_uuid, snapshot_uuid)
-          "#{BASE}zones/#{CGI.escape zone_uuid}/snapshots/#{CGI.escape snapshot_uuid}"
+        def self.url(zone_uuid, snapshot_uuid = nil)
+          "#{BASE}zones/#{CGI.escape zone_uuid}/snapshots" +
+            (snapshot_uuid ? "/#{CGI.escape snapshot_uuid}" : '')
         end
         private_class_method :url
       end

@@ -236,10 +236,10 @@ describe GandiV5::LiveDNS::Zone do
   end
 
   it '#snapshots' do
-    returns = [{ 'uuid' => 'snapshot-uuid', 'date_created' => '2016-12-16T16:51:26Z' }]
-    expect(GandiV5).to receive(:get).with('https://dns.api.gandi.net/api/v5/zones/zone-uuid/snapshots')
-                                    .and_return([nil, returns])
-    expect(subject.snapshots).to eq('snapshot-uuid' => Time.new(2016, 12, 16, 16, 51, 26, 0))
+    returns = double Hash
+    expect(GandiV5::LiveDNS::Zone::Snapshot).to receive(:list).with('zone-uuid')
+                                                              .and_return(returns)
+    expect(subject.snapshots).to be returns
   end
 
   it '#snapshot' do

@@ -1,6 +1,6 @@
 # Gandi V5 API Gem Changelog
 
-## Version 0.1.1
+## Version 0.2.0
 
 * Enhancements to GandiV5::Domain
   * .availability(fqdn, **options) moved to GandiV5::Domain::Availability.fetch(fqdn, **options)
@@ -17,6 +17,9 @@
 * Enhancements to GandiV5::Email::Slot
   * .create now returns created slot
   * #delete now checks for inactiveness and refundableness
+* Enhancements to GandiV5::LiveDNS::Zone::Snapshot
+  * Add .list
+  * Add .fetch
 * Add support for ruby 2.6.3
 
 ## Version 0.1.0

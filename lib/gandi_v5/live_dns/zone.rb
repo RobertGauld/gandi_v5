@@ -211,12 +211,11 @@ class GandiV5
         data['message']
       end
 
-      # Get snapshot UUIDs for this zone from Gandi.lib/gandi_v5/domain/auto_renew.rb
-      # @return [Hash{String => Time}] Mapping UUID to time made.
+      # Get snapshot UUIDs for this zone from Gandi.
+      # @return [Hash{String => Time}] Mapping snapshot UUID to time made.
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def snapshots
-        _response, data = GandiV5.get "#{url}/snapshots"
-        Hash[data.map { |snapshot| [snapshot['uuid'], Time.parse(snapshot['date_created'])] }]
+        GandiV5::LiveDNS::Zone::Snapshot.list uuid
       end
 
       # Get snapshot from Gandi.
