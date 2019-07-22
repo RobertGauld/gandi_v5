@@ -3,6 +3,12 @@
 describe GandiV5 do
   let(:api_key) { ENV['GANDI_API_KEY'] }
 
+  it '.domains' do
+    returns = double Array
+    expect(GandiV5::Domain).to receive(:list).with(param: :value).and_return(returns)
+    expect(described_class.domains(param: :value)).to be returns
+  end
+
   it 'Has a version' do
     expect(defined?(GandiV5::VERSION)).to eq 'constant'
     expect(GandiV5::VERSION).to_not be_empty

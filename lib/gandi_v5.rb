@@ -26,6 +26,11 @@ require 'securerandom'
 class GandiV5
   BASE = 'https://api.gandi.net/v5/'
 
+  # @see GandiV5::Domain.list
+  def self.domains(**params)
+    GandiV5::Domain.list(**params)
+  end
+
   class << self
     attr_writer :api_key
 

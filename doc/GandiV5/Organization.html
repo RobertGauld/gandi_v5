@@ -1,0 +1,2341 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: GandiV5::Organization
+  
+    &mdash; Documentation by YARD 0.9.19
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "GandiV5::Organization";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (O)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span>
+     &raquo; 
+    <span class="title">Organization</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: GandiV5::Organization
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">GandiV5::Organization</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/gandi_v5/organization.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>The Organization API is a read-only API. All organization management must be performed via the web interface.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://api.gandi.net/docs/organization" target="_parent" title="https://api.gandi.net/docs/organization">https://api.gandi.net/docs/organization</a></li>
+    
+  </ul>
+
+</div>
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#city-instance_method" title="#city (instance method)">#<strong>city</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The city name of the address.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#country-instance_method" title="#country (instance method)">#<strong>country</strong>  &#x21d2; nil, String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Country ISO code of the address.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#email-instance_method" title="#email (instance method)">#<strong>email</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The email address of the user.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#first_name-instance_method" title="#first_name (instance method)">#<strong>first_name</strong>  &#x21d2; nil, String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The first name of the user.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#lang-instance_method" title="#lang (instance method)">#<strong>lang</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Language used by the user.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#last_name-instance_method" title="#last_name (instance method)">#<strong>last_name</strong>  &#x21d2; nil, String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The last name of the user.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#name-instance_method" title="#name (instance method)">#<strong>name</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The sharing name of the user.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#phone-instance_method" title="#phone (instance method)">#<strong>phone</strong>  &#x21d2; nil, String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The phone number of the user.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#security_email-instance_method" title="#security_email (instance method)">#<strong>security_email</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Email address used for security processes such as account recovery.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#security_email_validated-instance_method" title="#security_email_validated (instance method)">#<strong>security_email_validated</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>State of the email validation process.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#security_email_validation_deadline-instance_method" title="#security_email_validation_deadline (instance method)">#<strong>security_email_validation_deadline</strong>  &#x21d2; Time </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Deadline for the email address validation process.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#security_phone-instance_method" title="#security_phone (instance method)">#<strong>security_phone</strong>  &#x21d2; nil, String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Phone number used for security recovery processes such as totp recovery.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#street_address-instance_method" title="#street_address (instance method)">#<strong>street_address</strong>  &#x21d2; nil, String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The street address of the user.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#username-instance_method" title="#username (instance method)">#<strong>username</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The username of the user.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#uuid-instance_method" title="#uuid (instance method)">#<strong>uuid</strong>  &#x21d2; String </a>
+    
+
+    
+      (also: #organization_uuid)
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The sharing uuid of the user.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#zip-instance_method" title="#zip (instance method)">#<strong>zip</strong>  &#x21d2; nil, String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Zip code of the address.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#fetch-class_method" title="fetch (class method)">.<strong>fetch</strong>  &#x21d2; GandiV5::Organization </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get information about the current authenticated user.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Data.html#from_gandi-instance_method" title="GandiV5::Data#from_gandi (method)">#from_gandi</a></span>, <span class='object_link'><a href="Data.html#included-class_method" title="GandiV5::Data.included (method)">included</a></span>, <span class='object_link'><a href="Data.html#initialize-instance_method" title="GandiV5::Data#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Data.html#to_gandi-instance_method" title="GandiV5::Data#to_gandi (method)">#to_gandi</a></span>, <span class='object_link'><a href="Data.html#to_h-instance_method" title="GandiV5::Data#to_h (method)">#to_h</a></span>, <span class='object_link'><a href="Data.html#values_at-instance_method" title="GandiV5::Data#values_at (method)">#values_at</a></span></p>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="city-instance_method">
+  
+    #<strong>city</strong>  &#x21d2; <tt>String</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the city name of the address.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the city name of the address.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="country-instance_method">
+  
+    #<strong>country</strong>  &#x21d2; <tt>nil</tt>, <tt>String</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns country ISO code of the address.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>, <tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>country ISO code of the address.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="email-instance_method">
+  
+    #<strong>email</strong>  &#x21d2; <tt>String</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the email address of the user.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the email address of the user.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="first_name-instance_method">
+  
+    #<strong>first_name</strong>  &#x21d2; <tt>nil</tt>, <tt>String</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the first name of the user.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>, <tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the first name of the user.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="lang-instance_method">
+  
+    #<strong>lang</strong>  &#x21d2; <tt>String</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns language used by the user.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>language used by the user.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="last_name-instance_method">
+  
+    #<strong>last_name</strong>  &#x21d2; <tt>nil</tt>, <tt>String</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the last name of the user.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>, <tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the last name of the user.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="name-instance_method">
+  
+    #<strong>name</strong>  &#x21d2; <tt>String</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the sharing name of the user.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the sharing name of the user.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="phone-instance_method">
+  
+    #<strong>phone</strong>  &#x21d2; <tt>nil</tt>, <tt>String</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the phone number of the user.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>, <tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the phone number of the user.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="security_email-instance_method">
+  
+    #<strong>security_email</strong>  &#x21d2; <tt>String</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns email address used for security processes such as account recovery.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>email address used for security processes such as account recovery.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="security_email_validated-instance_method">
+  
+    #<strong>security_email_validated</strong>  &#x21d2; <tt>Boolean</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns state of the email validation process.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>state of the email validation process.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="security_email_validation_deadline-instance_method">
+  
+    #<strong>security_email_validation_deadline</strong>  &#x21d2; <tt>Time</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns deadline for the email address validation process.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Time</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>deadline for the email address validation process.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="security_phone-instance_method">
+  
+    #<strong>security_phone</strong>  &#x21d2; <tt>nil</tt>, <tt>String</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns phone number used for security recovery processes such as totp recovery.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>, <tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>phone number used for security recovery processes such as totp recovery.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="street_address-instance_method">
+  
+    #<strong>street_address</strong>  &#x21d2; <tt>nil</tt>, <tt>String</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the street address of the user.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>, <tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the street address of the user.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="username-instance_method">
+  
+    #<strong>username</strong>  &#x21d2; <tt>String</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the username of the user.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the username of the user.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="uuid-instance_method">
+  
+    #<strong>uuid</strong>  &#x21d2; <tt>String</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='organization_uuid-instance_method'>organization_uuid</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the sharing uuid of the user.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the sharing uuid of the user.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="zip-instance_method">
+  
+    #<strong>zip</strong>  &#x21d2; <tt>nil</tt>, <tt>String</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns zip code of the address.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>, <tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>zip code of the address.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 44</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="GandiV5::Organization (class)">Organization</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span>
+
+  <span class='id identifier rubyid_members'>members</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:lang</span><span class='comma'>,</span> <span class='symbol'>:city</span><span class='comma'>,</span> <span class='symbol'>:zip</span><span class='comma'>,</span> <span class='symbol'>:country</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='symbol'>:phone</span><span class='comma'>,</span> <span class='symbol'>:security_phone</span><span class='comma'>,</span>
+          <span class='symbol'>:security_email</span><span class='comma'>,</span> <span class='symbol'>:security_email_validated</span><span class='comma'>,</span> <span class='symbol'>:security_email_validation_deadline</span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:uuid</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:first_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>firstname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:last_name</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lastname</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:street_address</span><span class='comma'>,</span> <span class='label'>gandi_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>streetaddr</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_member'>member</span> <span class='symbol'>:security_email_validation_deadline</span><span class='comma'>,</span> <span class='label'>converter:</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data.html" title="GandiV5::Data (module)">Data</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter.html" title="GandiV5::Data::Converter (class)">Converter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Data/Converter/Time.html" title="GandiV5::Data::Converter::Time (class)">Time</a></span></span>
+
+  <span class='kw'>alias</span> <span class='id identifier rubyid_organization_uuid'>organization_uuid</span> <span class='id identifier rubyid_uuid'>uuid</span>
+
+  <span class='comment'># Get information about the current authenticated user.
+</span>  <span class='comment'># @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
+</span>  <span class='comment'># @return [GandiV5::Organization]
+</span>  <span class='comment'># @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+    <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="fetch-class_method">
+  
+    .<strong>fetch</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="GandiV5::Organization (class)">GandiV5::Organization</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get information about the current authenticated user.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="GandiV5::Organization (class)">GandiV5::Organization</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Error/GandiError.html" title="GandiV5::Error::GandiError (class)">GandiV5::Error::GandiError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if Gandi returns an error.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://api.gandi.net/docs/organization#get-v5-organization-user-info" target="_parent" title="https://api.gandi.net/docs/organization#get-v5-organization-user-info">https://api.gandi.net/docs/organization#get-v5-organization-user-info</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+61
+62
+63
+64</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/gandi_v5/organization.rb', line 61</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span>
+  <span class='id identifier rubyid__response'>_response</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../GandiV5.html" title="GandiV5 (class)">GandiV5</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../GandiV5.html#get-class_method" title="GandiV5.get (method)">get</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../GandiV5.html#BASE-constant" title="GandiV5::BASE (constant)">BASE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>organization/user-info</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_from_gandi'>from_gandi</span> <span class='id identifier rubyid_data'>data</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Mon Jul 22 16:44:28 2019 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.19 (ruby-2.6.3).
+</div>
+
+    </div>
+  </body>
+</html>

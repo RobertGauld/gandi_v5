@@ -2,7 +2,7 @@
 
 describe 'Domain features' do
   it 'List domains', :vcr do
-    list = GandiV5::Domain.list
+    list = GandiV5.domains
 
     expect(list.count).to eq 1
     expect(list.first.fqdn).to eq 'example.net'

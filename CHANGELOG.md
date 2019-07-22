@@ -30,6 +30,8 @@
   * Add .fetch
   * Add #zone and #fetch_zone
 * Add support for ruby 2.6.3
+* Add aliasing methods:
+  * GandiV5.domains -> GandiV5::Domain.list
 
 ## Version 0.1.0
 

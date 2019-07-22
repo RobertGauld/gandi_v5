@@ -73,7 +73,7 @@ GandiV5.api_key = '…' # Unless you've set it in the environment variable GANDI
 
 ```ruby
 # Get an array of all your domains.
-domains = GandiV5::Domain.list
+domains = GandiV5.domains
 
 # Since each domain has only basic information, lets get all of the information.
 domains.map!(&:refresh)
