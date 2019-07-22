@@ -21,6 +21,12 @@ describe GandiV5 do
     expect(described_class.mailboxes('example.com', param: :value)).to be returns
   end
 
+  it '.mailbox_slots' do
+    returns = double Array
+    expect(GandiV5::Email::Slot).to receive(:list).with('example.com').and_return(returns)
+    expect(described_class.mailbox_slots('example.com')).to be returns
+  end
+
   it 'Has a version' do
     expect(defined?(GandiV5::VERSION)).to eq 'constant'
     expect(GandiV5::VERSION).to_not be_empty

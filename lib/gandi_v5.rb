@@ -41,6 +41,11 @@ class GandiV5
     GandiV5::Email::Mailbox.list(fqdn, **params)
   end
 
+  # @see GandiV5::Email::Slot.list
+  def self.mailbox_slots(fqdn)
+    GandiV5::Email::Slot.list(fqdn)
+  end
+
   class << self
     attr_writer :api_key
 
