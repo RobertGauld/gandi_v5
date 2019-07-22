@@ -21,6 +21,11 @@ class GandiV5
       GandiV5::LiveDNS::Domain.list
     end
 
+    # @see GandiV5::LiveDNS::Zone.list
+    def self.zones
+      GandiV5::LiveDNS::Zone.list
+    end
+
     # Raise an error if passed type is invalid.
     # @param type [String] the record type to check.
     # @return [nil]
