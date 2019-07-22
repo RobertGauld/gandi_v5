@@ -32,6 +32,7 @@
 * Add support for ruby 2.6.3
 * Add aliasing methods:
   * GandiV5.domains -> GandiV5::Domain.list
+  * GandiV5.domain -> GandiV5::Domain.fetch
 
 ## Version 0.1.0
 

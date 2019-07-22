@@ -3,6 +3,12 @@
 describe GandiV5 do
   let(:api_key) { ENV['GANDI_API_KEY'] }
 
+  it '.domain' do
+    returns = double GandiV5::Domain
+    expect(GandiV5::Domain).to receive(:fetch).with('example.com').and_return(returns)
+    expect(described_class.domain('example.com')).to be returns
+  end
+
   it '.domains' do
     returns = double Array
     expect(GandiV5::Domain).to receive(:list).with(param: :value).and_return(returns)

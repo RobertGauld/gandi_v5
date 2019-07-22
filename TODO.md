@@ -44,8 +44,7 @@
   * [ ] Test against jruby 9.3.0.0 when released (if aligned with ruby 2.6.0)
   * Consider adding:
     * [X] GandiV5.domains aliasing to GandiV5::Domain.list
-    * [ ] GandiV5.domain(fqdn) aliasing to GandiV5::Domain.fetch(fqdn)
-    * [ ] GandiV5.domain_availalility aliasing to GandiV5::Domain::Availability.fetch
+    * [X] GandiV5.domain(fqdn) aliasing to GandiV5::Domain.fetch(fqdn)
     * [ ] GandiV5.mailboxes(fqdn) aliasing to GandiV5::Email::Mailbox.list(fqdn)
     * [ ] GandiV5.mailbox_slots(fqdn) aliasing to GandiV5::Email::Slot.list(fqdn)
     * [ ] GandiV5.live_dns_domains aliasing to GandiV5::LiveDNS::Domain.list
