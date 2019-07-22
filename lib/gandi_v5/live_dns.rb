@@ -16,6 +16,11 @@ class GandiV5
       GandiV5::LiveDNS::Domain.fetch(fqdn)
     end
 
+    # @see GandiV5::LiveDNS::Domain.list
+    def self.domains
+      GandiV5::LiveDNS::Domain.list
+    end
+
     # Raise an error if passed type is invalid.
     # @param type [String] the record type to check.
     # @return [nil]

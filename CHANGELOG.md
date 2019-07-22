@@ -36,6 +36,7 @@
   * GandiV5.mailboxes -> GandiV5::Email::Mailbox.list
   * GandiV5.mailbox_slots -> GandiV5::Email::Slot.list
   * GandiV5::LiveDNS.domains -> GandiV5::LiveDNS::Domain.list
+  * GandiV5::LiveDNS.domain -> GandiV5::LiveDNS::Domain.fetch
 
 ## Version 0.1.0
 
