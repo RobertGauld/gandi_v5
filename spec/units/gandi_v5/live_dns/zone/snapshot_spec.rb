@@ -16,7 +16,29 @@ describe GandiV5::LiveDNS::Zone::Snapshot do
     expect(subject.delete).to eq 'Confirmation message.'
   end
 
-  it '#list' do
+  it '#fetch_zone' do
+    returns = double GandiV5::LiveDNS::Zone
+    expect(GandiV5::LiveDNS::Zone).to receive(:fetch).with('zone-uuid')
+                                                     .and_return(returns)
+    expect(subject.fetch_zone).to be returns
+  end
+
+  describe '#zone' do
+    it 'Not previously fetched' do
+      returns = double GandiV5::LiveDNS::Zone
+      expect(subject).to receive(:fetch_zone).and_return(returns)
+      expect(subject.zone).to be returns
+    end
+
+    it 'Previously fetched' do
+      returns = double GandiV5::LiveDNS::Zone
+      subject.instance_exec { @zone = returns }
+      expect(subject).to_not receive(:fetch_zone)
+      expect(subject.zone).to be returns
+    end
+  end
+
+  it '.list' do
     body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Zone_Snapshot', 'list.yaml'))
     expect(GandiV5).to receive(:get).with('https://dns.api.gandi.net/api/v5/zones/zone-uuid/snapshots')
                                     .and_return([nil, YAML.load_file(body_fixture)])

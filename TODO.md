@@ -46,7 +46,6 @@
 
 * Version 0.2.2
   * [ ] Add LiveDNS::Domain#zone to get the LiveDNS::Zone for the domain
-  * [ ] Add LiveDNS::Zone::Snapshot#.zone to get the LiveDNS::Zone for the snapshot.
 
 * Version 0.2.3
   * [ ] Test against truffleruby if aligned with ruby 2.6.0 (looks like it is)

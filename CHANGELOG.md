@@ -20,6 +20,7 @@
 * Enhancements to GandiV5::LiveDNS::Zone::Snapshot
   * Add .list
   * Add .fetch
+  * Add #zone and #fetch_zone
 * Add support for ruby 2.6.3
 
 ## Version 0.1.0

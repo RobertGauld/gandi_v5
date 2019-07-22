@@ -34,6 +34,20 @@ class GandiV5
           data['message']
         end
 
+        # Get the snapshot's zone from Gandi.
+        # @return [GandiV5::LiveDNS::Zone]
+        # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+        def fetch_zone
+          GandiV5::LiveDNS::Zone.fetch zone_uuid
+        end
+
+        # The snapshot's zone (fetching from Gandi if required).
+        # @return [GandiV5::LiveDNS::Zone]
+        # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+        def zone
+          @zone ||= fetch_zone
+        end
+
         # Get snapshot UUIDs for this zone from Gandi.
         # @return [Hash{String => Time}] Mapping UUID to time made.
         # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
