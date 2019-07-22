@@ -1,0 +1,7 @@
+---
+- id: organization-uuid
+  name: FirstLast
+  corporate: false
+  firstname: First
+  lastname: Last
+  reseller: false

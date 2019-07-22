@@ -59,8 +59,35 @@ class GandiV5
     # @return [GandiV5::Organization]
     # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def self.fetch
-      _response, data = GandiV5.get "#{BASE}organization/user-info"
+      _response, data = GandiV5.get "#{url}/user-info"
       from_gandi data
     end
+
+    # List organisations.
+    # @see https://api.gandi.net/docs/domains#get-v5-organization-organizations
+    # @param name [String, #to_s] (optional)
+    #   filters the list by name, with optional patterns.
+    #   e.g. "alice", "ali*", "*ice"
+    # @param type [String, #to_s] (optional)
+    #   filters the list by type of organization.
+    #   One of: "individual", "company", "association", "publicbody"
+    # @param permission [String, #to_s] (optional)
+    #   filters the list by the permission the authenticated user
+    #   has on that organization and products in it.
+    # @param sort_by [String, #to_s] (optional default "name") how to sort the list.
+    # @return [Array<GandiV5::Organization>]
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    def self.list(**params)
+      params['~name'] = params.delete(:name) if params.key?(:name)
+      _resp, data = GandiV5.get "#{url}/organizations", params: params
+      data.map { |organisation| from_gandi organisation }
+    end
+
+    private
+
+    def self.url
+      "#{BASE}organization"
+    end
+    private_class_method :url
   end
 end
