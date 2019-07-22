@@ -2,7 +2,7 @@
 
 ## Version 0.2.1
 
-* 
+* Add GandiV5::Organization.list
 
 ## Version 0.2.0
 
