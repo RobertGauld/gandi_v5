@@ -1,5 +1,9 @@
 # Gandi V5 API Gem Changelog
 
+## Version 0.2.1
+
+* 
+
 ## Version 0.2.0
 
 * Enhancements to GandiV5::Domain
