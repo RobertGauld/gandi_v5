@@ -21,12 +21,11 @@
   * LiveDNS Domain:
     * [ ] #replace_??_records_for - incorporate into #replace_records_for
           <https://www.rubydoc.info/gems/yard/file/docs/Tags.md#override>
-    * [ ] Add #zone method
+    * [X] Add #zone method
   * LiveDNS Zone:
     * [ ] .create - fetch created zone
     * [ ] #replace_??_records_for - incorporate into #replace_records_for
           <https://www.rubydoc.info/gems/yard/file/docs/Tags.md#override>
-    * [ ] Add #zone method
   * LiveDNS Zone Snapshot:
     * [X] Move method for getting listing to here
 
@@ -45,9 +44,6 @@
     * [ ] Domain API: Support for buying a domain as a reseller for a customer
 
 * Version 0.2.2
-  * [ ] Add LiveDNS::Domain#zone to get the LiveDNS::Zone for the domain
-
-* Version 0.2.3
   * [ ] Test against truffleruby if aligned with ruby 2.6.0 (looks like it is)
   * [ ] Test against jruby 9.3.0.0 when released (if aligned with ruby 2.6.0)
   * Consider adding:

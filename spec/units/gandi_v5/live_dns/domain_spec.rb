@@ -221,6 +221,28 @@ describe GandiV5::LiveDNS::Domain do
     end
   end
 
+  it '#fetch_zone' do
+    returns = double GandiV5::LiveDNS::Zone
+    expect(GandiV5::LiveDNS::Zone).to receive(:fetch).with('zone-uuid')
+                                                     .and_return(returns)
+    expect(subject.fetch_zone).to be returns
+  end
+
+  describe '#zone' do
+    it 'Not previously fetched' do
+      returns = double GandiV5::LiveDNS::Zone
+      expect(subject).to receive(:fetch_zone).and_return(returns)
+      expect(subject.zone).to be returns
+    end
+
+    it 'Previously fetched' do
+      returns = double GandiV5::LiveDNS::Zone
+      subject.instance_exec { @zone = returns }
+      expect(subject).to_not receive(:fetch_zone)
+      expect(subject.zone).to be returns
+    end
+  end
+
   describe '.list' do
     subject { described_class.list }
 
