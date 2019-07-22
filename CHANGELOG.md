@@ -19,6 +19,8 @@
   * #delete now checks for inactiveness and refundableness
 * Enhancements to GandiV5::LiveDNS::Domain
   * Add #zone and #fetch_zone
+* Enhancements to GandiV5::LiveDNS::Zone
+  * .create now returns created zone
 * Enhancements to GandiV5::LiveDNS::Zone::Snapshot
   * Add .list
   * Add .fetch

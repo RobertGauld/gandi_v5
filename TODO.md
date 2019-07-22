@@ -23,7 +23,7 @@
           <https://www.rubydoc.info/gems/yard/file/docs/Tags.md#override>
     * [X] Add #zone method
   * LiveDNS Zone:
-    * [ ] .create - fetch created zone
+    * [X] .create - fetch created zone
     * [ ] #replace_??_records_for - incorporate into #replace_records_for
           <https://www.rubydoc.info/gems/yard/file/docs/Tags.md#override>
   * LiveDNS Zone Snapshot:

@@ -254,17 +254,18 @@ class GandiV5
       # Create a new zone.
       # @param name [String] the name for the created zone.
       # @param sharing_id [String] the UUID of the account to ceate the zone under.
-      # @return [String] The confirmation message from Gandi.
+      # @return [GandiV5::LiveDNS::Zone] The created zone.
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.create(name, sharing_id: nil)
         params = sharing_id ? { sharing_id: sharing_id } : {}
 
-        _response, data = GandiV5.post(
+        response, _data = GandiV5.post(
           url,
           { name: name }.to_json,
           params: params
         )
-        data['message']
+
+        fetch response.headers[:location].split('/').last
       end
 
       # List the zones.

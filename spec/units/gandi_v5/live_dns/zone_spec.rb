@@ -271,19 +271,29 @@ describe GandiV5::LiveDNS::Zone do
   end
 
   describe '.create' do
+    let(:created_response) do
+      double(
+        RestClient::Response,
+        headers: { location: 'https://dns.api.gandi.net/v5/zones/created-zone-uuid' }
+      )
+    end
+    let(:created_zone) { double GandiV5::LiveDNS::Zone }
+
     it 'With sharing-id' do
       body = '{"name":"Name"}'
       params = { sharing_id: 'sharing-id' }
       expect(GandiV5).to receive(:post).with('https://dns.api.gandi.net/api/v5/zones', body, params: params)
-                                       .and_return([nil, { 'message' => 'Confirmation message.' }])
-      expect(described_class.create('Name', sharing_id: 'sharing-id')).to eq 'Confirmation message.'
+                                       .and_return([created_response, { 'message' => 'Confirmation message.' }])
+      expect(described_class).to receive(:fetch).with('created-zone-uuid').and_return(created_zone)
+      expect(described_class.create('Name', sharing_id: 'sharing-id')).to be created_zone
     end
 
     it 'Without sharing-id' do
       body = '{"name":"Name"}'
       expect(GandiV5).to receive(:post).with('https://dns.api.gandi.net/api/v5/zones', body, params: {})
-                                       .and_return([nil, { 'message' => 'Confirmation message.' }])
-      expect(described_class.create('Name')).to eq 'Confirmation message.'
+                                       .and_return([created_response, { 'message' => 'Confirmation message.' }])
+      expect(described_class).to receive(:fetch).with('created-zone-uuid').and_return(created_zone)
+      expect(described_class.create('Name')).to be created_zone
     end
   end
 
