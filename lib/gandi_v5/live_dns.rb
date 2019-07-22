@@ -11,6 +11,11 @@ class GandiV5
       WKS SRV LOC SPF CAA DS SSHFP PTR KEY DNAME TLSA OPENPGPKEY CDS
     ].freeze
 
+    # @see GandiV5::LiveDNS::Domain.fetch
+    def self.domain(fqdn)
+      GandiV5::LiveDNS::Domain.fetch(fqdn)
+    end
+
     # Raise an error if passed type is invalid.
     # @param type [String] the record type to check.
     # @return [nil]

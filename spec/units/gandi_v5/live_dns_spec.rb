@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 describe GandiV5::LiveDNS do
+  it '.domain' do
+    returns = double GandiV5::LiveDNS::Domain
+    expect(GandiV5::LiveDNS::Domain).to receive(:fetch).with('example.com').and_return(returns)
+    expect(described_class.domain('example.com')).to be returns
+  end
+
   describe '.require_valid_record_type' do
     it 'Does nothing for valid type' do
       expect { described_class.require_valid_record_type 'A' }.to_not raise_error
