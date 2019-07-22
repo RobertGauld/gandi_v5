@@ -41,6 +41,8 @@
     * [ ] Email API: Forwarding address management
   * Gandi updates from 2019-07-10:
     * [ ] Domain API: Domain renew information (GET) returned schema simplified
+  * Gandi updates from 2019-07-15:
+    * [ ] Domain API: Support for buying a domain as a reseller for a customer
 
 * Version 0.2.2
   * [ ] Add LiveDNS::Domain#zone to get the LiveDNS::Zone for the domain
