@@ -173,30 +173,35 @@ describe GandiV5::LiveDNS::Domain do
     end
   end
 
-  it '#replace_records_for' do
-    url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records/name'
-    body = '{"items":[{"rrset_type":"TXT","rrset_values":["a"]}]}'
-    expect(GandiV5).to receive(:put).with(url, body)
-                                    .and_return([nil, { 'message' => 'Confirmation message.' }])
-    records = { type: 'TXT', values: ['a'] }
-    expect(subject.replace_records_for('name', records)).to eq 'Confirmation message.'
-  end
-
-  describe '#replace_??_records_for' do
-    it '#replace_a_records_for' do
-      url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records/name/A'
-      body = '{"rrset_ttl":600,"rrset_values":["192.168.0.1","192.168.0.2"]}'
+  describe '#replace_records_for' do
+    it 'Given no type or ttl' do
+      url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records/name'
+      body = '{"items":[{"rrset_type":"TXT","rrset_values":["a"]}]}'
       expect(GandiV5).to receive(:put).with(url, body)
                                       .and_return([nil, { 'message' => 'Confirmation message.' }])
-      expect(subject.replace_a_records_for('name', 600, '192.168.0.1', '192.168.0.2')).to eq 'Confirmation message.'
+      records = [{ type: 'TXT', values: ['a'] }]
+      expect(subject.replace_records_for('name', records)).to eq 'Confirmation message.'
     end
 
-    it '#replace_txt_records_for' do
+    it 'Given type and ttl' do
       url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records/name/TXT'
-      body = '{"rrset_ttl":600,"rrset_values":["a","b"]}'
+      body = '{"rrset_values":["a"],"rrset_ttl":600}'
       expect(GandiV5).to receive(:put).with(url, body)
                                       .and_return([nil, { 'message' => 'Confirmation message.' }])
-      expect(subject.replace_txt_records_for('name', 600, 'a', 'b')).to eq 'Confirmation message.'
+      expect(subject.replace_records_for('name', ['a'], type: 'TXT', ttl: 600)).to eq 'Confirmation message.'
+    end
+
+    it 'Given type but no ttl' do
+      url = 'https://dns.api.gandi.net/api/v5/domains/example.com/records/name/TXT'
+      body = '{"rrset_values":["a"],"rrset_ttl":null}'
+      expect(GandiV5).to receive(:put).with(url, body)
+                                      .and_return([nil, { 'message' => 'Confirmation message.' }])
+      expect(subject.replace_records_for('name', ['a'], type: 'TXT')).to eq 'Confirmation message.'
+    end
+
+    it 'Given ttl but no type' do
+      expect(GandiV5).to_not receive(:put)
+      expect { subject.replace_records_for 'name', 'a', ttl: 600 }.to raise_error ArgumentError, 'missing keyword: type'
     end
   end
 

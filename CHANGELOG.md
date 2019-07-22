@@ -19,8 +19,12 @@
   * #delete now checks for inactiveness and refundableness
 * Enhancements to GandiV5::LiveDNS::Domain
   * Add #zone and #fetch_zone
+  * Remove #replace_*_records_for methods
+  * Changes to #replace_records_for to allow calling with name, type, ttl and values. When calling with name and fecords records MUST be passed as an array.
 * Enhancements to GandiV5::LiveDNS::Zone
   * .create now returns created zone
+  * Remove #replace_*_records_for methods
+  * Changes to #replace_records_for to allow calling with name, type, ttl and values. When calling with name and fecords records MUST be passed as an array.
 * Enhancements to GandiV5::LiveDNS::Zone::Snapshot
   * Add .list
   * Add .fetch

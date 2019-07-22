@@ -136,33 +136,38 @@ class GandiV5
         data['message']
       end
 
-      # Replace records for a name in this domain.
-      # @param name [String]
-      # @param records
-      #   [Array<Hash<type: String, ttl: Integer, values: Array<String>>>]
-      #   the records to add.
+      # @override replace_records_for(name, records)
+      #   Replace records for a name in this domain.
+      #   @param name [String]
+      #   @param records
+      #     [Array<Hash<type: String, ttl: Integer, values: Array<String>>>]
+      #     the records to add.
+      # @override replace_records_for(name, values, type: nil, ttl: nil)
+      #   Replace records for a name in this domain.
+      #   @param name [String]
+      #   @param type [String] the record type.
+      #   @param ttl [Integer] the TTL to set for the record.
+      #   @param values [Array<String>] the values to set for the record.
+      #   @raise [ArgumentError] if ttl is present and type is absent.
       # @return [String] The confirmation message from Gandi.
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
-      def replace_records_for(name, *records)
-        body = {
-          items: records.map { |r| r.transform_keys { |k| "rrset_#{k}" } }
-        }.to_json
-        _response, data = GandiV5.put "#{url}/records/#{name}", body
-        data['message']
-      end
+      def replace_records_for(name, records, type: nil, ttl: nil)
+        fail ArgumentError, 'missing keyword: type' if ttl && type.nil?
 
-      GandiV5::LiveDNS::RECORD_TYPES.each do |type|
-        # Replace records of a given type for a name in this domain.
-        # @return [String] The confirmation message from Gandi.
-        # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
-        define_method "replace_#{type.downcase}_records_for" do |name, ttl, *values|
+        if type
+          GandiV5::LiveDNS.require_valid_record_type type
+          body = { rrset_values: records, rrset_ttl: ttl }
+          # body[:rrset_ttl] = ttl if ttl
+          _response, data = GandiV5.put "#{url}/records/#{name}/#{type}", body.to_json
+
+        else
           body = {
-            rrset_ttl: ttl,
-            rrset_values: values
-          }.to_json
-          _response, data = GandiV5.put "#{url}/records/#{name}/#{type}", body
-          data['message']
+            items: records.map { |r| r.transform_keys { |k| "rrset_#{k}" } }
+          }
+          _response, data = GandiV5.put "#{url}/records/#{name}", body.to_json
         end
+
+        data['message']
       end
 
       # Change the zone used by this domain.
