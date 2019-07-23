@@ -4,7 +4,7 @@ describe GandiV5::Domain do
   subject { described_class.new fqdn: 'example.com' }
 
   describe '.list' do
-    let(:body_fixture) { File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'list.yaml')) }
+    let(:body_fixture) { File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'list.yml')) }
 
     describe 'With default values' do
       subject { described_class.list }
@@ -89,7 +89,7 @@ describe GandiV5::Domain do
     subject { described_class.fetch 'example.com' }
 
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'get.yaml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch.yml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com')
                                       .and_return([nil, YAML.load_file(body_fixture)])
     end
@@ -219,7 +219,7 @@ describe GandiV5::Domain do
 
   describe '#refresh' do
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'get.yaml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch.yml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com')
                                       .and_return([nil, YAML.load_file(body_fixture)])
       subject.refresh
@@ -275,7 +275,7 @@ describe GandiV5::Domain do
       subject { described_class.new(fqdn: 'example.com').fetch_contacts }
 
       before(:each) do
-        body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch_contacts.yaml'))
+        body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch_contacts.yml'))
         expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/contacts')
                                         .and_return([nil, YAML.load_file(body_fixture)])
       end
@@ -332,7 +332,7 @@ describe GandiV5::Domain do
       subject { described_class.new(fqdn: 'example.com').fetch_renewal_information }
 
       before(:each) do
-        body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'renewal_info.yaml'))
+        body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch_renewal_info.yml'))
         expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/renew')
                                         .and_return([nil, YAML.load_file(body_fixture)])
       end
@@ -425,7 +425,8 @@ describe GandiV5::Domain do
 
       describe 'Information is available' do
         before(:each) do
-          body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'restore_info.yaml'))
+          body_fixture = File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch_restore_info.yml')
+          body_fixture = File.expand_path(body_fixture)
           expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/restore')
                                           .and_return([nil, YAML.load_file(body_fixture)])
         end

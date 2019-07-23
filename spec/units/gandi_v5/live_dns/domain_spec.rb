@@ -7,7 +7,7 @@ describe GandiV5::LiveDNS::Domain do
 
   describe '#refresh' do
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Domain', 'get.yaml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Domain', 'fetch.yml'))
       expect(GandiV5).to receive(:get).with('https://dns.api.gandi.net/api/v5/domains/example.com')
                                       .and_return([nil, YAML.load_file(body_fixture)])
       subject.refresh
@@ -252,7 +252,7 @@ describe GandiV5::LiveDNS::Domain do
     subject { described_class.list }
 
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Domain', 'list.yaml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Domain', 'list.yml'))
       expect(GandiV5).to receive(:get).with('https://dns.api.gandi.net/api/v5/domains')
                                       .and_return([nil, YAML.load_file(body_fixture)])
     end
@@ -266,7 +266,7 @@ describe GandiV5::LiveDNS::Domain do
     subject { described_class.fetch 'example.com' }
 
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Domain', 'get.yaml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Domain', 'fetch.yml'))
       expect(GandiV5).to receive(:get).with('https://dns.api.gandi.net/api/v5/domains/example.com')
                                       .and_return([nil, YAML.load_file(body_fixture)])
     end

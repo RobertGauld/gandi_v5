@@ -3,7 +3,7 @@
 describe GandiV5::Domain::Availability do
   describe '.fetch' do
     let(:body_fixture) do
-      File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_Availability', 'fetch.yaml'))
+      File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_Availability', 'fetch.yml'))
     end
 
     describe 'With default values' do

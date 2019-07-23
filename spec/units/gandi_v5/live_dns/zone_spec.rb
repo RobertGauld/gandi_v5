@@ -306,7 +306,7 @@ describe GandiV5::LiveDNS::Zone do
     subject { described_class.list }
 
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Zone', 'list.yaml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Zone', 'list.yml'))
       expect(GandiV5).to receive(:get).with('https://dns.api.gandi.net/api/v5/zones')
                                       .and_return([nil, YAML.load_file(body_fixture)])
     end
@@ -328,7 +328,7 @@ describe GandiV5::LiveDNS::Zone do
     subject { described_class.fetch 'zone-uuid' }
 
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Zone', 'get.yaml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Zone', 'fetch.yml'))
       expect(GandiV5).to receive(:get).with('https://dns.api.gandi.net/api/v5/zones/zone-uuid')
                                       .and_return([nil, YAML.load_file(body_fixture)])
     end

@@ -28,7 +28,7 @@ describe GandiV5::Email::Slot do
 
   describe '#refresh' do
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Slot', 'get.yaml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Slot', 'fetch.yml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/slots/example.com/123')
                                       .and_return([nil, YAML.load_file(body_fixture)])
       subject.refresh
@@ -151,7 +151,7 @@ describe GandiV5::Email::Slot do
     subject { described_class.fetch 'example.com', 123 }
 
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Slot', 'get.yaml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Slot', 'fetch.yml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/slots/example.com/123')
                                       .and_return([nil, YAML.load_file(body_fixture)])
     end
@@ -171,7 +171,7 @@ describe GandiV5::Email::Slot do
     subject { described_class.list 'example.com' }
 
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Slot', 'list.yaml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Slot', 'list.yml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/slots/example.com')
                                       .and_return([nil, YAML.load_file(body_fixture)])
     end

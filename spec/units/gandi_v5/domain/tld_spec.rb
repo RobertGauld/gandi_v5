@@ -2,7 +2,7 @@
 
 describe GandiV5::Domain::TLD do
   it '.list' do
-    body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_TLD', 'list.yaml'))
+    body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_TLD', 'list.yml'))
     expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/tlds')
                                     .and_return([nil, YAML.load_file(body_fixture)])
     expect(described_class.list.map(&:name)).to match_array %w[a b c]
@@ -12,7 +12,7 @@ describe GandiV5::Domain::TLD do
     subject { described_class.fetch 'name' }
 
     before(:each) do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_TLD', 'fetch.yaml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_TLD', 'fetch.yml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/tlds/name')
                                       .and_return([nil, YAML.load_file(body_fixture)])
     end

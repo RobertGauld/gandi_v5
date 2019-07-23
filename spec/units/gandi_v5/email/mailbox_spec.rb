@@ -9,7 +9,7 @@ describe GandiV5::Email::Mailbox do
 
   describe '#refresh' do
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Mailbox', 'get.yaml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Mailbox', 'fetch.yml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com/mailbox-uuid')
                                       .and_return([nil, YAML.load_file(body_fixture)])
       subject.refresh
@@ -260,7 +260,7 @@ describe GandiV5::Email::Mailbox do
     subject { described_class.fetch 'example.com', 'mailbox-uuid' }
 
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Mailbox', 'get.yaml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Mailbox', 'fetch.yml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com/mailbox-uuid')
                                       .and_return([nil, YAML.load_file(body_fixture)])
     end
@@ -281,7 +281,7 @@ describe GandiV5::Email::Mailbox do
 
   describe '.list' do
     let(:body_fixture) do
-      File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Mailbox', 'list.yaml'))
+      File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Mailbox', 'list.yml'))
     end
 
     describe 'With default values' do

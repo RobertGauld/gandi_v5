@@ -4,7 +4,7 @@ describe GandiV5::Billing do
   describe '.info' do
     subject { described_class.info }
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Billing', 'info.yaml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Billing', 'info.yml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/billing/info')
                                       .and_return([nil, YAML.load_file(body_fixture)])
     end
@@ -23,7 +23,7 @@ describe GandiV5::Billing do
   describe '.info (for a sharing_id)' do
     subject { described_class.info('sharing-id') }
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Billing', 'info.yaml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Billing', 'info.yml'))
       expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/billing/info/sharing-id')
                                       .and_return([nil, YAML.load_file(body_fixture)])
     end
