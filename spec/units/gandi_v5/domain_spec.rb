@@ -454,4 +454,54 @@ describe GandiV5::Domain do
       expect(subject.restore).to eq 'Confirmation message.'
     end
   end
+
+  describe '#live_dns' do
+    let(:live_dns) { double GandiV5::Domain::LiveDNS }
+    it 'Already fetched' do
+      subject.instance_exec(live_dns) { |live_dns| @livedns = live_dns }
+      expect(subject).to_not receive(:fetch_livedns)
+      expect(subject.livedns).to be live_dns
+    end
+
+    it 'Not already fetched' do
+      expect(subject).to receive(:fetch_livedns).and_return(live_dns)
+      expect(subject.livedns).to be live_dns
+    end
+  end
+
+  describe '#fetch_live_dns' do
+    before(:each) do
+      body_fixture = File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch_livedns.yml')
+      body_fixture = File.expand_path(body_fixture)
+      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/livedns')
+                                      .and_return([nil, YAML.load_file(body_fixture)])
+    end
+
+    describe 'Returned live_dns' do
+      subject { described_class.new(fqdn: 'example.com').fetch_livedns }
+
+      its('current') { should be :livedns }
+      its('name_servers') { should match_array ['1.2.3.4'] }
+      its('dnssec_available') { should be true }
+      its('livednssec_available') { should be true }
+    end
+
+    it 'Updates name_server' do
+      expect(subject.name_server).to be nil
+      subject.fetch_livedns
+      expect(subject.name_server).to be :livedns
+    end
+
+    it 'Updates name_servers' do
+      expect(subject.name_servers).to be nil
+      subject.fetch_livedns
+      expect(subject.name_servers).to match_array ['1.2.3.4']
+    end
+  end
+
+  it '#enable_livedns' do
+    expect(GandiV5).to receive(:post).with('https://api.gandi.net/v5/domain/domains/example.com/livedns')
+                                     .and_return([nil, { 'message' => 'Confirmation message.' }])
+    expect(subject.enable_livedns).to eq 'Confirmation message.'
+  end
 end

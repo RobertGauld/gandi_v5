@@ -1,0 +1,6 @@
+---
+current: livedns
+nameservers:
+  - '1.2.3.4'
+dnssec_available: true
+livednssec_available: true

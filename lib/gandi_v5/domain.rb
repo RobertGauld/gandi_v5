@@ -270,6 +270,38 @@ class GandiV5
                                    .prices.first
     end
 
+    # LiveDNS information for the domain.
+    # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain-livedns
+    # @return [GandiV5::Domain::LiveDNS]
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    def livedns
+      @livedns ||= fetch_livedns
+    end
+
+    # Requery Gandi for the domain's LiveDNS information.
+    # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain-livedns
+    # @return [GandiV5::Domain::LiveDNS]
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    def fetch_livedns
+      _response, data = GandiV5.get url('livedns')
+      @livedns = GandiV5::Domain::LiveDNS.from_gandi data
+      @name_server = @livedns.current
+      @name_servers = @livedns.name_servers
+      @livedns
+    end
+
+    # Enable LiveDNS for the domain.
+    # If you want to disable LiveDNS, change the nameservers.
+    # Please note that if the domain is on the classic Gandi DNS,
+    # this will also perform a copy of all existing records immediately afterwards.
+    # @see https://api.gandi.net/docs/domains#post-v5-domain-domains-domain-livedns
+    # @return [String] confirmation message from Gandi.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    def enable_livedns
+      _response, data = GandiV5.post url('livedns')
+      data['message']
+    end
+
     # Create (register) a new domain.
     # Warning! This is not a free operation. Please ensure your prepaid account has enough credit.
     # @see https://api.gandi.net/docs/domains#post-v5-domain-domains
