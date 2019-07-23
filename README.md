@@ -1,21 +1,7 @@
 [![Gem Version](https://badge.fury.io/rb/gandi_v5.png)](http://badge.fury.io/rb/gandi_v5)
-
-Master branch:
 [![Build Status](https://secure.travis-ci.org/robertgauld/gandi_v5.png?branch=master)](http://travis-ci.org/robertgauld/gandi_v5)
 [![Coveralls Status](https://coveralls.io/repos/robertgauld/gandi_v5/badge.png?branch=master)](https://coveralls.io/r/robertgauld/gandi_v5)
 [![Code Climate](https://codeclimate.com/github/robertgauld/gandi_v5.png?branch=master)](https://codeclimate.com/github/robertgauld/gandi_v5)
-
-Staging branch:
-[![Build Status](https://secure.travis-ci.org/robertgauld/gandi_v5.png?branch=staging)](http://travis-ci.org/robertgauld/gandi_v5)
-[![Coveralls Status](https://coveralls.io/repos/robertgauld/gandi_v5/badge.png?branch=staging)](https://coveralls.io/r/robertgauld/gandi_v5)
-
-
-## Build State
-This project uses continuous integration to help ensure that a quality product is delivered.
-Travis CI monitors two branches (versions) of the code:
-
-* Master (which is what gets released)
-* Staging (which is what is currently being developed ready for moving to master).
 
 
 ## Ruby Versions
@@ -88,6 +74,7 @@ We follow the [Semantic Versioning](http://semver.org/) concept.
 
 | Gem Version     | Gandi API Release Date | 
 | --------------- | ---------------------- |
+| 0.2.0           | 2019-05-16             |
 | 0.1.0           | 2019-05-16             |
 
 See <https://api.gandi.net/docs/reference#API-Changelog> to find out what
