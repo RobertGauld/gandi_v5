@@ -13,12 +13,12 @@ allow_http_connections_to = %w[localhost 127.0.0.1]
 
 Dotenv.load File.join(__dir__, 'test.env')
 
-SimpleCov.coverage_dir(File.join('tmp', 'coverage'))
+SimpleCov.coverage_dir(File.join('tmp', 'coverage')) unless ENV.key?('TRAVIS')
 SimpleCov.start do
   add_filter 'spec/'
 end
 
-if ENV['TRAVIS']
+if ENV.key?('TRAVIS')
   Coveralls.wear!
   allow_http_connections_to.push 'coveralls.io'
 end
