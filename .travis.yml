@@ -23,7 +23,7 @@ script:
   - bundle exec rubocop
   - bundle exec rspec
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT --coverage-input-type simplecov
 notifications:
   slack:
     on_success: always
