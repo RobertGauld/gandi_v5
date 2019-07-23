@@ -12,10 +12,18 @@ branches:
     - staging
     - /gh(?:\d)+(?:-.+)?/
     - /dev_ver_\d+\.\d+/
+env:
+  global:
+    # CC_TEST_REPORTER_ID for reporting test coverage to code climate
+    - secure: "C3AcK+/2A4h2+ZayJXc89EQp76o8/2RL03PdtVjWPI6cfBSwN174ImWSdIcs6+Bjv8GH+bADsM4epkTjI7H24wh80If/4jAZJMB6LsAxVC3rZVx2UfDghp1Lwcy6BkNx4VVXMQJUR4rA8fXNd1l6n2a72RbPhTaGYxggw+yiKYNjj5m/u3HWPzTQ9wIx/rLzb2shQU1P9tDX4eRqJixYsd8LvStvXewUKlTQSaxNczzfcSOmeJrrytJGuPQxgBx67hlN40cs84oEbhndjlekZRwYepsRcan9umJEDHnE+k0wLlz/vb2cshYp5tdcfkqspaEhUSV7Vr7ZQNIppI3XyY1hs/pTYc2Vytp3OiY0EXBjKRmiHcnmA8EIkrV9i4OSt6Af3EQJaYU56a0BCaEqzRoQJWOZDS8bVowuO4rY8/xINQBwTojIYAplI/vqX/7xvlRbzIgeWdpvQipPC01d2JtmI/5D1FdGWtzYcDCTRTbHyWmjhr7Jt8qEDMFkbpkcAQiS61baEQ0p4CxaLYm/lpPco1U3e/gMOb/EXDhOrF1I8lSBmVJE/Uz2/3kfOa1DQSxDSRmV1nU3pSd7PUi25Pdx0rezJjRl1UC2gnsNZrCLbplk+VkImXTt3iirV/RuHDo+YVT0efaws7TVH7Uf87jqWf4VZEw/KI3tzfF43CE="
 before_install: gem update bundler
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && chmod +x ./cc-test-reporter && ./cc-test-reporter before-build
 script:
   - bundle exec rubocop
   - bundle exec rspec
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 notifications:
   slack:
     on_success: always
