@@ -18,3 +18,4 @@
     current: livedns
   href: https://api.gandi.net/v5/domain/domains/example.com
   fqdn_unicode: example.com
+  nameservers: []

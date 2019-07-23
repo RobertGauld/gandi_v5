@@ -46,7 +46,8 @@ http_interactions:
               "current": "livedns"
             },
             "href": "https://api.test/v5/domain/domains/example.net",
-            "fqdn_unicode": "example.net"
+            "fqdn_unicode": "example.net",
+            "nameservers": []
           }
         ]
     http_version: 

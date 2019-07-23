@@ -7,7 +7,7 @@ describe 'Domain features' do
     expect(list.count).to eq 1
     expect(list.first.fqdn).to eq 'example.net'
     expect(list.first.fqdn_unicode).to eq 'example.net'
-    expect(list.first.name_servers).to be nil
+    expect(list.first.name_servers).to eq []
     expect(list.first.services).to be nil
     expect(list.first.sharing_space).to be nil
     expect(list.first.status).to match_array [:clientTransferProhibited]

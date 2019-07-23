@@ -19,7 +19,7 @@ describe GandiV5::Domain do
       its('first.uuid') { should eq 'domain-uuid' }
       its('first.fqdn') { should eq 'example.com' }
       its('first.fqdn_unicode') { should eq 'example.com' }
-      its('first.name_servers') { should be_nil }
+      its('first.name_servers') { should eq [] }
       its('first.services') { should be_nil }
       its('first.status') { should eq [] }
       its('first.tld') { should eq 'com' }
@@ -455,7 +455,7 @@ describe GandiV5::Domain do
     end
   end
 
-  describe '#live_dns' do
+  describe '#livedns' do
     let(:live_dns) { double GandiV5::Domain::LiveDNS }
     it 'Already fetched' do
       subject.instance_exec(live_dns) { |live_dns| @livedns = live_dns }
@@ -469,7 +469,7 @@ describe GandiV5::Domain do
     end
   end
 
-  describe '#fetch_live_dns' do
+  describe '#fetch_livedns' do
     before(:each) do
       body_fixture = File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch_livedns.yml')
       body_fixture = File.expand_path(body_fixture)
@@ -493,7 +493,7 @@ describe GandiV5::Domain do
     end
 
     it 'Updates name_servers' do
-      expect(subject.name_servers).to be nil
+      subject.instance_exec { @name_servers = [] }
       subject.fetch_livedns
       expect(subject.name_servers).to match_array ['1.2.3.4']
     end
@@ -503,5 +503,47 @@ describe GandiV5::Domain do
     expect(GandiV5).to receive(:post).with('https://api.gandi.net/v5/domain/domains/example.com/livedns')
                                      .and_return([nil, { 'message' => 'Confirmation message.' }])
     expect(subject.enable_livedns).to eq 'Confirmation message.'
+  end
+
+  describe '#name_servers' do
+    let(:nameservers) { double Array }
+    it 'Already fetched' do
+      subject.instance_exec(nameservers) { |nameservers| @name_servers = nameservers }
+      expect(subject).to_not receive(:fetch_name_servers)
+      expect(subject.name_servers).to be nameservers
+    end
+
+    it 'Not already fetched' do
+      expect(subject).to receive(:fetch_name_servers).and_return(nameservers)
+      expect(subject.name_servers).to be nameservers
+    end
+  end
+
+  it '#fetch_name_servers' do
+    body_fixture = File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch_name_servers.yml')
+    body_fixture = File.expand_path(body_fixture)
+    expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/nameservers')
+                                    .and_return([nil, YAML.load_file(body_fixture)])
+    expect(subject.fetch_name_servers).to match_array ['1.2.3.4']
+  end
+
+  describe '#update_name_servers' do
+    subject { described_class.new fqdn: 'example.com', name_servers: [] }
+    let(:new_name_servers) { ['a.examle.com', 'b.example.net'] }
+
+    it 'Make API request' do
+      expect(GandiV5).to receive(:put).with(
+        'https://api.gandi.net/v5/domain/domains/example.com/nameservers',
+        '{"nameservers":["a.examle.com","b.example.net"]}'
+      )
+                                      .and_return([nil, { 'message' => 'Confirmation message.' }])
+      expect(subject.update_name_servers(new_name_servers)).to eq 'Confirmation message.'
+    end
+
+    it 'Update name_servers' do
+      expect(GandiV5).to receive(:put).and_return([nil, { 'message' => 'Confirmation message.' }])
+      subject.update_name_servers new_name_servers
+      expect(subject.name_servers).to be new_name_servers
+    end
   end
 end

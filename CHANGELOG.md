@@ -2,6 +2,7 @@
 
 ## Version 0.2.1
 
+* Add LiveDNS and Name server management to GandiV5::Domain
 * Add GandiV5::Organization.list
 * Uses Zeitwerk for auto loading
 

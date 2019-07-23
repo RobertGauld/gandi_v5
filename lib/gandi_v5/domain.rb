@@ -302,6 +302,34 @@ class GandiV5
       data['message']
     end
 
+    # Name servers for the domain.
+    # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain-nameservers
+    # @return [Array<String>]
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    def name_servers
+      @name_servers ||= fetch_name_servers
+    end
+
+    # Requery Gandi for the domain's name servers.
+    # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain-nameservers
+    # @return [Array<String>]
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    def fetch_name_servers
+      _response, data = GandiV5.get url('nameservers')
+      @name_servers = data
+    end
+
+    # Update name servers in Gandi.
+    # @see https://api.gandi.net/docs/domains#put-v5-domain-domains-domain-nameservers
+    # @param nameservers [Array<String>] the name servers to use.
+    # @return [String] confirmation message from Gandi.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    def update_name_servers(nameservers)
+      _response, data = GandiV5.put url('nameservers'), { 'nameservers' => nameservers }.to_json
+      @name_servers = nameservers
+      data['message']
+    end
+
     # Create (register) a new domain.
     # Warning! This is not a free operation. Please ensure your prepaid account has enough credit.
     # @see https://api.gandi.net/docs/domains#post-v5-domain-domains
