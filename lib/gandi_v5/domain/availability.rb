@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'availability/tax'
-require_relative 'availability/product'
-
 class GandiV5
   class Domain
     # Information about the availabillity of processes on a domain.

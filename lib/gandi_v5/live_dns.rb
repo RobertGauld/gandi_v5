@@ -44,8 +44,3 @@ class GandiV5
     # rubocop:enable Style/GuardClause
   end
 end
-
-require_relative 'live_dns/has_zone_records'
-require_relative 'live_dns/record_set'
-require_relative 'live_dns/domain'
-require_relative 'live_dns/zone'

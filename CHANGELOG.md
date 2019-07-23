@@ -3,6 +3,7 @@
 ## Version 0.2.1
 
 * Add GandiV5::Organization.list
+* Uses Zeitwerk for auto loading
 
 ## Version 0.2.0
 

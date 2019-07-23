@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'zone/snapshot'
-
 class GandiV5
   class LiveDNS
     # A zone within the LiveDNS system.

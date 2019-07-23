@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'email/mailbox'
-require_relative 'email/offer'
-require_relative 'email/slot'
-
 class GandiV5
   # The Organization API is a read-only API.
   # All organization management must be performed via the web interface.

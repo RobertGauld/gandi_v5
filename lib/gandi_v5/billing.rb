@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'billing/info'
-
 class GandiV5
   # Gandi Billing API.
   # @see https://api.gandi.net/docs/billing

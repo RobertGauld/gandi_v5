@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'info/prepaid'
-
 class GandiV5
   class Billing
     # Account's information.

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'data/converter'
-
 class GandiV5
   # Addin providing a DSL to manage declaring attributes and how to map
   # and convert to/from Gandi's fields.

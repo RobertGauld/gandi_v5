@@ -22,6 +22,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'dotenv', '~> 2.5'
   gem.add_dependency 'rest-client', '>= 2', '< 3'
+  gem.add_dependency 'zeitwerk', '~> 2.1'
 
   gem.add_development_dependency 'coveralls', '~> 0.7'
   gem.add_development_dependency 'guard', '~> 2.15'

@@ -1,17 +1,31 @@
 # frozen_string_literal: true
 
-require_relative 'gandi_v5/version'
-require_relative 'gandi_v5/data'
-require_relative 'gandi_v5/error'
-
-require_relative 'gandi_v5/billing'
-require_relative 'gandi_v5/domain'
-require_relative 'gandi_v5/email'
-require_relative 'gandi_v5/live_dns'
-require_relative 'gandi_v5/organization'
-
 require 'rest_client'
 require 'securerandom'
+require 'zeitwerk'
+
+# Custom inflector for Zeitwerk.
+class MyInflector < Zeitwerk::Inflector
+  # Convert file's base name to class name when
+  # Zeitwerk's included inflector gets it wrong.
+  # @param basename [String] the file's base name (no path or extension)
+  # @param abspath [String] the file's absolute path
+  # @return [String] the class name
+  def camelize(basename, _abspath)
+    case basename
+    when 'live_dns'
+      'LiveDNS'
+    when 'tld'
+      'TLD'
+    else
+      super
+    end
+  end
+end
+
+loader = Zeitwerk::Loader.for_gem
+loader.inflector = MyInflector.new
+loader.setup
 
 # Namespace for classes which access the Gandi V5 API.
 # Also provides useful methods and constants for them.

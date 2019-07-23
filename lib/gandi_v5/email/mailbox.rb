@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'mailbox/responder'
-
 class GandiV5
   class Email
     # A mailbox that lives within a domain.

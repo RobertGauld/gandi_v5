@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'product/price'
-require_relative 'product/period'
-
 class GandiV5
   class Domain
     class Availability

@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'converter/array_of'
-require_relative 'converter/symbol'
-require_relative 'converter/time'
-
 class GandiV5
   module Data
     # Namespace for converters to/from Gandi's format.

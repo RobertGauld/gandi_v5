@@ -1,15 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'domain/auto_renew'
-require_relative 'domain/availability'
-require_relative 'domain/contact'
-require_relative 'domain/contract'
-require_relative 'domain/dates'
-require_relative 'domain/renewal_information'
-require_relative 'domain/restore_information'
-require_relative 'domain/sharing_space'
-require_relative 'domain/tld'
-
 class GandiV5
   # Gandi Domain Management API.
   # @see https://api.gandi.net/docs/domains
