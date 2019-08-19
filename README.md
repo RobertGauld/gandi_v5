@@ -2,7 +2,7 @@
 [![Build Status](https://secure.travis-ci.org/robertgauld/gandi_v5.png?branch=master)](http://travis-ci.org/robertgauld/gandi_v5)
 [![Coveralls Status](https://coveralls.io/repos/robertgauld/gandi_v5/badge.png?branch=master)](https://coveralls.io/r/robertgauld/gandi_v5)
 [![Code Climate](https://codeclimate.com/github/robertgauld/gandi_v5.png?branch=master)](https://codeclimate.com/github/robertgauld/gandi_v5)
-
+[![security](https://hakiri.io/github/robertgauld/gandi_v5/master.svg)](https://hakiri.io/github/robertgauld/gandi_v5/master)
 
 ## Ruby Versions
 This gem supports the following versions of ruby, it may work on other versions but is not tested against them so don't rely on it.
