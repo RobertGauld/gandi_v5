@@ -2,7 +2,10 @@
 
 ## Version 0.3.0
 
-* Add LiveDNS and Name server management to GandiV5::Domain
+* Additions to GandiV5::Domain
+  * Glue record management
+  * LiveDNS management
+  * Name server management
 * Add GandiV5::Organization.list
 * Uses Zeitwerk for auto loading
 

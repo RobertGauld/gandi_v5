@@ -330,6 +330,72 @@ class GandiV5
       data['message']
     end
 
+    # Glue records for the domain.
+    # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain-hosts
+    # @return [Hash<String => Array<String>>] name to list of IPs
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    def glue_records
+      @glue_records ||= fetch_glue_records
+    end
+
+    # Requery Gandi for the domain's glue records.
+    # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain-hosts
+    # @return [Hash<String => Array<String>>] name to list of IPs
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    def fetch_glue_records
+      _response, data = GandiV5.get url('hosts')
+      @glue_records = data.map { |record| record.values_at('name', 'ips') }.to_h
+    end
+
+    # Add a new glue record to the domain in Gandi.
+    # @see https://api.gandi.net/docs/domains#post-v5-domain-domains-domain-hosts
+    # @param name [String] the DNS name (excluding FQDN) for the glue record to add (e.g. 'ns1').
+    # @param ips [Array<String>] the IPs for the name.
+    # @return [String] confirmation message from Gandi.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    def add_glue_record(name, *ips)
+      _response, data = GandiV5.post url('hosts'), { 'name' => name, 'ips' => ips }.to_json
+      @glue_records ||= {}
+      @glue_records[name] = ips
+      data['message']
+    end
+
+    # Get a specific glue record for the domain.
+    # @see https://api.gandi.net/docs/domains#get-v5-domain-domains-domain-hosts
+    # @param name [String] the DNS name (excluding FQDN) for the glue record to add (e.g. 'ns1').
+    # @return [Hash<String => Array<String>>] name to list of IPs
+    # @return [nil] name was not found
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    def glue_record(name)
+      records = @glue_records.key?(name) ? @glue_records : fetch_glue_records
+      records.key?(name) ? records.select { |k, _v| k == name } : nil
+    end
+
+    # Update a specific glue record for the domain.
+    # @see https://api.gandi.net/docs/domains#put-v5-domain-domains-domain-hosts-name
+    # @param name [String] the DNS name (excluding FQDN) for the glue record to update (e.g. 'ns1').
+    # @param ips [Array<String>] the IPs for the name.
+    # @return [String] confirmation message from Gandi.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    def update_glue_record(name, *ips)
+      _response, data = GandiV5.put url('hosts', name), { 'ips' => ips }.to_json
+      @glue_records ||= {}
+      @glue_records[name] = ips
+      data['message']
+    end
+
+    # Delete a specific glue record for the domain.
+    # @see https://api.gandi.net/docs/domains#delete-v5-domain-domains-domain-hosts-name
+    # @param name [String] the DNS name (excluding FQDN) for the glue record to update (e.g. 'ns1').
+    # @return [String] confirmation message from Gandi.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    def delete_glue_record(name)
+      _response, data = GandiV5.delete url('hosts', name)
+      @glue_records ||= {}
+      @glue_records.delete(name)
+      data['message']
+    end
+
     # Create (register) a new domain.
     # Warning! This is not a free operation. Please ensure your prepaid account has enough credit.
     # @see https://api.gandi.net/docs/domains#post-v5-domain-domains
@@ -421,10 +487,10 @@ class GandiV5
 
     private
 
-    def url(extra = nil)
+    def url(*extra)
       "#{BASE}domain/domains/" +
         CGI.escape(fqdn) +
-        (extra ? "/#{extra}" : '')
+        (extra.empty? ? '' : "/#{extra.join('/')}")
     end
 
     def self.url(fqdn = nil)

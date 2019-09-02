@@ -7,7 +7,7 @@ Gemspec/RequiredRubyVersion:
 Metrics/AbcSize:
   Max: 20
 Metrics/ClassLength:
-  Max: 200
+  Max: 250
 Metrics/LineLength:
   Max: 100
 Metrics/MethodLength:

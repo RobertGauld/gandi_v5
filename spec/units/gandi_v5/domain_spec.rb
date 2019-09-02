@@ -455,8 +455,107 @@ describe GandiV5::Domain do
     end
   end
 
+  describe '#glue_records' do
+    let(:glue_records) { double Hash }
+
+    it 'Already fetched' do
+      subject.instance_exec(glue_records) { |glue_records| @glue_records = glue_records }
+      expect(subject).to_not receive(:fetch_glue_records)
+      expect(subject.glue_records).to be glue_records
+    end
+
+    it 'Not already fetched' do
+      expect(subject).to receive(:fetch_glue_records).and_return(glue_records)
+      expect(subject.glue_records).to be glue_records
+    end
+  end
+
+  it '#fetch_glue_records' do
+    body_fixture = File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch_glue_records.yml')
+    body_fixture = File.expand_path(body_fixture)
+    expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/hosts')
+                                    .and_return([nil, YAML.load_file(body_fixture)])
+    expect(subject.fetch_glue_records).to eq(
+      'ns1' => ['1.2.3.4']
+    )
+  end
+
+  describe '#add_glue_record' do
+    before(:each) { described_class.instance_exec { @glue_records = {} } }
+
+    it 'Make API request' do
+      expect(GandiV5).to receive(:post).with(
+        'https://api.gandi.net/v5/domain/domains/example.com/hosts',
+        '{"name":"ns1","ips":["1.2.3.4"]}'
+      )
+                                       .and_return([nil, { 'message' => 'Confirmation message.' }])
+      expect(subject.add_glue_record('ns1', '1.2.3.4')).to eq 'Confirmation message.'
+    end
+
+    it 'Updates glue records' do
+      expect(GandiV5).to receive(:post).and_return([nil, { 'message' => 'Confirmation message.' }])
+      subject.add_glue_record 'ns1', '1.2.3.4'
+      expect(subject.glue_records).to eq('ns1' => ['1.2.3.4'])
+    end
+  end
+
+  describe '#glue_record' do
+    before(:each) { subject.instance_exec { @glue_records = { 'ns1' => ['1.2.3.4'] } } }
+
+    it 'Already fetched' do
+      expect(subject).to_not receive(:fetch_glue_records)
+      expect(subject.glue_record('ns1')).to eq('ns1' => ['1.2.3.4'])
+    end
+
+    it 'Not already fetched' do
+      expect(subject).to receive(:fetch_glue_records).and_return('ns2' => ['2.3.4.5'])
+      expect(subject.glue_record('ns2')).to eq('ns2' => ['2.3.4.5'])
+    end
+
+    it 'Not present' do
+      expect(subject).to receive(:fetch_glue_records).and_return({})
+      expect(subject.glue_record('ns3')).to be nil
+    end
+  end
+
+  describe '#update_glue_record' do
+    it 'Make API request' do
+      expect(GandiV5).to receive(:put).with(
+        'https://api.gandi.net/v5/domain/domains/example.com/hosts/name',
+        '{"ips":["1.2.3.4"]}'
+      )
+                                      .and_return([nil, { 'message' => 'Confirmation message.' }])
+      expect(subject.update_glue_record('name', '1.2.3.4')).to eq 'Confirmation message.'
+    end
+
+    it 'Update name_servers' do
+      expect(GandiV5).to receive(:put).and_return([nil, { 'message' => 'Confirmation message.' }])
+      subject.update_glue_record 'name', '1.2.3.4'
+      expect(subject.glue_records).to eq('name' => ['1.2.3.4'])
+    end
+  end
+
+  describe '#delete_glue_record' do
+    before(:each) { subject.instance_exec { @glue_records = { 'ns1' => ['1.2.3.4'], 'ns2' => [] } } }
+
+    it 'Make API request' do
+      expect(GandiV5).to receive(:delete).with(
+        'https://api.gandi.net/v5/domain/domains/example.com/hosts/ns2'
+      )
+                                         .and_return([nil, { 'message' => 'Confirmation message.' }])
+      expect(subject.delete_glue_record('ns2')).to eq 'Confirmation message.'
+    end
+
+    it 'Update name_servers' do
+      expect(GandiV5).to receive(:delete).and_return([nil, { 'message' => 'Confirmation message.' }])
+      subject.delete_glue_record 'ns2'
+      expect(subject.glue_records).to eq('ns1' => ['1.2.3.4'])
+    end
+  end
+
   describe '#livedns' do
     let(:live_dns) { double GandiV5::Domain::LiveDNS }
+
     it 'Already fetched' do
       subject.instance_exec(live_dns) { |live_dns| @livedns = live_dns }
       expect(subject).to_not receive(:fetch_livedns)
@@ -507,6 +606,7 @@ describe GandiV5::Domain do
 
   describe '#name_servers' do
     let(:nameservers) { double Array }
+
     it 'Already fetched' do
       subject.instance_exec(nameservers) { |nameservers| @name_servers = nameservers }
       expect(subject).to_not receive(:fetch_name_servers)

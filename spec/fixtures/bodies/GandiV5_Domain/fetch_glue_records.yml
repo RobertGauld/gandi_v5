@@ -1,0 +1,7 @@
+---
+- name: ns1
+  fqdn: example.com
+  fqdn_unicode: example.com
+  href: http://api.test/v5/domain/domains/example.com/hosts/ns1
+  ips:
+  - '1.2.3.4'
