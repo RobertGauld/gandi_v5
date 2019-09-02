@@ -1,6 +1,6 @@
 # Gandi V5 API Gem Changelog
 
-## Version 0.2.1
+## Version 0.3.0
 
 * Add LiveDNS and Name server management to GandiV5::Domain
 * Add GandiV5::Organization.list
