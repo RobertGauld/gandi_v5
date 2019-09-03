@@ -205,6 +205,24 @@ describe GandiV5::Domain do
     end
   end
 
+  it '.mailboxes' do
+    returns = double Array
+    expect(GandiV5::Email::Mailbox).to receive(:list).with(param: :value, fqdn: 'example.com').and_return(returns)
+    expect(subject.mailboxes(param: :value)).to be returns
+  end
+
+  it '.mailbox_slots' do
+    returns = double Array
+    expect(GandiV5::Email::Slot).to receive(:list).with(param: :value, fqdn: 'example.com').and_return(returns)
+    expect(subject.mailbox_slots(param: :value)).to be returns
+  end
+
+  it '.email_forwards' do
+    returns = double Array
+    expect(GandiV5::Email::Forward).to receive(:list).with(param: :value, fqdn: 'example.com').and_return(returns)
+    expect(subject.email_forwards(param: :value)).to be returns
+  end
+
   describe '#to_s' do
     it 'Has identical fqdn and fqdn_unicode' do
       domain = described_class.new fqdn: 'example.com', fqdn_unicode: 'example.com'

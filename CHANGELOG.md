@@ -9,6 +9,10 @@
 * Add forwarding address management to GandiV5::Email::Forwarding
 * Add GandiV5::Organization.list
 * Uses Zeitwerk for auto loading
+* Add aliasing methods:
+  * GandiV5::Domain.mailboxes -> GandiV5::Email::Mailbox.list
+  * GandiV5::Domain.mailbox_slots -> GandiV5::Email::Slot.list
+  * GandiV5::Domain.email_forwards -> GandiV5::Email::Forward.list
 
 ## Version 0.2.0
 

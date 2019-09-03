@@ -396,6 +396,21 @@ class GandiV5
       data['message']
     end
 
+    # @see GandiV5::Email::Mailbox.list
+    def mailboxes(**params)
+      GandiV5::Email::Mailbox.list(**params, fqdn: fqdn)
+    end
+
+    # @see GandiV5::Email::Slot.list
+    def mailbox_slots(**params)
+      GandiV5::Email::Slot.list(**params, fqdn: fqdn)
+    end
+
+    # @see GandiV5::Email::Forward.list
+    def email_forwards(**params)
+      GandiV5::Email::Forward.list(**params, fqdn: fqdn)
+    end
+
     # Create (register) a new domain.
     # Warning! This is not a free operation. Please ensure your prepaid account has enough credit.
     # @see https://api.gandi.net/docs/domains#post-v5-domain-domains
