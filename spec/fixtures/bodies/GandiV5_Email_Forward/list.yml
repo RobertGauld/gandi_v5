@@ -1,0 +1,6 @@
+---
+- source: alice
+  href: https://api.test/api/v5/email/forwards/example.com/alice
+  destinations:
+  - bob@example.com
+  - charlie@example.com

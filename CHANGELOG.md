@@ -6,6 +6,7 @@
   * Glue record management
   * LiveDNS management
   * Name server management
+* Add forwarding address management to GandiV5::Email::Forwarding
 * Add GandiV5::Organization.list
 * Uses Zeitwerk for auto loading
 
