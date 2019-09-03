@@ -76,6 +76,7 @@ We follow the [Semantic Versioning](http://semver.org/) concept.
 
 | Gem Version     | Gandi API Release Date |
 | --------------- | ---------------------- |
+| 0.3.0           | 2019-08-22             |
 | 0.2.0           | 2019-05-16             |
 | 0.1.0           | 2019-05-16             |
 
