@@ -415,6 +415,18 @@ class GandiV5
     # Warning! This is not a free operation. Please ensure your prepaid account has enough credit.
     # @see https://api.gandi.net/docs/domains#post-v5-domain-domains
     # @param fqdn [String, #to_s] the fully qualified domain name to create.
+    # @param dry_run [Boolean]
+    #   whether the details should be checked instead of actually creating the domain.
+    # @param sharing_id [String] either:
+    #   * nil (default) - nothing special happens
+    #   * an organization ID - pay using another organization
+    #     (you need to have billing permissions on the organization
+    #     and use the same organization name for the domain name's owner).
+    #     The invoice will be edited using this organization's information.
+    #   * a reseller ID - buy a domain for a customer using a reseller account
+    #     (you need to have billing permissions on the reseller organization
+    #     and have your customer's information for the owner).
+    #     The invoice will be edited using the reseller organization's information.
     # @param owner [GandiV5::Domain::Contact, #to_gandi, #to_h] (required)
     #   the owner of the new domain.
     # @param admin [GandiV5::Domain::Contact, #to_gandi, #to_h] (optional, defaults to owner)
@@ -439,25 +451,24 @@ class GandiV5
     # @param nameservers [Array<String>, #to_gandi, #to_json] (optional)
     #   List of nameservers. Gandi's LiveDNS nameservers are used if omitted..
     # @param price [Numeric, #to_gandi, #to_json] (optional) unknown - not documented at Gandi.
-    # @param reselle_id [String, #to_gandi, #to_json] (optional) unknown - not documented at Gandi.
+    # @param resellee_id [String, #to_gandi, #to_json] (optional) unknown - not documented at Gandi.
     # @param smd [String, #to_gandi, #to_json] (optional)
     #   Contents of a Signed Mark Data file (used for newgtld sunrises, tld_period must be sunrise).
     # @param tld_period ["sunrise", "landrush", "eap1", "eap2", "eap3", "eap4", "eap5", "eap6",
     #   "eap7", "eap8", "eap9", "golive", #to_gandi, #to_json] (optional)
     #   @see https://docs.gandi.net/en/domain_names/register/new_gtld.html
-    # @param dry_run [Boolean] whether the details should be checked
-    #   instead of actually creating the domain
     # @return [GandiV5::Domain] the created domain
     # @return [Hash] if doing a dry run, you get what Gandi returns
     # @raise [GandiV5::Error::GandiError] if Gandi returns an error
-    def self.create(fqdn, dry_run: false, **params)
+    def self.create(fqdn, dry_run: false, sharing_id: nil, **params)
       fail ArgumentError, 'missing keyword: owner' unless params.key?(:owner)
 
       body = params.merge(fqdn: fqdn)
                    .transform_values { |val| val.respond_to?(:to_gandi) ? val.to_gandi : val }
                    .to_json
+      url_ = sharing_id ? "#{url}?sharing_id=#{sharing_id}" : url
 
-      response, data = GandiV5.post(url, body, 'Dry-Run': dry_run ? 1 : 0)
+      response, data = GandiV5.post(url_, body, 'Dry-Run': dry_run ? 1 : 0)
       dry_run ? data : fetch(response.headers[:location].split('/').last)
     end
 

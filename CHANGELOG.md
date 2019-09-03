@@ -6,6 +6,7 @@
   * Glue record management
   * LiveDNS management
   * Name server management
+* Update GandiV5::Domain.create to allow purchasing as a reseller and billing to a different organization
 * Add forwarding address management to GandiV5::Email::Forwarding
 * Add GandiV5::Organization.list
 * Uses Zeitwerk for auto loading
