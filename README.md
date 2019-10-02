@@ -8,7 +8,7 @@
 This gem supports the following versions of ruby, it may work on other versions but is not tested against them so don't rely on it.
 
 * ruby:
-  * 2.6.0 - 2.6.4
+  * 2.6.0 - 2.6.5
 * jruby, once it's reached parity with ruby 2.6.x
 * truffleruby, once it's reached parity with ruby 2.6.x
 * rubinius, once it's reached parity with ruby 2.6.x
