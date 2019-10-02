@@ -179,9 +179,8 @@ class GandiV5
         define_method "#{name}=" do |value|
           instance_variable_set("@#{name}", value)
         end
-        # rubocop:disable Style/AccessModifierDeclarations
+
         private "#{name}="
-        # rubocop:enable Style/AccessModifierDeclarations
       end
 
       # @api private
