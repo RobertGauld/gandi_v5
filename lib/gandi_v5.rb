@@ -93,7 +93,10 @@ class GandiV5
     def delete(url, **headers)
       prepare_headers headers, url
       response = RestClient.delete url, **headers
-      [response, parse_response(response)]
+      [
+        response,
+        response.headers.key?(:content_type) ? parse_response(response) : nil
+      ]
     rescue RestClient::BadRequest => e
       handle_bad_request(e)
     end

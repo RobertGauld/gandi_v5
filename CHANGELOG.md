@@ -2,7 +2,7 @@
 
 ## Version 0.4.0
 
-* ...
+* Fix exception when delete returns no content-type
 
 ## Version 0.3.0
 
