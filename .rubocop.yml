@@ -8,7 +8,7 @@ Metrics/AbcSize:
   Max: 20
 Metrics/ClassLength:
   Max: 250
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
 Metrics/MethodLength:
   Max: 15

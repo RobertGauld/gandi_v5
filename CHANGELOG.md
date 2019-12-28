@@ -3,6 +3,7 @@
 ## Version 0.4.0
 
 * Fix exception when delete returns no content-type
+* Add support for ruby 2.7.0
 
 ## Version 0.3.0
 
