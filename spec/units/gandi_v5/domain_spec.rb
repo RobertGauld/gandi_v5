@@ -373,10 +373,46 @@ describe GandiV5::Domain do
       its('durations') { should match_array [1, 2] }
     end
 
-    it '#renew_for' do
-      expect(GandiV5).to receive(:post).with('https://api.gandi.net/v5/domain/domains/example.com/renew', '{"duration":2}')
-                                       .and_return([nil, { 'message' => 'Confirmation message.' }])
-      expect(subject.renew_for(2)).to eq 'Confirmation message.'
+    describe '#renew_for' do
+      it 'Defaults to 1 year and current user' do
+        expect(GandiV5).to receive(:post).with(
+          'https://api.gandi.net/v5/domain/domains/example.com/renew',
+          '{"duration":1}',
+          'Dry-Run': 0
+        )
+                                         .and_return([nil, { 'message' => 'Confirmation message.' }])
+        expect(subject.renew_for).to eq 'Confirmation message.'
+      end
+
+      it 'With provided duration' do
+        expect(GandiV5).to receive(:post).with(
+          'https://api.gandi.net/v5/domain/domains/example.com/renew',
+          '{"duration":2}',
+          'Dry-Run': 0
+        )
+                                         .and_return([nil, { 'message' => 'Confirmation message.' }])
+        expect(subject.renew_for(2)).to eq 'Confirmation message.'
+      end
+
+      it 'With provided sharing_id' do
+        expect(GandiV5).to receive(:post).with(
+          'https://api.gandi.net/v5/domain/domains/example.com/renew?sharing_id=def',
+          '{"duration":1}',
+          'Dry-Run': 0
+        )
+                                         .and_return([nil, { 'message' => 'Confirmation message.' }])
+        expect(subject.renew_for(sharing_id: 'def')).to eq 'Confirmation message.'
+      end
+
+      it 'Does a dry run' do
+        expect(GandiV5).to receive(:post).with(
+          'https://api.gandi.net/v5/domain/domains/example.com/renew',
+          '{"duration":1}',
+          'Dry-Run': 1
+        )
+                                         .and_return([nil, { 'status' => 'success' }])
+        expect(subject.renew_for(dry_run: true)).to eq('status' => 'success')
+      end
     end
 
     describe '#renewal_price' do

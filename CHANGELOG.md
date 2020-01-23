@@ -6,6 +6,7 @@
 * Add support for ruby 2.7.0
 * Add up/downgrading mailbox offer
 * Add dry run option to creating a mailbox
+* Add sharing_id & dry run option for renewing domain
 
 ## Version 0.3.0
 

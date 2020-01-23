@@ -211,10 +211,13 @@ class GandiV5
     # @param duration [Integer, #to_s] how long to renew for (in years).
     # @return [String] confirmation message from Gandi.
     # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
-    def renew_for(duration = 1)
+    def renew_for(duration = 1, sharing_id: nil, dry_run: false)
       body = { duration: duration }.to_json
-      _response, data = GandiV5.post url('renew'), body
-      data['message']
+      url_ = url('renew')
+      url_ = sharing_id ? "#{url_}?sharing_id=#{sharing_id}" : url_
+
+      _response, data = GandiV5.post(url_, body, 'Dry-Run': dry_run ? 1 : 0)
+      dry_run ? data : data['message']
     end
 
     # Restoration information for the domain.
