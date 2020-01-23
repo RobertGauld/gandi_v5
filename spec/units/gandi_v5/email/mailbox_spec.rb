@@ -306,7 +306,7 @@ describe GandiV5::Email::Mailbox do
 
     it 'No aliases and :standard type' do
       body = '{"mailbox_type":"standard","login":"login","password":"crypted_password","aliases":[]}'
-      expect(GandiV5).to receive(:post).with(url, body)
+      expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0)
                                        .and_return([created_response, { 'message' => 'Confirmation message.' }])
       expect(described_class).to receive(:crypt_password).with(good_password).and_return('crypted_password')
       expect(described_class).to receive(:fetch).with('example.com', 'created-mailbox-uuid').and_return(created_mailbox)
@@ -316,7 +316,7 @@ describe GandiV5::Email::Mailbox do
 
     it 'With aliases' do
       body = '{"mailbox_type":"standard","login":"login","password":"crypted_password","aliases":["alias-1"]}'
-      expect(GandiV5).to receive(:post).with(url, body)
+      expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0)
                                        .and_return([created_response, { 'message' => 'Confirmation message.' }])
       expect(described_class).to receive(:crypt_password).with(good_password).and_return('crypted_password')
       expect(described_class).to receive(:fetch).with('example.com', 'created-mailbox-uuid').and_return(created_mailbox)
@@ -326,7 +326,7 @@ describe GandiV5::Email::Mailbox do
 
     it 'With different type' do
       body = '{"mailbox_type":"premium","login":"login","password":"crypted_password","aliases":[]}'
-      expect(GandiV5).to receive(:post).with(url, body)
+      expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 0)
                                        .and_return([created_response, { 'message' => 'Confirmation message.' }])
       expect(described_class).to receive(:crypt_password).with(good_password).and_return('crypted_password')
       expect(described_class).to receive(:fetch).with('example.com', 'created-mailbox-uuid').and_return(created_mailbox)
@@ -355,6 +355,16 @@ describe GandiV5::Email::Mailbox do
         GandiV5::Error,
         'no available standard slots'
       )
+    end
+
+    it 'Doing a dry run' do
+      body = '{"mailbox_type":"standard","login":"login","password":"crypted_password","aliases":[]}'
+      expect(GandiV5).to receive(:post).with(url, body, 'Dry-Run': 1)
+                                       .and_return([nil, { 'status' => 'success' }])
+      expect(described_class).to receive(:crypt_password).with(good_password).and_return('crypted_password')
+      expect(described_class).to_not receive(:fetch)
+
+      expect(described_class.create('example.com', 'login', good_password, dry_run: true)).to eq('status' => 'success')
     end
   end
 

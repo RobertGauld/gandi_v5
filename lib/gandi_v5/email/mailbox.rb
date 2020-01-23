@@ -146,10 +146,13 @@ class GandiV5
       # @param password [String, #to_s] the password to use.
       # @param aliases [Array<String, #to_s>] any alternative email address to be used.
       # @param type [:standard, :premium] the type of mailbox slot to use.
+      # @param dry_run [Boolean] whether the details should be checked instead
+      #                          of actually creating the mailbox.
       # @return [GandiV5::Email::Mailbox] The created mailbox.
       # @raise [GandiV5::Error] if no slots are available.
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
-      def self.create(fqdn, login, password, aliases: [], type: :standard)
+      # rubocop:disable Metrics/AbcSize
+      def self.create(fqdn, login, password, aliases: [], type: :standard, dry_run: false)
         fail ArgumentError, "#{type.inspect} is not a valid type" unless TYPES.include?(type)
         if GandiV5::Email::Slot.list.none? { |slot| slot.mailbox_type == type && slot.inactive? }
           fail GandiV5::Error, "no available #{type} slots"
@@ -164,9 +167,11 @@ class GandiV5
           aliases: aliases.push
         }.to_json
 
-        response, _data = GandiV5.post url(fqdn), body
-        fetch fqdn, response.headers[:location].split('/').last
+        response, data = GandiV5.post(url(fqdn), body, 'Dry-Run': dry_run ? 1 : 0)
+
+        dry_run ? data : fetch(fqdn, response.headers[:location].split('/').last)
       end
+      # rubocop:enable Metrics/AbcSize
 
       # Get information for a mailbox.
       # @see https://api.gandi.net/docs/email#get-v5-email-mailboxes-domain-mailbox_id
