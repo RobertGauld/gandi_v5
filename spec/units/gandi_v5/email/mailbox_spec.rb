@@ -87,6 +87,108 @@ describe GandiV5::Email::Mailbox do
     end
   end
 
+  describe '#upgrade' do
+    let(:url) { 'https://api.gandi.net/v5/email/mailboxes/example.com/mailbox-uuid/type' }
+
+    context 'No sharing_id' do
+      it 'Is upgraded' do
+        expect(GandiV5).to receive(:patch).with(url, '{"mailbox_type":"premium"}', 'Dry-Run': 0)
+                                          .and_return([nil, { 'message' => 'Confirmation message.' }])
+        expect(subject.upgrade).to be true
+        expect(subject.type).to be :premium
+      end
+
+      it 'Is already premium' do
+        subject.instance_exec { @type = :premium }
+        expect(GandiV5).to_not receive(:patch)
+        expect(subject.upgrade).to be false
+      end
+    end
+
+    context 'With sharing_id' do
+      let(:url) { 'https://api.gandi.net/v5/email/mailboxes/example.com/mailbox-uuid/type?sharing_id=abc' }
+
+      it 'Is upgraded' do
+        expect(GandiV5).to receive(:patch).with(url, '{"mailbox_type":"premium"}', 'Dry-Run': 0)
+                                          .and_return([nil, { 'message' => 'Confirmation message.' }])
+        expect(subject.upgrade(sharing_id: 'abc')).to be true
+        expect(subject.type).to be :premium
+      end
+
+      it 'Is already premium' do
+        subject.instance_exec { @type = :premium }
+        expect(GandiV5).to_not receive(:patch)
+        expect(subject.upgrade(sharing_id: 'abc')).to be false
+      end
+    end
+
+    context 'Dry run' do
+      it 'Is upgraded' do
+        expect(GandiV5).to receive(:patch).with(url, '{"mailbox_type":"premium"}', 'Dry-Run': 1)
+                                          .and_return([nil, { 'status' => 'success' }])
+        expect(subject.upgrade(dry_run: true)).to eq('status' => 'success')
+        expect(subject.type).to be :standard
+      end
+
+      it 'Is already premium' do
+        subject.instance_exec { @type = :premium }
+        expect(GandiV5).to_not receive(:patch)
+        expect(subject.upgrade(dry_run: true)).to be false
+      end
+    end
+  end
+
+  describe '#downgrade' do
+    let(:url) { 'https://api.gandi.net/v5/email/mailboxes/example.com/mailbox-uuid/type' }
+
+    context 'No sharing_id' do
+      it 'Is downgraded' do
+        subject.instance_exec { @type = :premium }
+        expect(GandiV5).to receive(:patch).with(url, '{"mailbox_type":"standard"}', 'Dry-Run': 0)
+                                          .and_return([nil, { 'message' => 'Confirmation message.' }])
+        expect(subject.downgrade).to be true
+        expect(subject.type).to be :standard
+      end
+
+      it 'Is already premium' do
+        expect(GandiV5).to_not receive(:patch)
+        expect(subject.downgrade).to be false
+      end
+    end
+
+    context 'With sharing_id' do
+      let(:url) { 'https://api.gandi.net/v5/email/mailboxes/example.com/mailbox-uuid/type?sharing_id=abc' }
+
+      it 'Is downgraded' do
+        subject.instance_exec { @type = :premium }
+        expect(GandiV5).to receive(:patch).with(url, '{"mailbox_type":"standard"}', 'Dry-Run': 0)
+                                          .and_return([nil, { 'message' => 'Confirmation message.' }])
+        expect(subject.downgrade(sharing_id: 'abc')).to be true
+        expect(subject.type).to be :standard
+      end
+
+      it 'Is already premium' do
+        expect(GandiV5).to_not receive(:patch)
+        expect(subject.downgrade(sharing_id: 'abc')).to be false
+      end
+    end
+
+    context 'Dry run' do
+      it 'Is downgraded' do
+        subject.instance_exec { @type = :premium }
+        expect(GandiV5).to receive(:patch).with(url, '{"mailbox_type":"standard"}', 'Dry-Run': 1)
+                                          .and_return([nil, { 'status' => 'success' }])
+        expect(subject.downgrade(dry_run: true)).to eq('status' => 'success')
+        expect(subject.type).to be :premium
+      end
+
+      it 'Is already premium' do
+        expect(GandiV5).to_not receive(:patch)
+        expect(subject.downgrade(dry_run: true)).to be false
+      end
+    end
+  end
+
   it '#delete' do
     url = 'https://api.gandi.net/v5/email/mailboxes/example.com/mailbox-uuid'
     expect(GandiV5).to receive(:delete).with(url)

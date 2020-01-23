@@ -4,6 +4,7 @@
 
 * Fix exception when delete returns no content-type
 * Add support for ruby 2.7.0
+* Add up/downgrading mailbox offer
 
 ## Version 0.3.0
 

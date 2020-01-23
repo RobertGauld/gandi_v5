@@ -105,6 +105,39 @@ class GandiV5
         data['message']
       end
 
+      # Upgrade a standard mailbox to premium.
+      # If the current slot is a free one, a new premium slot is created and
+      # used for the mailbox. Otherwise, the slot is upgraded to premium.
+      # @see https://api.gandi.net/docs/email#patch-v5-email-mailboxes-domain-mailbox_id-type
+      # @param sharing_id [String, #to_s, nil] (optional)
+      #   the organisation ID to bill for the mailbox.
+      # @param dry_run [Boolean] whether the details should be checked instead
+      #                          of actually upgrading the mailbox.
+      # @return [true] if the mailbox was upgraded
+      # @return [false] if the mailbox was not upgraded (it's already premium)
+      # @return [Hash] if doing a dry run, you get what Gandi returns
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error
+      def upgrade(sharing_id: nil, dry_run: false)
+        patch_type :premium, sharing_id, dry_run
+      end
+
+      # Downgrade a premium mailbox to standard.
+      # If a free slot is available, the premium slot is destroyed
+      # (and refunded) and the free one is used for the mailbox.
+      # Otherwise, the slot is downgraded to standard.
+      # @see https://api.gandi.net/docs/email#patch-v5-email-mailboxes-domain-mailbox_id-type
+      # @param sharing_id [String, #to_s, nil] (optional)
+      #   the organisation ID to bill for the mailbox.
+      # @param dry_run [Boolean] whether the details should be checked instead
+      #                          of actually downgrading the mailbox.
+      # @return [true] if the mailbox was downgraded
+      # @return [false] if the mailbox was not downgraded (it's already standard)
+      # @return [Hash] if doing a dry run, you get what Gandi returns
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error
+      def downgrade(sharing_id: nil, dry_run: false)
+        patch_type :standard, sharing_id, dry_run
+      end
+
       # Create a new mailbox.
       # Note that before you can create a mailbox, you must have a slot available.
       # @see https://api.gandi.net/docs/email#post-v5-email-mailboxes-domain
@@ -239,6 +272,20 @@ class GandiV5
 
       def crypt_password(password)
         self.class.send :crypt_password, password
+      end
+
+      def patch_type(new_type, sharing_id, dry_run)
+        fail ArgumentError unless TYPES.include?(new_type)
+        return false if type == new_type
+
+        url_ = "#{url}/type"
+        url_ = sharing_id ? "#{url_}?sharing_id=#{sharing_id}" : url_
+        body = { mailbox_type: new_type }
+
+        _response, data = GandiV5.patch(url_, body.to_json, 'Dry-Run': dry_run ? 1 : 0)
+
+        @type = new_type unless dry_run
+        dry_run ? data : true
       end
     end
   end
