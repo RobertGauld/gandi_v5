@@ -18,8 +18,13 @@ Metrics/ParameterLists:
   Max: 6
 Style/DocumentationMethod:
   Enabled: true
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
 Style/SignalException:
   Enabled: false
 Layout/LineLength:
   Max: 100
-
