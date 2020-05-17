@@ -50,6 +50,11 @@ class GandiV5
 
     alias organization_uuid uuid
 
+    # @see GandiV5::Organization::Customer.list
+    def customers(org_uuid, **params)
+      GandiV5::Organization::Customer.list(org_uuid, **params)
+    end
+
     # Get information about the current authenticated user.
     # @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
     # @return [GandiV5::Organization]

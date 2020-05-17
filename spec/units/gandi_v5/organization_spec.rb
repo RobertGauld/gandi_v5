@@ -64,4 +64,11 @@ describe GandiV5::Organization do
     its('security_email_validated') { should eq true }
     its('security_email_validation_deadline') { should eq Time.new(2017, 11, 22, 17, 13, 33) }
   end
+
+  it '#customers' do
+    subject = described_class.new uuid: 'org_uuid'
+    returns = double Array
+    expect(GandiV5::Organization::Customer).to receive(:list).with('org_uuid', param: :value).and_return(returns)
+    expect(subject.customers('org_uuid', param: :value)).to be returns
+  end
 end

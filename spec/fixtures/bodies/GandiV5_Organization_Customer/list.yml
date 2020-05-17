@@ -1,0 +1,8 @@
+---
+- id: customer-uuid
+  name: FirstLast
+  firstname: First
+  lastname: Last
+  email: first.last@example.com
+  type: individual
+  orgname: Org
