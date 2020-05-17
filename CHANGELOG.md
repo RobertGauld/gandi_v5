@@ -7,8 +7,8 @@
 * Add up/downgrading mailbox offer
 * Add dry run option to creating a mailbox
 * Add sharing_id & dry run option for renewing domain
-* Add listing customers under a reseller organization
-* Add creating customer under a reseller organization
+* Add listing customers under a reseller organization (GandiV5::Organization::Customer.list and GandiV5::Organization#customers)
+* Add creating customer under a reseller organization (GandiV5::Organization::Customer.create and GandiV5::Organization#create_customer)
 
 ## Version 0.3.0
 
