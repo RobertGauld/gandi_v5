@@ -15,7 +15,7 @@ class GandiV5
     # @!attribute [r] name
     #   @return [String] Name of the customer.
     # @!attribute [r] type
-    #   @return [:individual, :company, :association :publicbody]
+    #   @return [:individual, :company, :association, :publicbody]
     # @!attribute [r] org_name
     #   @return [nil, String] Organization legal name of the customer..
     class Customer
@@ -28,9 +28,42 @@ class GandiV5
       member :org_name, gandi_key: 'orgname'
       member :type, converter: GandiV5::Data::Converter::Symbol
 
+      # Create a new customer for this organization.
+      # @see https://api.gandi.net/docs/organization/#post-v5-organization-organizations-id-customers
+      # @param org_uuid [String] UUID of the organization to create the customer for.
+      # @param firstname [String, #to_s] (required) Customer's first name.
+      # @param lastname [String, #to_s] (required) Customer's last name.
+      # @param type [String, #to_s] (required) Type of customer
+      #   ("individual", "company", "association" or "publicbody").
+      # @param streetaddr [String, #to_s] (required) Customer's street address.
+      # @param city [String, #to_s] (required) Customer's city.
+      # @param country [String, #to_s] (required) Customer's country.
+      # @param email [String, #to_s] (required) Customer's email address.
+      # @param phone [String, #to_s] (required) Customer's phone number.
+      # @param fax [String, #to_s] (optional) Customer's fax number.
+      # @param streetaddr2 [String, #to_s] (optional) Customer's street address (2nd line).
+      # @param state [String, #to_s] (optional) Customer's state/province/region.
+      # @param zip [String, #to_s] (optional) Customer's postal/zip code.
+      # @param reference [String, #to_s] (optional)
+      #   Optional text to display on the invoice, such as your own customer reference info.
+      # @param orgname [String, #to_s] (optional) Customer Organization's legal name.
+      # @return [nil]
+      # @raise [GandiV5::Error::GandiError] if Gandi returns an error
+      def self.create(org_uuid, **params)
+        %i[city country email firstname lastname phone streetaddr type].each do |attr|
+          fail ArgumentError, "missing keyword: #{attr}" unless params.key?(attr)
+        end
+        unless %w[individual company association publicbody].include?(params[:type].to_s)
+          fail ArgumentError, "invalid type: #{params[:type].inspect}"
+        end
+
+        _response, _data = GandiV5.post(url(org_uuid), params.to_json)
+        nil
+      end
+
       # List organisation's customers.
       # @see https://api.gandi.net/docs/organization/#get-v5-organization-organizations-id-customers
-      # @param org_uuid [String] Organization's UUID to fetch customers for.
+      # @param org_uuid [String] UUID of the organization to fetch customers for.
       # @param name [String, #to_s] (optional)
       #   filters the list by name, with optional patterns.
       #   e.g. "alice", "ali*", "*ice"

@@ -8,6 +8,7 @@
 * Add dry run option to creating a mailbox
 * Add sharing_id & dry run option for renewing domain
 * Add listing customers under a reseller organization
+* Add creating customer under a reseller organization
 
 ## Version 0.3.0
 

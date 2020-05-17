@@ -71,4 +71,11 @@ describe GandiV5::Organization do
     expect(GandiV5::Organization::Customer).to receive(:list).with('org_uuid', param: :value).and_return(returns)
     expect(subject.customers('org_uuid', param: :value)).to be returns
   end
+
+  it '#create_customer' do
+    subject = described_class.new uuid: 'org_uuid'
+    returns = double Object
+    expect(GandiV5::Organization::Customer).to receive(:create).with('org_uuid', param: :value).and_return(returns)
+    expect(subject.create_customer('org_uuid', param: :value)).to be returns
+  end
 end

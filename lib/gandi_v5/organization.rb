@@ -55,6 +55,11 @@ class GandiV5
       GandiV5::Organization::Customer.list(org_uuid, **params)
     end
 
+    # @see GandiV5::Organization::Customer.create
+    def create_customer(org_uuid, **params)
+      GandiV5::Organization::Customer.create(org_uuid, **params)
+    end
+
     # Get information about the current authenticated user.
     # @see https://api.gandi.net/docs/organization#get-v5-organization-user-info
     # @return [GandiV5::Organization]

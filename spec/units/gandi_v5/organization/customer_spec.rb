@@ -3,6 +3,42 @@
 describe GandiV5::Organization::Customer do
   let(:body_fixtures) { File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Organization_Customer')) }
 
+  describe '.create' do
+    let(:url) { 'https://api.gandi.net/v5/organization/organizations/uuid/customers' }
+    let(:attrs) do
+      {
+        city: 'Ci',
+        country: 'Co',
+        email: 'a@e',
+        firstname: 'f',
+        lastname: 'l',
+        phone: '0',
+        streetaddr: 'sa',
+        type: :individual
+      }
+    end
+
+    it 'Success' do
+      response = double RestClient::Response, headers: { location: '' }
+      expect(GandiV5).to receive(:post).with(url, attrs.to_json).and_return([response, nil])
+      expect(described_class.create('uuid', **attrs)).to be nil
+    end
+
+    describe 'Checks for required attributes' do
+      %i[city country email firstname lastname phone streetaddr type].each do |attr|
+        it attr do
+          attrs.delete attr
+          expect { described_class.new('org_uuid', **attrs) }.to raise_exception ArgumentError
+        end
+      end
+    end
+
+    it 'Invalid type' do
+      attrs[:type] = :invalid
+      expect { described_class.new('org_uuid', **attrs) }.to raise_exception ArgumentError
+    end
+  end
+
   describe '.list' do
     describe 'With default values' do
       subject { described_class.list('uuid') }
