@@ -25,21 +25,20 @@ describe 'LiveDNS Zone features' do
   end
 
   it 'Make and save snapshot', :vcr do
-    yaml = "--- !ruby/object:GandiV5::LiveDNS::Zone::Snapshot\n" \
-           "uuid: snapshot-uuid\n" \
-           "zone_uuid: zone-uuid\n" \
-           "created_at: 2016-12-16 16:51:26.000000000 Z\n" \
-           "records:\n" \
-           "- !ruby/object:GandiV5::LiveDNS::RecordSet\n" \
-           "  type: A\n" \
-           "  ttl: 10800\n" \
-           "  name: www\n" \
-           "  values:\n" \
-           "  - 10.0.1.42\n"
-    expect(File).to receive(:write).with('/path/to/file', yaml)
+    hash = {
+      uuid: 'snapshot-uuid',
+      zone_uuid: 'zone-uuid',
+      created_at: Time.new(2016, 12, 16, 16, 51, 26),
+      records: [
+        type: 'A',
+        ttl: 10_800,
+        name: 'www',
+        values: ['10.0.1.42']
+      ]
+    }
 
     zone = GandiV5::LiveDNS::Zone.new uuid: 'zone-uuid'
     snapshot = zone.take_snapshot
-    File.write '/path/to/file', snapshot.to_yaml
+    expect(snapshot.to_h).to eq hash
   end
 end

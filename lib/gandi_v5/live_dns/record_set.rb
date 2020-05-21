@@ -15,7 +15,7 @@ class GandiV5
       include GandiV5::Data
 
       member :type, gandi_key: 'rrset_type'
-      member :ttl, gandi_key: 'rrset_ttl'
+      member :ttl, gandi_key: 'rrset_ttl', converter: GandiV5::Data::Converter::Integer
       member :name, gandi_key: 'rrset_name'
       member :values, gandi_key: 'rrset_values'
 
