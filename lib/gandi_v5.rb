@@ -17,6 +17,8 @@ class MyInflector < Zeitwerk::Inflector
       'LiveDNS'
     when 'tld'
       'TLD'
+    when 'version'
+      'VERSION'
     else
       super
     end
