@@ -3,6 +3,7 @@
 ## Version 0.5.0
 
 * Add support for truffleruby 20.1.0
+* Fix issue with rails in production
 
 ## Version 0.4.0
 
