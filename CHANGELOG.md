@@ -1,5 +1,9 @@
 # Gandi V5 API Gem Changelog
 
+## Version 0.6.0
+
+* 
+
 ## Version 0.5.0
 
 * Add support for truffleruby 20.1.0
