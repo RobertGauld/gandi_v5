@@ -75,12 +75,14 @@ TODO: More examples!
 
 We follow the [Semantic Versioning](http://semver.org/) concept.
 
-| Gem Version     | Gandi API Release Date |
-| --------------- | ---------------------- |
-| 0.4.0           | 2019-10-01             |
-| 0.3.0           | 2019-08-22             |
-| 0.2.0           | 2019-05-16             |
-| 0.1.0           | 2019-05-16             |
+| Gem Version     | Gandi API Release Date   |
+| --------------- | ------------------------ |
+| 0.6.0           | 2020-05-07 (not LiveDNS) |
+| 0.5.0           | 2019-10-01               |
+| 0.4.0           | 2019-10-01               |
+| 0.3.0           | 2019-08-22               |
+| 0.2.0           | 2019-05-16               |
+| 0.1.0           | 2019-05-16               |
 
 See <https://api.gandi.net/docs/reference#API-Changelog> to find out what
 Gandi changed on each date.
