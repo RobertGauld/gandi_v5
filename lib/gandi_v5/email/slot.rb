@@ -78,15 +78,23 @@ class GandiV5
       # but require more mailboxes on that domain, you must first purchase additional slots.
       # @see https://api.gandi.net/docs/email#post-v5-email-slots-domain
       # @param fqdn [String, #to_s] the fully qualified domain name to add the slot to.
-      # @param type [:standard, :premium] Tyhe type of slot to add.
+      # @param type [:standard, :premium] The type of slot to add.
+      # @param sharing_id [nil, String, #to_s] either:
+      #   * nil (default) - nothing special happens
+      #   * an organization ID - pay using another organization
+      #     (you need to have billing permissions on the organization
+      #     and use the same organization name for the domain name's owner).
+      #     The invoice will be edited using this organization's information.
       # @return [String] The confirmation message from Gandi.
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
-      def self.create(fqdn, type = :standard)
+      def self.create(fqdn, type: :standard, sharing_id: nil)
         body = {
           mailbox_type: type
         }.to_json
 
-        response, _data = GandiV5.post url(fqdn), body
+        url_ = url(fqdn)
+        url_ += "?sharing_id=#{sharing_id}" if sharing_id
+        response, _data = GandiV5.post url_, body
         fetch fqdn, response.headers[:location].split('/').last
       end
 

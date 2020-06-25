@@ -2,7 +2,8 @@
 
 ## Version 0.6.0
 
-* 
+* Email::Slot.create now supports sharing_id
+* Email::Slot.create's type argument is now named not positional
 
 ## Version 0.5.0
 

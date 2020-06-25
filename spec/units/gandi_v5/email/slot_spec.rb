@@ -130,7 +130,7 @@ describe GandiV5::Email::Slot do
     end
     let(:created_slot) { double GandiV5::Email::Slot }
 
-    it 'With default type' do
+    it 'With default type and no sharingID' do
       expect(GandiV5).to receive(:post).with(url, '{"mailbox_type":"standard"}')
                                        .and_return([created_response, { 'message' => 'Confirmation message.' }])
       expect(described_class).to receive(:fetch).with('example.com', 'created-slot-uuid').and_return(created_slot)
@@ -143,7 +143,15 @@ describe GandiV5::Email::Slot do
                                        .and_return([created_response, { 'message' => 'Confirmation message.' }])
       expect(described_class).to receive(:fetch).with('example.com', 'created-slot-uuid').and_return(created_slot)
 
-      expect(described_class.create('example.com', :premium)).to be created_slot
+      expect(described_class.create('example.com', type: :premium)).to be created_slot
+    end
+
+    it 'With sharingID' do
+      expect(GandiV5).to receive(:post).with("#{url}?sharing_id=SHARING-ID", '{"mailbox_type":"standard"}')
+                                       .and_return([created_response, { 'message' => 'Confirmation message.' }])
+      expect(described_class).to receive(:fetch).with('example.com', 'created-slot-uuid').and_return(created_slot)
+
+      expect(described_class.create('example.com', sharing_id: 'SHARING-ID')).to be created_slot
     end
   end
 
