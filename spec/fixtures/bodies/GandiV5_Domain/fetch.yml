@@ -35,3 +35,11 @@ contacts:
 services:
 - gandilivedns
 - dnssec
+sharing_space:
+  id: SHARING-UUID
+  name: User
+  type: user
+  reseller: true
+  sharing_space:
+    id: RESELLER-UUID
+    name: Reseller

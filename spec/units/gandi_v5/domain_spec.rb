@@ -108,7 +108,12 @@ describe GandiV5::Domain do
     its('domain_owner') { should be_nil }
     its('name_servers') { should match_array %w[192.168.0.1 192.168.0.2] }
     its('services') { should match_array %i[gandilivedns dnssec] }
-    its('sharing_space') { should be_nil }
+    its('sharing_space.uuid') { should eq 'SHARING-UUID' }
+    its('sharing_space.name') { should eq 'User' }
+    its('sharing_space.type') { should eq 'user' }
+    its('sharing_space.reseller') { should be true }
+    its('sharing_space.reseller_details.uuid') { should eq 'RESELLER-UUID' }
+    its('sharing_space.reseller_details.name') { should eq 'Reseller' }
     its('dates.created_at') { should eq Time.new(2011, 2, 21, 10, 39, 0) }
     its('dates.registry_created_at') { should eq Time.new(2003, 3, 12, 12, 2, 11) }
     its('dates.registry_ends_at') { should eq Time.new(2020, 3, 12, 12, 2, 11) }
@@ -268,7 +273,7 @@ describe GandiV5::Domain do
     its('domain_owner') { should be_nil }
     its('name_servers') { should match_array %w[192.168.0.1 192.168.0.2] }
     its('services') { should match_array %i[gandilivedns dnssec] }
-    its('sharing_space') { should be_nil }
+    its('sharing_space') { should_not be_nil }
     its('dates.created_at') { should eq Time.new(2011, 2, 21, 10, 39, 0) }
     its('dates.registry_created_at') { should eq Time.new(2003, 3, 12, 12, 2, 11) }
     its('dates.registry_ends_at') { should eq Time.new(2020, 3, 12, 12, 2, 11) }

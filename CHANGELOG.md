@@ -2,8 +2,9 @@
 
 ## Version 0.6.0
 
-* Email::Slot.create now supports sharing_id
-* Email::Slot.create's type argument is now named not positional
+* GandiV5::Email::Slot.create now supports sharing_id
+* GandiV5::Email::Slot.create's type argument is now named not positional
+* Add reseller information to GandiV5::Domain
 
 ## Version 0.5.0
 
