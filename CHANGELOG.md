@@ -1,5 +1,9 @@
 # Gandi V5 API Gem Changelog
 
+## Version 0.7.0
+
+* 
+
 ## Version 0.6.0
 
 * GandiV5::Email::Slot.create now supports sharing_id
