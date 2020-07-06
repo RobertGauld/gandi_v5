@@ -76,18 +76,12 @@ class GandiV5
       #   e.g. ("alice" "*lice", "alic*").
       # @return [Array<GandiV5::Email::Forward>]
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
-      def self.list(fqdn, page: (1..), **params)
-        page = [page.to_i] unless page.respond_to?(:each)
-
+      def self.list(fqdn, page: (1..), per_page: 100, **params)
         params.reject! { |_k, v| v.nil? }
 
         mailboxes = []
-        page.each do |page_number|
-          _response, data = GandiV5.get url(fqdn), params: params.merge(page: page_number)
-          break if data.empty?
-
+        GandiV5.paginated_get(url(fqdn), page, per_page, params: params) do |data|
           mailboxes += data.map { |mailbox| from_gandi mailbox.merge(fqdn: fqdn) }
-          break if data.count < params.fetch(:per_page, 100)
         end
         mailboxes
       end

@@ -4,8 +4,6 @@
 class GandiV5
   # Gandi LiveDNS Management API.
   class LiveDNS
-    BASE = 'https://dns.api.gandi.net/api/v5/'
-
     RECORD_TYPES = %w[
       A AAAA CNAME MX NS TXT ALIAS
       WKS SRV LOC SPF CAA DS SSHFP PTR KEY DNAME TLSA OPENPGPKEY CDS
@@ -19,16 +17,6 @@ class GandiV5
     # @see GandiV5::LiveDNS::Domain.list
     def self.domains
       GandiV5::LiveDNS::Domain.list
-    end
-
-    # @see GandiV5::LiveDNS::Zone.fetch
-    def self.zone(uuid)
-      GandiV5::LiveDNS::Zone.fetch(uuid)
-    end
-
-    # @see GandiV5::LiveDNS::Zone.list
-    def self.zones
-      GandiV5::LiveDNS::Zone.list
     end
 
     # Raise an error if passed type is invalid.

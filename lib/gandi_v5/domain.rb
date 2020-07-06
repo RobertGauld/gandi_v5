@@ -492,7 +492,7 @@ class GandiV5
     # @param page [#each<Integer, #to_s>] the page(s) of results to retrieve.
     #   If page is not provided keep querying until an empty list is returned.
     #   If page responds to .each then iterate until an empty list is returned.
-    # @param per_page [Integer, #to_s] (optional default 100) how many results ot get per page.
+    # @param per_page [Integer, #to_s] (optional default 100) how many results to get per page.
     # @param fqdn [String, #to_s] (optional)
     #   filters the list by domain name, with optional patterns.
     #   e.g. "example.net", "example.*", "*ample.com"
@@ -501,15 +501,9 @@ class GandiV5
     # @return [Array<GandiV5::Domain>]
     # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def self.list(page: (1..), per_page: 100, **params)
-      page = [page.to_i] unless page.respond_to?(:each)
-
       domains = []
-      page.each do |page_number|
-        _resp, data = GandiV5.get url, params: params.merge(page: page_number, per_page: per_page)
-        break if data.empty?
-
+      GandiV5.paginated_get(url, page, per_page, params: params) do |data|
         domains += data.map { |domain| from_gandi domain }
-        break if data.count < per_page
       end
       domains
     end

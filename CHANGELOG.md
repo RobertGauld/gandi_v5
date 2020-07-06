@@ -2,7 +2,30 @@
 
 ## Version 0.7.0
 
-* 
+* LiveDNS:
+  * Rename LiveDNS::RecordSet to LiveDNS::Domain::Record
+  * Domains:
+    * .list now returns an array of strings
+    * Can no longer change the zone used by a domain
+    * Added automatic_snapshots attribute for whether snapshots are automatically created when a modification is made to this domain's records
+    * #replace_records and #replace_records_for merged into #replace_records
+      * If replacing with a zone file use the new #replace_zone_lines
+    * Added:
+      * .create
+      * .record_types
+      * .generic_name_servers(fqdn)
+      * #name_servers and #fetch_name_servers
+      * #tsig_keys, #fetch_tsig_keys, #add_tsig_key, #remove_tsig_key
+      * #axfr_clients, #fetch_axfr_clients, #add_axfr_client, #remove_axfr_client
+      * ::DnssecKeys, #dnssec_keys, #fetch_dnssec_keys
+  * Snapshots:
+    * Moved to live under LiveDNS::Domain not LiveDNS::Zone
+    * Are now accessed via the fully qualified domain name NOT the zone's UUID
+    * Ability to access the zone from a snapshot is removed
+    * Taking a snapshot now allows for named snapshots
+    * Added automatic attribute for when a snapshot was taken due to a zone change
+    * .list now returns an array of snapshots (records are fetched in a seperate request when first needed)
+  * Zone removed.
 
 ## Version 0.6.0
 

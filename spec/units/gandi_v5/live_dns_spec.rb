@@ -13,18 +13,6 @@ describe GandiV5::LiveDNS do
     expect(described_class.domains).to be returns
   end
 
-  it '.zone' do
-    returns = double GandiV5::LiveDNS::Zone
-    expect(GandiV5::LiveDNS::Zone).to receive(:fetch).with('zone-uuid').and_return(returns)
-    expect(described_class.zone('zone-uuid')).to be returns
-  end
-
-  it '.zones' do
-    returns = double Array
-    expect(GandiV5::LiveDNS::Zone).to receive(:list).and_return(returns)
-    expect(described_class.zones).to be returns
-  end
-
   describe '.require_valid_record_type' do
     it 'Does nothing for valid type' do
       expect { described_class.require_valid_record_type 'A' }.to_not raise_error

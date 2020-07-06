@@ -57,8 +57,10 @@ describe GandiV5 do
           response_data = { 'hello' => 'world' }
           response = double RestClient::Response, body: response_data.to_json, headers: { content_type: 'application/json' }
           expect(described_class).to receive(:prepare_headers)
-          expect(RestClient).to receive(method).with('url', hash_including(accept: 'application/json')).and_return(response)
-          expect(described_class.send(method, 'url', accept: 'application/json')).to match_array [response, response_data]
+          expect(RestClient).to receive(method).with('url', hash_including(accept: 'application/json'))
+                                               .and_return(response)
+          expect(described_class.send(method, 'url', accept: 'application/json'))
+            .to match_array [response, response_data]
         end
 
         it 'As text' do
@@ -75,7 +77,7 @@ describe GandiV5 do
         end
 
         it 'Adds authentication header' do
-          expect(RestClient).to receive(method).with(anything, hash_including(Authorization: 'Apikey abdce12345'))
+          expect(RestClient).to receive(method).with(anything, hash_including(authorization: 'Apikey abdce12345'))
                                                .and_return(response)
           expect(described_class).to receive(:parse_response)
           expect(described_class.send(method, 'https://api.gandi.net/v5/')).to match_array [response, nil]
@@ -146,7 +148,7 @@ describe GandiV5 do
         end
 
         it 'Adds authentication header' do
-          expect(RestClient).to receive(method).with(any_args, hash_including(Authorization: 'Apikey abdce12345'))
+          expect(RestClient).to receive(method).with(any_args, hash_including(authorization: 'Apikey abdce12345'))
                                                .and_return(response)
           expect(described_class).to receive(:parse_response)
           expect(described_class.send(method, 'https://api.gandi.net/v5/', payload)).to match_array [response, nil]
@@ -168,20 +170,23 @@ describe GandiV5 do
     end
   end
 
-  describe 'Generates correct authorisation header' do
-    it 'When requesting from main V5 API' do
-      expect(described_class.send(:authorisation_header, 'https://api.gandi.net/v5/example'))
-        .to eq(Authorization: "Apikey #{api_key}")
+  describe 'Prepares headers' do
+    it 'Sets accept it not present' do
+      headers = {}
+      described_class.send(:prepare_headers, headers, GandiV5::BASE)
+      expect(headers[:accept]).to eq 'application/json'
     end
 
-    it 'When requesting from main LiveDNS V5 API' do
-      expect(described_class.send(:authorisation_header, 'https://dns.api.gandi.net/api/v5/example'))
-        .to eq('X-Api-Key': api_key)
+    it 'Leaves accept alone if present' do
+      headers = { accept: 'leave/alone' }
+      described_class.send(:prepare_headers, headers, GandiV5::BASE)
+      expect(headers[:accept]).to eq 'leave/alone'
     end
 
-    it 'Raises ArgumentError when requesting an unknown url' do
-      expect { described_class.send(:authorisation_header, 'https://unknown.example.com') }
-        .to raise_error ArgumentError, 'Don\'t know how to authorise for url: https://unknown.example.com'
+    it 'Sets authorization' do
+      headers = {}
+      described_class.send(:prepare_headers, headers, GandiV5::BASE)
+      expect(headers[:authorization]).to eq "Apikey #{api_key}"
     end
   end
 
@@ -236,6 +241,98 @@ describe GandiV5 do
       exception = RestClient::BadRequest.new response
       expect { described_class.send(:handle_bad_request, exception) }
         .to raise_error GandiV5::Error::GandiError, 'field: message'
+    end
+  end
+
+  describe '.paginated_get' do
+    let(:url) { "#{GandiV5::BASE}test/url" }
+    let(:do_nothing) { ->(_this_data) { nil } }
+
+    it 'Keeps fetching until getting a partial list' do
+      headers1 = { params: { 'page' => 1, 'per_page' => 2 } }
+      headers2 = { params: { 'page' => 2, 'per_page' => 2 } }
+      expect(GandiV5).to receive(:get).with(url, headers1)
+                                      .ordered
+                                      .and_return([nil, %i[a b]])
+      expect(GandiV5).to receive(:get).with(url, headers2)
+                                      .ordered
+                                      .and_return([nil, %i[c]])
+
+      described_class.paginated_get(url, (1..2), 2, &do_nothing)
+    end
+
+    it 'Keeps fetching until getting an empty list' do
+      headers1 = { params: { 'page' => 1, 'per_page' => 2 } }
+      headers2 = { params: { 'page' => 2, 'per_page' => 2 } }
+      expect(GandiV5).to receive(:get).with(url, headers1)
+                                      .ordered
+                                      .and_return([nil, %i[a b]])
+      expect(GandiV5).to receive(:get).with(url, headers2)
+                                      .ordered
+                                      .and_return([nil, []])
+
+      described_class.paginated_get(url, (1..2), 2, &do_nothing)
+    end
+
+    it 'Passes per_page option' do
+      headers = { params: { 'page' => 1, 'per_page' => 100 } }
+      expect(GandiV5).to receive(:get).with(url, headers)
+                                      .and_return([nil, []])
+      described_class.paginated_get(url, 1, 100, &do_nothing)
+    end
+
+    it 'Passes on other params' do
+      headers = { params: { 'page' => 1, 'per_page' => 100, 'custom' => 'value' } }
+      expect(GandiV5).to receive(:get).with(url, headers)
+                                      .and_return([nil, []])
+      described_class.paginated_get(url, 1, 100, params: { custom: 'value' }, &do_nothing)
+    end
+
+    it 'Passes on other headers' do
+      headers = { params: { 'page' => 1, 'per_page' => 100 }, custom: :value }
+      expect(GandiV5).to receive(:get).with(url, headers)
+                                      .and_return([nil, []])
+      described_class.paginated_get(url, 1, 100, custom: :value, &do_nothing)
+    end
+
+    describe 'Honors passed pages' do
+      it 'Has an each method' do
+        headers1 = { params: { 'page' => 1, 'per_page' => 2 } }
+        headers2 = { params: { 'page' => 2, 'per_page' => 2 } }
+        expect(GandiV5).to receive(:get).with(url, headers1)
+                                        .ordered
+                                        .and_return([nil, %i[a b]])
+        expect(GandiV5).to receive(:get).with(url, headers2)
+                                        .ordered
+                                        .and_return([nil, %i[c d]])
+
+        described_class.paginated_get(url, (1..2), 2, &do_nothing)
+      end
+
+      it 'Positive integer' do
+        headers = { params: { 'page' => 3, 'per_page' => 2 } }
+        expect(GandiV5).to receive(:get).with(url, headers)
+                                        .ordered
+                                        .and_return([nil, %i[a b c]])
+        described_class.paginated_get(url, 3, 2, &do_nothing)
+      end
+
+      it 'Nonpositive integer' do
+        expect { described_class.paginated_get(url, -3, 2, &do_nothing) }.to \
+          raise_error ArgumentError, 'page must be positive'
+      end
+    end
+
+    it 'Relies on caller to build their list' do
+      this_data = [:a]
+      expect(GandiV5).to receive(:get).and_return([nil, this_data])
+      expect { |b| described_class.paginated_get(url, 1, 100, &b) }.to yield_with_args(this_data)
+    end
+
+    it 'Requires a block' do
+      allow(GandiV5).to receive(:get).and_return([nil, [:a]])
+
+      expect { described_class.paginated_get(url) }.to raise_error LocalJumpError
     end
   end
 end

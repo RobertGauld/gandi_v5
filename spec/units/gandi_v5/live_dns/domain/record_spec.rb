@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe GandiV5::LiveDNS::RecordSet do
+describe GandiV5::LiveDNS::Domain::Record do
   subject do
     described_class.new type: 'A', ttl: 900, name: 'www', values: %w[192.168.0.1 192.168.0.2]
   end

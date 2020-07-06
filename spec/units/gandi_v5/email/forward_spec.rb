@@ -63,14 +63,14 @@ describe GandiV5::Email::Forward do
     let(:body_fixture) do
       File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Forward', 'list.yml'))
     end
+    let(:url) { 'https://api.gandi.net/v5/email/forwards/example.com' }
 
     describe 'With default values' do
       subject { described_class.list 'example.com' }
 
       before :each do
-        headers = { params: { page: 1 } }
-        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/forwards/example.com', headers)
-                                        .and_return([nil, YAML.load_file(body_fixture)])
+        expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100, params: {})
+                                                  .and_yield(YAML.load_file(body_fixture))
       end
 
       its('count') { should eq 1 }
@@ -79,40 +79,11 @@ describe GandiV5::Email::Forward do
       its('first.fqdn') { should eq 'example.com' }
     end
 
-    it 'Keeps fetching until no more to get' do
-      headers1 = { params: { page: 1, per_page: 1 } }
-      headers2 = { params: { page: 2, per_page: 1 } }
-      # https://github.com/rubocop-hq/rubocop/issues/7088
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/forwards/example.com', headers1)
-                                      .ordered
-                                      .and_return([nil, YAML.load_file(body_fixture)])
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/forwards/example.com', headers2)
-                                      .ordered
-                                      .and_return([nil, []])
-
-      expect(described_class.list('example.com', per_page: 1).count).to eq 1
-    end
-
-    it 'Given a range as page number' do
-      headers1 = { params: { page: 1, per_page: 1 } }
-      headers2 = { params: { page: 2, per_page: 1 } }
-      # https://github.com/rubocop-hq/rubocop/issues/7088
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/forwards/example.com', headers1)
-                                      .ordered
-                                      .and_return([nil, YAML.load_file(body_fixture)])
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/forwards/example.com', headers2)
-                                      .ordered
-                                      .and_return([nil, []])
-
-      expect(described_class.list('example.com', page: (1..2), per_page: 1).count).to eq 1
-    end
-
     describe 'Passes optional query params' do
       %i[source sort_by].each do |param|
         it param.to_s do
-          headers = { params: { page: 1 }.merge(param => 'value') }
-          expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/forwards/example.com', headers)
-                                          .and_return([nil, []])
+          headers = { params: { param => 'value' } }
+          expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100, **headers)
           expect(described_class.list('example.com', param => 'value')).to eq []
         end
       end

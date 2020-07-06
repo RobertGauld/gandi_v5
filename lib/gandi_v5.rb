@@ -89,6 +89,36 @@ class GandiV5
     #  * RestClient::Forbidden
     #      Access to the resource is denied.
     #      Mainly due to a lack of permissions to access it.
+    #  * GandiV5::Error
+    #  * JSON::ParserError
+    def paginated_get(url, page = (1..), per_page = 100, **headers)
+      unless page.respond_to?(:each)
+        fail ArgumentError, 'page must be positive' unless page.positive?
+
+        page = [page]
+      end
+
+      headers[:params] ||= {}
+      headers[:params].transform_keys!(&:to_s)
+      headers[:params]['per_page'] = per_page
+
+      page.each do |page_number|
+        headers[:params]['page'] = page_number
+        _resp, this_data = get(url, **headers)
+        break if this_data.empty?
+
+        yield this_data
+        break if this_data.count < per_page
+      end
+    end
+
+    # Might raise:
+    #  * RestClient::NotFound
+    #  * RestClient::Unauthorized
+    #      Bad authentication attempt because of a wrong API Key.
+    #  * RestClient::Forbidden
+    #      Access to the resource is denied.
+    #      Mainly due to a lack of permissions to access it.
     #  * RestClient::Conflict
     #  * GandiV5::Error
     #  * JSON::ParserError
@@ -169,16 +199,6 @@ class GandiV5
       @api_key ||= ENV.fetch('GANDI_API_KEY')
     end
 
-    def authorisation_header(url)
-      if url.start_with?(BASE)
-        { Authorization: "Apikey #{api_key}" }
-      elsif url.start_with?(GandiV5::LiveDNS::BASE)
-        { 'X-Api-Key': api_key }
-      else
-        fail ArgumentError, "Don't know how to authorise for url: #{url}"
-      end
-    end
-
     def parse_response(response)
       type = response.headers.fetch(:content_type).split(';').first.chomp
       case type
@@ -196,10 +216,11 @@ class GandiV5
       end
     end
 
-    def prepare_headers(headers, url)
-      headers.transform_keys!(&:to_sym)
+    def prepare_headers(headers, _url)
+      headers.transform_keys! { |key| key.to_s.downcase.to_sym }
       headers[:accept] ||= 'application/json'
-      headers.merge!(authorisation_header(url))
+      headers[:authorization] = "Apikey #{api_key}"
+      headers
     end
 
     def handle_bad_request(exception)

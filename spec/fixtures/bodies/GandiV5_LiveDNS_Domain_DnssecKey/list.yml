@@ -1,0 +1,9 @@
+---
+- id: key-uuid
+  status: status
+  fqdn: example.com
+  algorithm: 2
+  algorithm_name: Diffie-Hellman
+  deleted: false
+  ds: ds-record
+  flags: 256

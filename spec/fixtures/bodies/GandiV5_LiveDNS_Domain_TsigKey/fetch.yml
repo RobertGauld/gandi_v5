@@ -1,0 +1,9 @@
+---
+id: key-uuid
+key_name: key-name
+secret: key-secret
+config_samples:
+  bind: bind-sample
+  knot: knot-sample
+  nsd: nsd-sample
+  powerdns: powerdns-sample

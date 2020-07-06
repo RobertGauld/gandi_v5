@@ -1,4 +1,3 @@
 ---
-  zonedata: /zones/zone-uuid/recprds
   fqdn: example.com
-  zone: /zones/zone-uuid
+  automatic_snapshots: true
