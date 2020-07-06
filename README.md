@@ -36,12 +36,12 @@ Details of the API can be found at:
 If you're using bundler then add it to your Gemfile and run the bundle command.
 
 ```ruby
-gem 'gandi_v5', '~> 0.1'
+gem 'gandi_v5', '~> 0.7'
 ```
 
 If you're not using bundler then install it from the command line.
 ```bash
-gem install gandi_v5 -v '~> 0.1'
+gem install gandi_v5 -v '~> 0.7'
 ```
 
 ## Usage
