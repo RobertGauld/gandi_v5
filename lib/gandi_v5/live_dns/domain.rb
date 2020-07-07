@@ -138,7 +138,7 @@ class GandiV5
       #   @raise [ArgumentError] if ttl is present and type is absent.
       # @return [String] The confirmation message from Gandi.
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
-      # rubocop:disable Metrics/PerceivedComplexity
+      # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
       def replace_records(records, name: nil, type: nil)
         if type
           GandiV5::LiveDNS.require_valid_record_type(type) if type
@@ -158,7 +158,7 @@ class GandiV5
         _response, data = GandiV5.put url_, body.to_json
         data['message']
       end
-      # rubocop:enable Metrics/PerceivedComplexity
+      # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
       # Replace all records for this domain.
       # @param text [String] zone file lines to replace the records with.
