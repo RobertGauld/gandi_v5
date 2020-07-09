@@ -1,5 +1,8 @@
 # Gandi V5 API Gem Changelog
 
+* Domain:
+  * 'list - add resellee_id filter
+
 ## Version 0.7.0
 
 * LiveDNS:

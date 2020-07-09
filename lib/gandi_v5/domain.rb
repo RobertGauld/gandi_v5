@@ -496,8 +496,10 @@ class GandiV5
     # @param fqdn [String, #to_s] (optional)
     #   filters the list by domain name, with optional patterns.
     #   e.g. "example.net", "example.*", "*ample.com"
-    # @param sort_by [String, #to_s] (optional default "fqdn") how to sort the list.
+    # @param resellee_id [String, #to_s] (optional)
+    #   filters the list by resellee_id (from the Organization API).
     # @param tld [String, #to_s] (optional) used to filter by just the top level domain.
+    # @param sort_by [String, #to_s] (optional default "fqdn") how to sort the list.
     # @return [Array<GandiV5::Domain>]
     # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def self.list(page: (1..), per_page: 100, **params)

@@ -45,7 +45,7 @@ describe GandiV5::Domain do
     end
 
     describe 'Passes optional query params' do
-      %i[fqdn sort_by tld].each do |param|
+      %i[fqdn sort_by tld resellee_id].each do |param|
         it param.to_s do
           expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100, params: { param => 5 })
           expect(described_class.list(param => 5)).to eq []
