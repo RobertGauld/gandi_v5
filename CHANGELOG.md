@@ -1,5 +1,7 @@
 # Gandi V5 API Gem Changelog
 
+## Version 0.8.0
+
 * Domain:
   * .list - add resellee_id filter
 * Added simple hosting: (I don't use simple hosting myself so it's possible I've misread the docs and a bug is waiting to be found, please add an issue if I have)
