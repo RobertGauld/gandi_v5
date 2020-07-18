@@ -1,0 +1,80 @@
+---
+access_information:
+  admin_url: admin.example.com/
+  database:
+    admins:
+    - type: phpMyAdmin
+      url: admin.example.com/phpmyadmin
+      username: database admin username
+    host: database.example.com
+    port: 1234
+    socket: /socket/for/database
+  deploy:
+  - cli:
+      init: cli init string
+    git:
+      deploy: git deploy string
+      remote: git remote string
+      url: git url string
+    sftp:
+      directory: sftp directory
+      document_root: sftp document root
+      server: sftp server
+      url: sftp url
+    vhost:
+      fqdn: example.com
+      href: link/to/href/details/virtualhost-uuid
+  user: A user
+available_upgrade: false
+console:
+  enabled: true
+  url: console.example.com/
+created_at: 2020-01-02T12:34:56+00
+database:
+  name: database name
+  status: database status
+  version: database version
+datacenter:
+  code: FR-SD5
+  name: SD5
+  region: FR
+expire_at: 2021-01-02T12:34:56+00
+id: instance-uuid
+is_trial: false
+language:
+  name: ruby
+  single_application: true
+  status: great
+  version: "2.7"
+name: instance name
+sharing_space:
+  id: sharing-space-uuid
+  name: sharing space name
+size: s+
+snapshot_enabled: true
+status: active
+storage:
+  additional:
+    unit: GB
+    value: 10
+  base:
+    unit: GB
+    value: 20
+  total:
+    unit: GB
+    value: 30
+vhosts:
+  - fqdn: vhost1.example.com
+    href: link/to.vhost/details
+autorenew:
+  duration: 1
+  duration_type: m
+compatible_applications:
+- name: compatable name
+  parameters: {}
+password_updated_at: 2020-06-02T12:34:56+00
+upgrade_to:
+- name: upgrade to name
+  status: upgrade to status
+  type: database
+  version: upgrade to version

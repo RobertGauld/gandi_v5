@@ -1,0 +1,38 @@
+---
+- available_upgrade: true
+  created_at: 2020-01-02T12:34:56+00
+  database:
+    name: database name
+    status: database status
+    version: database version
+  datacenter:
+    code: FR-SD5
+    name: SD5
+    region: FR
+  expire_at: 2021-01-02T12:34:56+00
+  id: instance-uuid
+  language:
+    name: ruby
+    single_application: true
+    status: great
+    version: "2.7"
+  name: instance name
+  sharing_space:
+    id: sharing-space-uuid
+    name: sharing space name
+  size: s+
+  snapshot_enabled: true
+  status: active
+  storage:
+    additional:
+      unit: GB
+      value: 10
+    base:
+      unit: GB
+      value: 20
+    total:
+      unit: GB
+      value: 30
+  autorenew:
+    duration: 1
+    duration_type: m

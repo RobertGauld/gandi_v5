@@ -15,7 +15,7 @@ class GandiV5
   #      gandidns, redirection, gandimail, packmail, dnssec, blog, hosting,
   #      paas, site, certificate, gandilivedns, mailboxv2
   # @!attribute [r] sharing_space
-  #   @return [GandiV5::Domain::SharingSpace]
+  #   @return [GandiV5::SharingSpace]
   # @!attribute [r] status
   #   @return [String] one of: "clientHold", "clientUpdateProhibited", "clientTransferProhibited",
   #     "clientDeleteProhibited", "clientRenewProhibited", "serverHold", "pendingTransfer",
@@ -107,7 +107,7 @@ class GandiV5
     member(
       :sharing_space,
       gandi_key: 'sharing_space',
-      converter: GandiV5::Domain::SharingSpace
+      converter: GandiV5::SharingSpace
     )
 
     member(

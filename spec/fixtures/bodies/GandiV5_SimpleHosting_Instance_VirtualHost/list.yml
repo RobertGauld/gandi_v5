@@ -1,0 +1,18 @@
+---
+- created_at: 2020-01-02T12:34:56+00
+  fqdn: vh.example.com
+  is_a_test_vhost: false
+  linked_dns_zone:
+    allow_alteration: true
+    last_checked_status: unknown
+    last_checked_at: 2020-02-03T23:45:56+00
+  status: running
+  application:
+    name: app-name
+    status: being_created
+    parameters: {}
+  certificates:
+  - href: example.com
+    id: cert-id
+    pending: true
+  https_strategy: redirect_HTTP_to_HTTPS

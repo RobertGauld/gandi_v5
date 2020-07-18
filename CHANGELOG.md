@@ -1,7 +1,15 @@
 # Gandi V5 API Gem Changelog
 
 * Domain:
-  * 'list - add resellee_id filter
+  * .list - add resellee_id filter
+* Added simple hosting: (I don't use simple hosting myself so it's possible I've misread the docs and a bug is waiting to be found, please add an issue if I have)
+  * SimpleHosting::Instance
+  * SimpleHosting::Instance::VirtualHost
+  * SimpleHosting::Instance::Application
+  * SimpleHosting::Instance::Database
+  * SimpleHosting::Instance::Language
+  * SimpleHosting::Instance::Upgrade
+* GandiV5::Domain::SharingSpace moved to GandiV5::SharingSpace
 
 ## Version 0.7.0
 
