@@ -14,8 +14,7 @@ gemfile:
   - Gemfile
 branches:
   only:
-    - master
-    - staging
+    - main
     - /gh(?:\d)+(?:-.+)?/
     - /dev_ver_\d+\.\d+/
 env:
