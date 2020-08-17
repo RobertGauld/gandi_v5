@@ -1,6 +1,13 @@
 # Gandi V5 API Gem Changelog
 
 * Add transferring a domain to Gandi (I don't have any domains outside Gandi to test this myself so it's possible I've misread the docs and a bug is waiting to be found, please add an issue if I have):
+  * GandiV5::Domain::TransferIn:
+    * .create(fqdn, **options)
+    * .fetch(fqdn)
+    * .relaunch(fqdn)
+    * .resend_foa_emails(fqdn, email_address)
+    * \#relaunch
+    * \#resend_foa_emails(email_address)
   * GandiV5::Domain::TransferIn::Availabillity:
     * .fetch(fqdn, auth_code = nil)
 
