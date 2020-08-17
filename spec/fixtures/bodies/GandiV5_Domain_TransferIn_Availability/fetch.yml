@@ -1,0 +1,10 @@
+---
+available: true
+fqdn: example.com
+fqdn_ulabel: EXAMPLE.COM
+corporate: false
+internal: false
+durations: [1, 2, 3]
+minimum_duration: 1
+maximum_duration: 3
+msg: This is a message
