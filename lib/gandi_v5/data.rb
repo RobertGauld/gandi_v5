@@ -3,6 +3,7 @@
 class GandiV5
   # Addin providing a DSL to manage declaring attributes and how to map
   # and convert to/from Gandi's fields.
+  # @api private
   module Data
     # api private
     # Add contents of ClassMethods to the Class which includes this module.

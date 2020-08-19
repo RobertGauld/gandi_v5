@@ -30,6 +30,7 @@ class GandiV5
         alias snapshot_uuid uuid
 
         # Delete this snapshot.
+        # @see https://api.gandi.net/docs/livedns/#delete-v5-livedns-domains-fqdn-snapshots-id
         # @return [String] The confirmation message from Gandi.
         # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
         def delete
@@ -38,6 +39,7 @@ class GandiV5
         end
 
         # Update this snapshot.
+        # @see https://api.gandi.net/docs/livedns/#patch-v5-livedns-domains-fqdn-snapshots-id
         # @param name [String, #to_s] new name for the snapshot.
         # @return [String] The confirmation message from Gandi.
         # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
@@ -48,6 +50,7 @@ class GandiV5
         end
 
         # Get snapshot details for this FQDN from Gandi.
+        # @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn-snapshots
         # @param fqdn [String, #to_s] The fully qualified domain name to get the snapshots for.
         # @param page [#each<Integer, #to_s>] the page(s) of results to retrieve.
         #   If page is not provided keep querying until an empty list is returned.
@@ -67,6 +70,7 @@ class GandiV5
         end
 
         # Get snapshot from Gandi.
+        # @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn-snapshots-id
         # @param fqdn [String, #to_s] The fully qualified domain name the snapshot was made for.
         # @param uuid [String, #to_s] the UUID of the snapshot to fetch.
         # @return [GandiV5::LiveDNS::Domain::Snapshot]

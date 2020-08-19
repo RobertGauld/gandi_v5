@@ -43,7 +43,7 @@ class GandiV5
       alias mailbox_uuid uuid
 
       # Create a new GandiV5::Email::Mailbox
-      # @param members [Hash<Symbol => Object>]
+      # @param members [Hash{Symbol => Object}]
       # @return [GandiV5::Email::Slot]
       def initialize(**members)
         super(**members)

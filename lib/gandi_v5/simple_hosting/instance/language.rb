@@ -3,7 +3,7 @@
 class GandiV5
   class SimpleHosting
     class Instance
-      # Sharing space which contains other billable items.
+      # A language running on a simple hosting instance.
       # @!attribute [r] name
       #   @return [String]
       # @!attribute [r] single_application

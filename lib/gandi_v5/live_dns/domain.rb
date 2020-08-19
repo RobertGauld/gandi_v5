@@ -21,6 +21,7 @@ class GandiV5
       end
 
       # Update this domain's settings.
+      # @see https://api.gandi.net/docs/livedns/#patch-v5-livedns-domains-fqdn
       # @param automatic_snapshots [String, #to_s]
       #   Enable or disable the automatic creation of new snapshots when records are changed.
       # @return [String] The confirmation message from Gandi.
@@ -33,12 +34,14 @@ class GandiV5
 
       # @overload fetch_records()
       #   Fetch all records for this domain.
+      #   @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn-records
       #   @param page [Integer, #each<Integer>] which page(s) of results to get.
       #     If page is not provided keep querying until an empty list is returned.
       #     If page responds to .each then iterate until an empty list is returned.
       #   @param per_page [Integer, #to_s] (optional default 100) how many results ot get per page.
       # @overload fetch_records(name)
       #   Fetch records for a name.
+      #   @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn-records-rrset_name
       #   @param name [String] the name to fetch records for.
       #   @param page [Integer, #each<Integer>] which page(s) of results to get.
       #     If page is not provided keep querying until an empty list is returned.
@@ -46,6 +49,7 @@ class GandiV5
       #   @param per_page [Integer, #to_s] (optional default 100) how many results ot get per page.
       # @overload fetch_records(name, type)
       #   Fetch records of a type for a name.
+      #   @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn-records-rrset_name-rrset_type
       #   @param name [String] the name to fetch records for.
       #   @param type [String] the record type to fetch.
       #   @param page [Integer, #each<Integer>] which page(s) of results to get.
@@ -70,11 +74,14 @@ class GandiV5
 
       # @overload fetch_zone_lines()
       #   Fetch all records for this domain.
+      #   @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn-records
       # @overload fetch_zone_lines(name)
       #   Fetch records for a name.
+      #   @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn-records-rrset_name
       #   @param name [String] the name to fetch records for.
       # @overload fetch_zone_lines(name, type)
       #   Fetch records of a type for a name.
+      #   @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn-records-rrset_name-rrset_type
       #   @param name [String] the name to fetch records for.
       #   @param type [String] the record type to fetch.
       # @return [String]
@@ -90,6 +97,7 @@ class GandiV5
       end
 
       # Add record to this domain.
+      # @see https://api.gandi.net/docs/livedns/#post-v5-livedns-domains-fqdn-records
       # @param name [String]
       # @param type [String]
       # @param ttl [Integer]
@@ -113,11 +121,14 @@ class GandiV5
 
       # @overload delete_records()
       #   Delete all records for this domain.
+      #   @see https://api.gandi.net/docs/livedns/#delete-v5-livedns-domains-fqdn-records
       # @overload delete_records(name)
       #   Delete records for a name.
+      #   @see https://api.gandi.net/docs/livedns/#delete-v5-livedns-domains-fqdn-records-rrset_name
       #   @param name [String] the name to delete records for.
       # @overload delete_records(name, type)
       #   Delete records of a type for a name.
+      #   @see https://api.gandi.net/docs/livedns/#delete-v5-livedns-domains-fqdn-records-rrset_name-rrset_type
       #   @param name [String] the name to delete records for.
       #   @param type [String] the record type to delete.
       # @return [nil]
@@ -136,6 +147,9 @@ class GandiV5
       #   @param type [String, nil] only replaces record of this type (requires name).
       #   @param values [Array<String>] the values to set for the record.
       #   @raise [ArgumentError] if ttl is present and type is absent.
+      # @see https://api.gandi.net/docs/livedns/#put-v5-livedns-domains-fqdn-records
+      # @see https://api.gandi.net/docs/livedns/#put-v5-livedns-domains-fqdn-records-rrset_name
+      # @see https://api.gandi.net/docs/livedns/#put-v5-livedns-domains-fqdn-records-rrset_name-rrset_type
       # @return [String] The confirmation message from Gandi.
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
@@ -161,6 +175,7 @@ class GandiV5
       # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
       # Replace all records for this domain.
+      # @see https://api.gandi.net/docs/livedns/#put-v5-livedns-domains-fqdn-records
       # @param text [String] zone file lines to replace the records with.
       # @return [String] The confirmation message from Gandi.
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
@@ -199,6 +214,7 @@ class GandiV5
       end
 
       # Requery Gandi for the domain's DNSSEC keys.
+      # @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn-keys
       # @return [Array<GandiV5::LiveDNS::Domain::DnssecKey>]
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def fetch_dnssec_keys
@@ -215,6 +231,7 @@ class GandiV5
       end
 
       # Requery Gandi for the domain's TSIG keys.
+      # @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn-axfr-tsig
       # @return [Array<GandiV5::LiveDNS::Domain::TsigKey>]
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def fetch_tsig_keys
@@ -223,6 +240,7 @@ class GandiV5
       end
 
       # Add a Tsig key to this domain.
+      # @see https://api.gandi.net/docs/livedns/#put-v5-livedns-domains-fqdn-axfr-tsig-id
       # @param key [GandiV5::LiveDNS::Domain::TsigKey, #uuid, String, #to_s]
       #   the key to add.
       # @param sharing_id [nil, String, #to_s]
@@ -235,6 +253,7 @@ class GandiV5
       end
 
       # Remove a Tsig key from this domain.
+      # @see https://api.gandi.net/docs/livedns/#delete-v5-livedns-domains-fqdn-axfr-tsig-id
       # @param key [GandiV5::LiveDNS::Domain::TsigKey, #uuid, String, #to_s]
       #   the key to remove.
       # @param sharing_id [nil, String, #to_s]
@@ -254,6 +273,7 @@ class GandiV5
       end
 
       # Requery Gandi for the domain's AXFR clients.
+      # @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn-axfr-slaves
       # @return [Array<String>] list of IP addresses.
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def fetch_axfr_clients
@@ -262,6 +282,7 @@ class GandiV5
       end
 
       # Add an AXFR client to this domain.
+      # @see https://api.gandi.net/docs/livedns/#put-v5-livedns-domains-fqdn-axfr-slaves-ip
       # @param ip [String, #to_s] the IP address to add.
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def add_axfr_client(ip)
@@ -269,6 +290,7 @@ class GandiV5
       end
 
       # Remove and AXFR client from this domain.
+      # @see https://api.gandi.net/docs/livedns/#delete-v5-livedns-domains-fqdn-axfr-slaves-ip
       # @param ip [String, #to_s] the IP address to remove.
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def remove_axfr_client(ip)
@@ -276,6 +298,7 @@ class GandiV5
       end
 
       # List the domains.
+      # @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains
       # @param page [#each<Integer, #to_s>] the page(s) of results to retrieve.
       #   If page is not provided keep querying until an empty list is returned.
       #   If page responds to .each then iterate until an empty list is returned.
@@ -300,6 +323,7 @@ class GandiV5
       end
 
       # Get a domain.
+      # @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn
       # @param fqdn [String, #to_s] the fully qualified domain name to fetch.
       # @return [GandiV5::LiveDNS::Domain]
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
@@ -310,6 +334,7 @@ class GandiV5
 
       # Create a new domain in the LiveDNS system.
       # You must have sufficent permission to manage the domain to do this.
+      # @see https://api.gandi.net/docs/livedns/#post-v5-livedns-domains
       # @param fqdn [String, #to_s] the fully qualified domain to add to LiveDNS.
       # @param records [Array<Hash, GandiV5::LiveDNS::Domain::Record, #to_h, nil>]
       # @param ttl [Integer, #to_s, nil] the TTL of the SOA record.
@@ -335,6 +360,7 @@ class GandiV5
       end
 
       # Fetch the list of known record types (A, CNAME, etc.)
+      # @see https://api.gandi.net/docs/livedns/#get-v5-livedns-dns-rrtypes
       # @return [Array<String>]
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.record_types
@@ -342,7 +368,8 @@ class GandiV5
       end
 
       # Get the LiveDNS servers to use for a domain.
-      # Does not take into account any NS records that exist in the zone.
+      # @note Does not take into account any NS records that exist in the zone.
+      # @see https://api.gandi.net/docs/livedns/#get-v5-livedns-nameservers-fqdn
       # @param fqdn [String, #to_s] the fully qualified domain to hash in
       #   in order to get the LiveDNS servers to use.
       # @return [Array<String>]

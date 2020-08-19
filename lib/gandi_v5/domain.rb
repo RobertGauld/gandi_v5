@@ -7,7 +7,7 @@ class GandiV5
   #   @return [String] fully qualified domain name, written in its native alphabet (IDN).
   # @!attribute [r] fqdn_unicode
   #   @return [String] fully qualified domain name, written in unicode.
-  #     @see https://docs.gandi.net/en/domain_names/register/idn.html
+  #   @see https://docs.gandi.net/en/domain_names/register/idn.html
   # @!attribute [r] name_servers
   #   @return [Array<String>]
   # @!attribute [r] services
@@ -20,7 +20,7 @@ class GandiV5
   #   @return [String] one of: "clientHold", "clientUpdateProhibited", "clientTransferProhibited",
   #     "clientDeleteProhibited", "clientRenewProhibited", "serverHold", "pendingTransfer",
   #     "serverTransferProhibited"
-  #     @see https://docs.gandi.net/en/domain_names/faq/domain_statuses.html
+  #   @see https://docs.gandi.net/en/domain_names/faq/domain_statuses.html
   # @!attribute [r] tld
   #   @return [String]
   # @!attribute [r] dates
@@ -206,7 +206,7 @@ class GandiV5
     end
 
     # Renew domain.
-    # Warning! This is not a free operation. Please ensure your prepaid account has enough credit.
+    # @note This is not a free operation. Please ensure your prepaid account has enough credit.
     # @see https://api.gandi.net/docs/domains#post-v5-domain-domains-domain-renew
     # @param duration [Integer, #to_s] how long to renew for (in years).
     # @return [String] confirmation message from Gandi.
@@ -242,7 +242,7 @@ class GandiV5
     end
 
     # Restore an expired domain.
-    # Warning! This is not a free operation. Please ensure your prepaid account has enough credit.
+    # @note This is not a free operation. Please ensure your prepaid account has enough credit.
     # @see https://docs.gandi.net/en/domain_names/renew/restore.html
     # @see https://api.gandi.net/docs/domains#post-v5-domain-domains-domain-restore
     # @return [String] The confirmation message from Gandi.
@@ -399,23 +399,26 @@ class GandiV5
       data['message']
     end
 
+    # Get email mailboxes for the domain.
     # @see GandiV5::Email::Mailbox.list
     def mailboxes(**params)
       GandiV5::Email::Mailbox.list(**params, fqdn: fqdn)
     end
 
+    # Get email slots for the domain.
     # @see GandiV5::Email::Slot.list
     def mailbox_slots(**params)
       GandiV5::Email::Slot.list(**params, fqdn: fqdn)
     end
 
+    # Get email forwards for the domain.
     # @see GandiV5::Email::Forward.list
     def email_forwards(**params)
       GandiV5::Email::Forward.list(**params, fqdn: fqdn)
     end
 
     # Create (register) a new domain.
-    # Warning! This is not a free operation. Please ensure your prepaid account has enough credit.
+    # @note This is not a free operation. Please ensure your prepaid account has enough credit.
     # @see https://api.gandi.net/docs/domains#post-v5-domain-domains
     # @param fqdn [String, #to_s] the fully qualified domain name to create.
     # @param dry_run [Boolean]
@@ -459,7 +462,7 @@ class GandiV5
     #   Contents of a Signed Mark Data file (used for newgtld sunrises, tld_period must be sunrise).
     # @param tld_period ["sunrise", "landrush", "eap1", "eap2", "eap3", "eap4", "eap5", "eap6",
     #   "eap7", "eap8", "eap9", "golive", #to_gandi, #to_json] (optional)
-    #   @see https://docs.gandi.net/en/domain_names/register/new_gtld.html
+    # @see https://docs.gandi.net/en/domain_names/register/new_gtld.html
     # @return [GandiV5::Domain] the created domain
     # @return [Hash] if doing a dry run, you get what Gandi returns
     # @raise [GandiV5::Error::GandiError] if Gandi returns an error

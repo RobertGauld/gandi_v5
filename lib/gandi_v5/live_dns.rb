@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 # Namespace for classes which access LiveDNS details.
+# @see https://api.gandi.net/docs/livedns/
 class GandiV5
   # Gandi LiveDNS Management API.
   class LiveDNS
+    # Permitted record types.
     RECORD_TYPES = %w[
       A AAAA CNAME MX NS TXT ALIAS
       WKS SRV LOC SPF CAA DS SSHFP PTR KEY DNAME TLSA OPENPGPKEY CDS

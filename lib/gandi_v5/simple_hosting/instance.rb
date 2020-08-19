@@ -117,6 +117,7 @@ class GandiV5
       )
 
       # Instruct Gandi to restart this instance.
+      # @see https://api.gandi.net/docs/simplehosting/#post-v5-simplehosting-instances-instance_id-action
       # @return [String] confirmation message.
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def restart
@@ -125,6 +126,7 @@ class GandiV5
       end
 
       # Instruct Gandi to console this instance.
+      # @see https://api.gandi.net/docs/simplehosting/#post-v5-simplehosting-instances-instance_id-action
       # @return [String] confirmation message.
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def console
@@ -133,6 +135,7 @@ class GandiV5
       end
 
       # Instruct Gandi to reset the database password for this instance.
+      # @see https://api.gandi.net/docs/simplehosting/#post-v5-simplehosting-instances-instance_id-action
       # @return [String] confirmation message.
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def reset_database_password

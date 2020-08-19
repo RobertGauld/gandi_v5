@@ -5,6 +5,7 @@ class GandiV5
     # Generic error class for errors returned by Gandi.
     class GandiError < GandiV5::Error
       # Generate a new GandiV5::Error::GandiError from the hash returned by Gandi.
+      # @api private
       # @param hash [Hash] the hash returned by Gandi.
       # @return [GandiV5::Error::GandiError]
       def self.from_hash(hash)

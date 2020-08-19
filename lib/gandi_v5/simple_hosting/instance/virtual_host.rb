@@ -4,7 +4,7 @@
 class GandiV5
   class SimpleHosting
     class Instance
-      # A simple hosting virtual host.
+      # A virtual host on a simple hosting instance.
       # @see https://api.gandi.net/docs/simplehosting/
       # @!attribute [r] created_at
       #   @return [Time]
@@ -139,7 +139,7 @@ class GandiV5
 
         # Get information on a virtual host.
         # @see https://api.gandi.net/docs/simplehosting#get-v5-simplehosting-instances-instance_id-vhosts-vhost_fqdn
-        # @param uuid [String, #to_s] the UUID of the simple hosting instance.
+        # @param instance_uuid [String, #to_s] the UUID of the simple hosting instance.
         # @param fqdn [String, #to_s] the fully qualified domain name of the virtual host.
         # @return [GandiV5::SimpleHosting::Instance]
         # @raise [GandiV5::Error::GandiError] if Gandi returns an error.

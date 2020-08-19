@@ -4,6 +4,7 @@ class GandiV5
   module Data
     class Converter
       # Methods for converting times to/from Gandi ("2019-02-13T11:04:18Z").
+      # @api private
       class Time
         # Convert a time to Gandi's prefered string format.
         # @param value [Time]
@@ -15,8 +16,8 @@ class GandiV5
         end
 
         # Convert a time from Gandi's prefered string format.
-        # @param [String]
-        # @return value [Time]
+        # @param value [String]
+        # @return [Time]
         def self.from_gandi(value)
           return nil if value.nil?
 

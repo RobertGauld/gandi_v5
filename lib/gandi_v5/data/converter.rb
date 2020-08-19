@@ -3,6 +3,7 @@
 class GandiV5
   module Data
     # Namespace for converters to/from Gandi's format.
+    # @api private
     class Converter
       # Initialize a new simple converter.
       # The passed procs will be run at the appropriate time.
@@ -21,8 +22,8 @@ class GandiV5
         to_gandi_proc.call value
       end
 
-      # @param [Object]
-      # @return value [Object]
+      # @param value [Object]
+      # @return [Object]
       def from_gandi(value)
         return value unless from_gandi_proc
 

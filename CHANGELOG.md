@@ -2,7 +2,7 @@
 
 * Add transferring a domain to Gandi (I don't have any domains outside Gandi to test this myself so it's possible I've misread the docs and a bug is waiting to be found, please add an issue if I have):
   * GandiV5::Domain::TransferIn:
-    * .create(fqdn, **options)
+    * .create(fqdn, \*\*options)
     * .fetch(fqdn)
     * .relaunch(fqdn)
     * .resend_foa_emails(fqdn, email_address)
@@ -10,6 +10,7 @@
     * \#resend_foa_emails(email_address)
   * GandiV5::Domain::TransferIn::Availabillity:
     * .fetch(fqdn, auth_code = nil)
+* Documentation improvements
 
 ## Version 0.8.0
 
@@ -32,15 +33,15 @@
     * .list now returns an array of strings
     * Can no longer change the zone used by a domain
     * Added automatic_snapshots attribute for whether snapshots are automatically created when a modification is made to this domain's records
-    * #replace_records and #replace_records_for merged into #replace_records
+    * \#replace_records and \#replace_records_for merged into \#replace_records
       * If replacing with a zone file use the new #replace_zone_lines
     * Added:
       * .create
       * .record_types
       * .generic_name_servers(fqdn)
-      * #name_servers and #fetch_name_servers
-      * #tsig_keys, #fetch_tsig_keys, #add_tsig_key, #remove_tsig_key
-      * #axfr_clients, #fetch_axfr_clients, #add_axfr_client, #remove_axfr_client
+      * \#name_servers and #fetch_name_servers
+      * \#tsig_keys, #fetch_tsig_keys, \#add_tsig_key, \#remove_tsig_key
+      * \#axfr_clients, #fetch_axfr_clients, #add_axfr_client, \#remove_axfr_client
       * ::DnssecKeys, #dnssec_keys, #fetch_dnssec_keys
   * Snapshots:
     * Moved to live under LiveDNS::Domain not LiveDNS::Zone
@@ -90,11 +91,11 @@
 ## Version 0.2.0
 
 * Enhancements to GandiV5::Domain
-  * .availability(fqdn, **options) moved to GandiV5::Domain::Availability.fetch(fqdn, **options)
+  * .availability(fqdn, \*\*options) moved to GandiV5::Domain::Availability.fetch(fqdn, \*\*options)
   * .create now returns created domain (except in dry-run mode)
   * .tlds moved to GandiV5::Domain::TLD.list
   * .tld(name) moved to GandiV5::Domain::TLD.fetch(name)
-  * #renewal_price(currency: 'GBP', period: 1) added
+  * \#renewal_price(currency: 'GBP', period: 1) added
 * Enhancements to GandiV5::Email::Mailbox
   * .create now returns created mailbox
   * .create now checks for available slots and a valid type has been passed
@@ -103,14 +104,14 @@
   * Add #disable to disable the auto responder in Gandi
 * Enhancements to GandiV5::Email::Slot
   * .create now returns created slot
-  * #delete now checks for inactiveness and refundableness
+  * \#delete now checks for inactiveness and refundableness
 * Enhancements to GandiV5::LiveDNS::Domain
   * Add #zone and #fetch_zone
-  * Remove #replace_*_records_for methods
+  * Remove #replace_\*_records_for methods
   * Changes to #replace_records_for to allow calling with name, type, ttl and values. When calling with name and fecords records MUST be passed as an array.
 * Enhancements to GandiV5::LiveDNS::Zone
   * .create now returns created zone
-  * Remove #replace_*_records_for methods
+  * Remove #replace_\*_records_for methods
   * Changes to #replace_records_for to allow calling with name, type, ttl and values. When calling with name and fecords records MUST be passed as an array.
 * Enhancements to GandiV5::LiveDNS::Zone::Snapshot
   * Add .list

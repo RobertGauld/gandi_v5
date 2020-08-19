@@ -3,6 +3,7 @@
 class GandiV5
   class SimpleHosting
     class Instance
+      # An application running on a simple hosting instance.
       # @!attribute [r] name
       #   @return [String]
       # @!attribute [r] parameters

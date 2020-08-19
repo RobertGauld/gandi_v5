@@ -4,15 +4,15 @@ class GandiV5
   class Domain
     # Information for a single contact for a domain.
     # @!attribute [r] country
-    #   @return [String] .
+    #   @return [String]
     # @!attribute [r] email
-    #   @return [String] .
+    #   @return [String]
     # @!attribute [r] family
-    #   @return [String] .
+    #   @return [String]
     # @!attribute [r] given
-    #   @return [String] .
+    #   @return [String]
     # @!attribute [r] address
-    #   @return [String] .
+    #   @return [String]
     # @!attribute [r] type
     #   @return [:person, :company, :association, :'public body', :reseller]
     # @!attribute [r] brand_number

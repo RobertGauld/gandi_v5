@@ -4,27 +4,27 @@ class GandiV5
   class LiveDNS
     class Domain
       # A DNSSEC key for a domain's DNS records.
-      # @!attribyte [r] uuid
+      # @!attribute [r] uuid
       #   @return [String]
-      # @!attribyte [r] status
+      # @!attribute [r] status
       #   @return [String]
-      # @!attribyte [r] fqdn
+      # @!attribute [r] fqdn
       #   @return [String]
-      # @!attribyte [r] algorithm_id
+      # @!attribute [r] algorithm_id
       #   @return [Integer]
-      # @!attribyte [r] algorithm_name
+      # @!attribute [r] algorithm_name
       #   @return [String]
-      # @!attribyte [r] deleted
+      # @!attribute [r] deleted
       #   @return [Boolean]
-      # @!attribyte [r] ds
+      # @!attribute [r] ds
       #   @return [String]
-      # @!attribyte [r] flags
+      # @!attribute [r] flags
       #   @return [Integer]
-      # @!attribyte [r] fingerprint
+      # @!attribute [r] fingerprint
       #   @return [String]
-      # @!attribyte [r] public_key
+      # @!attribute [r] public_key
       #   @return [String]
-      # @!attribyte [r] tag
+      # @!attribute [r] tag
       #   @return [String]
       class DnssecKey
         include GandiV5::Data
@@ -36,6 +36,7 @@ class GandiV5
         member :algorithm_id, gandi_key: 'algorithm'
 
         # Delete this key.
+        # @see https://api.gandi.net/docs/livedns/#delete-v5-livedns-domains-fqdn-keys-id
         # @return [String] The confirmation message from Gandi.
         # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
         def delete
@@ -45,6 +46,7 @@ class GandiV5
         end
 
         # Undelete this key.
+        # @see https://api.gandi.net/docs/livedns/#patch-v5-livedns-domains-fqdn-keys-id
         # @return [String] The confirmation message from Gandi.
         # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
         def undelete
@@ -66,6 +68,7 @@ class GandiV5
         end
 
         # Create a new DNSSEC key for a zone.
+        # @see https://api.gandi.net/docs/livedns/#post-v5-livedns-domains-fqdn-keys
         # @param fqdn [String, #to_s] the fully qualified domain to create the key for.
         # @param flags [Integer, :key_signing_key, :zone_signing_key] the key's flags.
         # @return [GandiV5::LiveDNS::Domain::DnssecKey]
@@ -80,6 +83,7 @@ class GandiV5
         end
 
         # Get keys for a FQDN from Gandi.
+        # @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn-keys
         # @param fqdn [String, #to_s] The fully qualified domain name to get the keys for.
         # @return [Array<GandiV5::LiveDNS::Domain::DnssecKey>]
         # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
@@ -89,6 +93,7 @@ class GandiV5
         end
 
         # Get DNSSEC key from Gandi.
+        # @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn-keys-id
         # @param fqdn [String, #to_s] The fully qualified domain name the key was made for.
         # @param uuid [String, #to_s] the UUID of the key to fetch.
         # @return [GandiV5::LiveDNS::Domain::DnssecKey]

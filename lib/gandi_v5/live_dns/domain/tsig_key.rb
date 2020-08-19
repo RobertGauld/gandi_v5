@@ -4,13 +4,13 @@ class GandiV5
   class LiveDNS
     class Domain
       # A Tsig key.
-      # @!attribyte [r] uuid
+      # @!attribute [r] uuid
       #   @return [String]
-      # @!attribyte [r] name
+      # @!attribute [r] name
       #   @return [String]
-      # @!attribyte [r] secret
+      # @!attribute [r] secret
       #   @return [String]
-      # @!attribyte [r] config_examples
+      # @!attribute [r] config_examples
       #   @return [Hash<Symbol -> String>]
       class TsigKey
         include GandiV5::Data
@@ -28,6 +28,7 @@ class GandiV5
         )
 
         # Create a new DNSSEC key for a zone.
+        # @see https://api.gandi.net/docs/livedns/#post-v5-livedns-axfr-tsig
         # @param sharing_id [nil, String, #to_s]
         # @return [GandiV5::LiveDNS::Domain::DnssecKey]
         # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
@@ -42,6 +43,7 @@ class GandiV5
         # Get keys from Gandi.
         # If you need the secret, fingerprint, public_key or tag attributes you'll need
         # to use GandiV5::LiveDNS::Domain::DnssecKey.fetch on each item.
+        # @see https://api.gandi.net/docs/livedns/#get-v5-livedns-axfr-tsig
         # @return [Array<GandiV5::LiveDNS::Domain::TsigKey>]
         # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
         def self.list
@@ -50,6 +52,7 @@ class GandiV5
         end
 
         # Get Tsig key from Gandi.
+        # @see https://api.gandi.net/docs/livedns/#get-v5-livedns-axfr-tsig-id
         # @param uuid [String, #to_s] the UUID of the key to fetch.
         # @return [GandiV5::LiveDNS::Domain::TsigKey]
         # @raise [GandiV5::Error::GandiError] if Gandi returns an error.

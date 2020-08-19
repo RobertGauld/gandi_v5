@@ -22,6 +22,7 @@ class GandiV5
         member :updated_at, converter: GandiV5::Data::Converter::Time
 
         # Check if current balance is below the warning threshold.
+        # @return [Boolean]
         def warning?
           return nil if warning_threshold.nil?
 

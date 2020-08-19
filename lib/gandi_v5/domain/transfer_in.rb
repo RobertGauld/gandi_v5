@@ -64,7 +64,7 @@ class GandiV5
       end
 
       # Start the transfer of a domain to Gandi.
-      # Warning! This is not a free operation. Please ensure your prepaid account has enough credit.
+      # @note This is not a free operation. Please ensure your prepaid account has enough credit.
       # @see https://api.gandi.net/docs/domains/#post-v5-domain-transferin
       # @param fqdn [String, #to_s] the fully qualified domain name to create.
       # @param dry_run [Boolean]

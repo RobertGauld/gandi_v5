@@ -4,6 +4,7 @@ class GandiV5
   module Data
     class Converter
       # Used for applying the same converter to each item in an array.
+      # @api private
       class ArrayOf
         # @param converter the converter to apply to each item in the array.
         def initialize(converter)
@@ -18,8 +19,8 @@ class GandiV5
           value.map { |item| converter.to_gandi(item) }
         end
 
-        # @param [Array<Object>]
-        # @return value [Array<Object>]
+        # @param value [Array<Object>]
+        # @return [Array<Object>]
         def from_gandi(value)
           return nil if value.nil?
 

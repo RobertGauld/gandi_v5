@@ -4,6 +4,7 @@ class GandiV5
   module Data
     class Converter
       # Methods for converting strings to/from integerss.
+      # @api private
       class Integer
         # @param value [Integer]
         # @return [String]
@@ -13,8 +14,8 @@ class GandiV5
           value.to_s
         end
 
-        # @param [String]
-        # @return value [Integer]
+        # @param value [String]
+        # @return [Integer]
         def self.from_gandi(value)
           return nil if value.nil?
 

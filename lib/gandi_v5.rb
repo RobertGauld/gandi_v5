@@ -5,11 +5,12 @@ require 'securerandom'
 require 'zeitwerk'
 
 # Custom inflector for Zeitwerk.
+# @api private
 class MyInflector < Zeitwerk::Inflector
   # Convert file's base name to class name when
   # Zeitwerk's included inflector gets it wrong.
   # @param basename [String] the file's base name (no path or extension)
-  # @param abspath [String] the file's absolute path
+  # @param _abspath [String] the file's absolute path
   # @return [String] the class name
   def camelize(basename, _abspath)
     case basename
@@ -31,32 +32,37 @@ loader.setup
 
 # Namespace for classes which access the Gandi V5 API.
 # Also provides useful methods and constants for them.
-# This is where you configure the gem:
-#  * Setting your Gandi API key:
-#    1. Get your API key - Login to Gandi and visit User Settings ->
-#       Change password & configure access restrictions.
+# To get your API key login to Gandi and visit
+# "User Settings" -> "Change password & configure access restrictions".
+# Set your API key either in the GANDI_API_KEY environment variable or
+# by setting the api_key class attribute.
 # @see https://api.gandi.net/docs/
 # @see https://doc.livedns.gandi.net/
 # @!attribute [w] api_key
 #   @return [String]
 class GandiV5
+  # Base URL for all API requests.
   BASE = 'https://api.gandi.net/v5/'
 
+  # Get information on a domain.
   # @see GandiV5::Domain.fetch
   def self.domain(fqdn)
     GandiV5::Domain.fetch(fqdn)
   end
 
+  # Get information on all domains.
   # @see GandiV5::Domain.list
   def self.domains(**params)
     GandiV5::Domain.list(**params)
   end
 
+  # List mailboxes for a domain.
   # @see GandiV5::Email::Mailbox.list
   def self.mailboxes(fqdn, **params)
     GandiV5::Email::Mailbox.list(fqdn, **params)
   end
 
+  # List email slots for a domain.
   # @see GandiV5::Email::Slot.list
   def self.mailbox_slots(fqdn)
     GandiV5::Email::Slot.list(fqdn)
@@ -65,15 +71,21 @@ class GandiV5
   class << self
     attr_writer :api_key
 
-    # Might raise:
-    #  * RestClient::NotFound
-    #  * RestClient::Unauthorized
-    #      Bad authentication attempt because of a wrong API Key.
-    #  * RestClient::Forbidden
-    #      Access to the resource is denied.
-    #      Mainly due to a lack of permissions to access it.
-    #  * GandiV5::Error
-    #  * JSON::ParserError
+    # Make a GET request to a Gandi end point.
+    # @param url [String, #to_s]
+    #   the full URL (including GandiV5::BASE) to fetch.
+    # @param headers [Hash{String, Symbol, #to_s => String, Symbol, #to_s}]
+    #   the headers to send in the request, the authorisation will be added.
+    # @return [Array<(RestClient::Response, Object)>]
+    #   The response from the server and the result of parsing the responce's body.
+    # @raise [RestClient::NotFound]
+    # @raise [RestClient::Unauthorized]
+    #   Bad authentication attempt because of a wrong API Key.
+    # @raise [RestClient::Forbidden]
+    #   Access to the resource is denied.
+    #   Mainly due to a lack of permissions to access it.
+    # @raise [GandiV5::Error]
+    # @raise [JSON::ParserError]
     def get(url, **headers)
       prepare_headers headers, url
       response = RestClient.get url, **headers
@@ -82,15 +94,23 @@ class GandiV5
       handle_bad_request(e)
     end
 
-    # Might raise:
-    #  * RestClient::NotFound
-    #  * RestClient::Unauthorized
-    #      Bad authentication attempt because of a wrong API Key.
-    #  * RestClient::Forbidden
-    #      Access to the resource is denied.
-    #      Mainly due to a lack of permissions to access it.
-    #  * GandiV5::Error
-    #  * JSON::ParserError
+    # Make a GET request to a paginated end point at Gandi.
+    # @param url [String, #to_s]
+    #   the full URL (including GandiV5::BASE) to fetch.
+    # @param page [#each, Integer] the page/pages of results to get.
+    # @param per_page [Integer, #to_s] the number of items to get per page of results.
+    # @param headers [Hash{String, Symbol, #to_s => String, Symbol, #to_s}]
+    #   the headers to send in the request, the authorisation will be added.
+    # @return [Array<(RestClient::Response, Object)>]
+    #   The response from the server and the result of parsing the responce's body.
+    # @raise [RestClient::NotFound]
+    # @raise [RestClient::Unauthorized]
+    #   Bad authentication attempt because of a wrong API Key.
+    # @raise [RestClient::Forbidden]
+    #   Access to the resource is denied.
+    #   Mainly due to a lack of permissions to access it.
+    # @raise [GandiV5::Error]
+    # @raise [JSON::ParserError]
     def paginated_get(url, page = (1..), per_page = 100, **headers)
       unless page.respond_to?(:each)
         fail ArgumentError, 'page must be positive' unless page.positive?
@@ -112,16 +132,21 @@ class GandiV5
       end
     end
 
-    # Might raise:
-    #  * RestClient::NotFound
-    #  * RestClient::Unauthorized
-    #      Bad authentication attempt because of a wrong API Key.
-    #  * RestClient::Forbidden
-    #      Access to the resource is denied.
-    #      Mainly due to a lack of permissions to access it.
-    #  * RestClient::Conflict
-    #  * GandiV5::Error
-    #  * JSON::ParserError
+    # Make a DELETE request to a Gandi end point.
+    # @param url [String, #to_s]
+    #   the full URL (including GandiV5::BASE) to fetch.
+    # @param headers [Hash{String, Symbol, #to_s => String, Symbol, #to_s}]
+    #   the headers to send in the request, the authorisation will be added.
+    # @return [Array<(RestClient::Response, Object)>]
+    #   The response from the server and the result of parsing the responce's body.
+    # @raise [RestClient::NotFound]
+    # @raise [RestClient::Unauthorized]
+    #   Bad authentication attempt because of a wrong API Key.
+    # @raise [RestClient::Forbidden]
+    #   Access to the resource is denied.
+    #   Mainly due to a lack of permissions to access it.
+    # @raise [GandiV5::Error]
+    # @raise [JSON::ParserError]
     def delete(url, **headers)
       prepare_headers headers, url
       response = RestClient.delete url, **headers
@@ -133,17 +158,24 @@ class GandiV5
       handle_bad_request(e)
     end
 
-    # Might raise:
-    #  * RestClient::NotFound
-    #  * RestClient::Unauthorized
-    #      Bad authentication attempt because of a wrong API Key.
-    #  * RestClient::Forbidden
-    #      Access to the resource is denied.
-    #      Mainly due to a lack of permissions to access it.
-    #  * RestClient::BadRequest
-    #  * RestClient::Conflict
-    #  * GandiV5::Error
-    #  * JSON::ParserError
+    # Make a PATCH request to a Gandi end point.
+    # @param url [String, #to_s]
+    #   the full URL (including GandiV5::BASE) to fetch.
+    # @param payload [String, #to_s] the body for the request.
+    # @param headers [Hash{String, Symbol, #to_s => String, Symbol, #to_s}]
+    #   the headers to send in the request, the authorisation will be added.
+    # @return [Array<(RestClient::Response, Object)>]
+    #   The response from the server and the result of parsing the responce's body.
+    # @raise [RestClient::NotFound]
+    # @raise [RestClient::Unauthorized]
+    #   Bad authentication attempt because of a wrong API Key.
+    # @raise [RestClient::Forbidden]
+    #   Access to the resource is denied.
+    #   Mainly due to a lack of permissions to access it.
+    # @raise [RestClient::BadRequest]
+    # @raise [RestClient::Conflict]
+    # @raise [GandiV5::Error]
+    # @raise [JSON::ParserError]
     def patch(url, payload = '', **headers)
       prepare_headers headers, url
       headers[:'content-type'] ||= 'application/json'
@@ -153,17 +185,24 @@ class GandiV5
       handle_bad_request(e)
     end
 
-    # Might raise:
-    #  * RestClient::NotFound
-    #  * RestClient::Unauthorized
-    #      Bad authentication attempt because of a wrong API Key.
-    #  * RestClient::Forbidden
-    #      Access to the resource is denied.
-    #      Mainly due to a lack of permissions to access it.
-    #  * RestClient::BadRequest
-    #  * RestClient::Conflict
-    #  * GandiV5::Error
-    #  * JSON::ParserError
+    # Make a POST request to a Gandi end point.
+    # @param url [String, #to_s]
+    #   the full URL (including GandiV5::BASE) to fetch.
+    # @param payload [String, #to_s] the body for the request.
+    # @param headers [Hash{String, Symbol, #to_s => String, Symbol, #to_s}]
+    #   the headers to send in the request, the authorisation will be added.
+    # @return [Array<(RestClient::Response, Object)>]
+    #   The response from the server and the result of parsing the responce's body.
+    # @raise [RestClient::NotFound]
+    # @raise [RestClient::Unauthorized]
+    #   Bad authentication attempt because of a wrong API Key.
+    # @raise [RestClient::Forbidden]
+    #   Access to the resource is denied.
+    #   Mainly due to a lack of permissions to access it.
+    # @raise [RestClient::BadRequest]
+    # @raise [RestClient::Conflict]
+    # @raise [GandiV5::Error]
+    # @raise [JSON::ParserError]
     def post(url, payload = '', **headers)
       prepare_headers headers, url
       headers[:'content-type'] ||= 'application/json'
@@ -173,17 +212,24 @@ class GandiV5
       handle_bad_request(e)
     end
 
-    # Might raise:
-    #  * RestClient::NotFound
-    #  * RestClient::Unauthorized
-    #      Bad authentication attempt because of a wrong API Key.
-    #  * RestClient::Forbidden
-    #      Access to the resource is denied.
-    #      Mainly due to a lack of permissions to access it.
-    #  * RestClient::BadRequest
-    #  * RestClient::Conflict
-    #  * GandiV5::Error
-    #  * JSON::ParserError
+    # Make a PUT request to a Gandi end point.
+    # @param url [String, #to_s]
+    #   the full URL (including GandiV5::BASE) to fetch.
+    # @param payload [String, #to_s] the body for the request.
+    # @param headers [Hash{String, Symbol, #to_s => String, Symbol, #to_s}]
+    #   the headers to send in the request, the authorisation will be added
+    # @return [Array<(RestClient::Response, Object)>]
+    #   The response from the server and the result of parsing the responce's body.
+    # @raise [RestClient::NotFound]
+    # @raise [RestClient::Unauthorized]
+    #   Bad authentication attempt because of a wrong API Key.
+    # @raise [RestClient::Forbidden]
+    #   Access to the resource is denied.
+    #   Mainly due to a lack of permissions to access it.
+    # @raise [RestClient::BadRequest]
+    # @raise [RestClient::Conflict]
+    # @raise [GandiV5::Error]
+    # @raise [JSON::ParserError]
     def put(url, payload = '', **headers)
       prepare_headers headers, url
       headers[:'content-type'] ||= 'application/json'

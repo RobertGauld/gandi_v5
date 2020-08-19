@@ -8,14 +8,33 @@ Gem::Specification.new do |gem|
   gem.license     = 'BSD 3 clause'
   gem.version     = GandiV5::VERSION
   gem.authors     = ['Robert Gauld']
-  gem.email       = ['robert@robertgauld.co.uk']
+  gem.email       = ['robert@robertgauld.uk']
   gem.homepage    = 'https://github.com/robertgauld/gandi_v5'
   gem.summary     = 'Make use of Gandi\'s V5 API.'
 
-  gem.files         = `git ls-files`.split("\n")
-  gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  gem.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
+  gem.metadata = {
+    'bug_tracker_uri' => 'https://github.com/robertgauld/gandi_v5/issues',
+    'changelog_uri' => 'https://github.com/robertgauld/gandi_v5/blob/main/CHANGELOG.md',
+    'documentation_uri' => 'https://rubydoc.info/github/robertgauld/gandi_v5/main',
+    'homepage_uri' => gem.homepage,
+    'source_code_uri' => 'https://github.com/robertgauld/gandi_v5'
+  }
+  # Also: mailing_list_uri, wiki_uri, funding_uri
+
+  gem.files         = Dir.glob('lib/**/*', File::FNM_DOTMATCH)
+  gem.test_files    = Dir.glob('spec/**/*', File::FNM_DOTMATCH)
+  # gem.executables   = Dir.glob('exe/**/*', File::FNM_DOTMATCH).map { |f| File.basename(f) }
   gem.require_paths = ['lib']
+  gem.bindir        = 'exe'
+
+  gem.extra_rdoc_files = %w[README.md CHANGELOG.md LICENSE.md]
+  gem.rdoc_options += [
+    '--title', "#{gem.name} - #{gem.summary}",
+    '--main', 'README.md',
+    '--line-numbers',
+    '--inline-source',
+    '--quiet'
+  ]
 
   gem.required_ruby_version     = '>= 2.4'
   gem.required_rubygems_version = '>= 2.6.14'

@@ -4,7 +4,7 @@ class GandiV5
   class Domain
     class Availability
       class Product
-        # Information about an available product.
+        # Information about an available product's period.
         # @!attribute [r] name
         #   @return [String]
         # @!attribute [r]

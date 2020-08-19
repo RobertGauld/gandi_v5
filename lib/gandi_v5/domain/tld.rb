@@ -12,7 +12,7 @@ class GandiV5
     # @!attribute [r] category
     #   @return [String]
     # @!attribute [r] change_owner
-    #   @return [Boolean] whther changing owner is pemritted.
+    #   @return [Boolean] whether changing owner is pemritted.
     # @!attribute [r] corporate
     #   @return [Boolean] whether this is a corporate TLD.
     # @!attribute [r] ext_trade
@@ -27,7 +27,7 @@ class GandiV5
 
       # List of available TLDs.
       # @see https://api.gandi.net/docs/domains#get-v5-domain-tlds
-      # @return Array<GandiV5::Domain::TLD>
+      # @return [Array<GandiV5::Domain::TLD>]
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.list
         GandiV5.get(url)
