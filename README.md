@@ -120,6 +120,7 @@ We follow the [Semantic Versioning](http://semver.org/) concept.
 
 | Gem Version     | Gandi API Release Date   |
 | --------------- | ------------------------ |
+| 0.9.0           | 2020-07-29               |
 | 0.8.0           | 2020-07-10               |
 | 0.7.0           | 2020-05-07               |
 | 0.6.0           | 2020-05-07 (not LiveDNS) |
