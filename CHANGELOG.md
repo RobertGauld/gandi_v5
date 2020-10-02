@@ -1,5 +1,7 @@
 # Gandi V5 API Gem Changelog
 
+* Add testing against ruby 2.7.2
+
 ## Version 0.9.0
 
 * Add transferring a domain to Gandi (I don't have any domains outside Gandi to test this myself so it's possible I've misread the docs and a bug is waiting to be found, please add an issue if I have):

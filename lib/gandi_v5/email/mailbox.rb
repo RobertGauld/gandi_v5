@@ -265,7 +265,7 @@ class GandiV5
       def self.crypt_password(password)
         # You can also send a hashed password in sha512-crypt ie: {SHA512-CRYPT}$6$xxxx$yyyy
         salt = SecureRandom.random_number(36**8).to_s(36)
-        password.crypt('$6$' + salt)
+        password.crypt("$6$#{salt}")
       end
       private_class_method :crypt_password
 

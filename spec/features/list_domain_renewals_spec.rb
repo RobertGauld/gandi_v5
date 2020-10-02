@@ -2,7 +2,7 @@
 
 describe 'Examples', :vcr do
   it 'List domain renewals' do
-    expect(STDOUT).to receive(:puts).with("2021-03-12\t£8.87\texample.com")
+    expect($stdout).to receive(:puts).with("2021-03-12\t£8.87\texample.com")
 
     # For each domain (sorted by assending renewal date) print <date>\t<cost>\t<fqdn>
     GandiV5::Domain.list.each do |domain|

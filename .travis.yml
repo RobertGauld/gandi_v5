@@ -9,7 +9,9 @@ rvm:
   - 2.6.6
   - 2.7.0
   - 2.7.1
+  - 2.7.2
   - truffleruby-20.1.0
+  - truffleruby-20.2.0
 gemfile:
   - Gemfile
 branches:

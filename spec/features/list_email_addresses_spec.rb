@@ -2,9 +2,9 @@
 
 describe 'Examples', :vcr do
   it 'List email addresses' do
-    expect(STDOUT).to receive(:puts).with("alias@example.com\talias for user@example.com").ordered
-    expect(STDOUT).to receive(:puts).with("forward@example.com\tforwards to user@example.com").ordered
-    expect(STDOUT).to receive(:puts).with("user@example.com\tstandard mailbox (0% of 3GB used)").ordered
+    expect($stdout).to receive(:puts).with("alias@example.com\talias for user@example.com").ordered
+    expect($stdout).to receive(:puts).with("forward@example.com\tforwards to user@example.com").ordered
+    expect($stdout).to receive(:puts).with("user@example.com\tstandard mailbox (0% of 3GB used)").ordered
 
     # For each domain:
     #   1. Create an empty hash to store address => description
