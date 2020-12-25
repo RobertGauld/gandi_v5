@@ -1,5 +1,7 @@
 # Gandi V5 API Gem Changelog
 
+## Version 0.9.1
+
 * Add testing against ruby 2.7.2 and 3.0.0
 
 ## Version 0.9.0
