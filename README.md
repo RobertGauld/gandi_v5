@@ -9,6 +9,7 @@ This gem supports the following versions of ruby, it may work on other versions 
 * ruby:
   * 2.6.0 - 2.6.6
   * 2.7.0 - 2.7.2
+  * 3.0.0
   * truffleruby 20.1.0 - 20.2.0
 * jruby, once it's reached parity with ruby 2.6.x
 * rubinius, once it's reached parity with ruby 2.6.x

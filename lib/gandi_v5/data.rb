@@ -150,8 +150,8 @@ class GandiV5
         return nil if data.nil?
 
         new(
-          translate_gandi(data).transform_keys(&:to_sym)
-                               .select { |k, _v| data_member?(k) }
+          **translate_gandi(data).transform_keys(&:to_sym)
+                                 .select { |k, _v| data_member?(k) }
         )
       end
 
