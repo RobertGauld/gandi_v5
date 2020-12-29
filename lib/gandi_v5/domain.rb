@@ -181,7 +181,7 @@ class GandiV5
         admin: admin.respond_to?(:to_gandi) ? admin.to_gandi : admin,
         bill: bill.respond_to?(:to_gandi) ? bill.to_gandi : bill,
         tech: tech.respond_to?(:to_gandi) ? tech.to_gandi : tech
-      }.reject { |_k, v| v.nil? }.to_json
+      }.compact { |_k, v| v.nil? }.to_json
 
       GandiV5.patch url('contacts'), body
       fetch_contacts

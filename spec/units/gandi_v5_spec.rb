@@ -246,7 +246,7 @@ describe GandiV5 do
 
   describe '.paginated_get' do
     let(:url) { "#{GandiV5::BASE}test/url" }
-    let(:do_nothing) { ->(_this_data) { nil } }
+    let(:do_nothing) { ->(_this_data) {} }
 
     it 'Keeps fetching until getting a partial list' do
       headers1 = { params: { 'page' => 1, 'per_page' => 2 } }

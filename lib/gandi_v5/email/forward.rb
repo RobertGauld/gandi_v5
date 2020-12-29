@@ -77,7 +77,7 @@ class GandiV5
       # @return [Array<GandiV5::Email::Forward>]
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
       def self.list(fqdn, page: (1..), per_page: 100, **params)
-        params.reject! { |_k, v| v.nil? }
+        params.compact! { |_k, v| v.nil? }
 
         mailboxes = []
         GandiV5.paginated_get(url(fqdn), page, per_page, params: params) do |data|

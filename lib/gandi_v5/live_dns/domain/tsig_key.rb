@@ -23,7 +23,7 @@ class GandiV5
           gandi_key: 'config_samples',
           converter: GandiV5::Data::Converter.new(
             from_gandi: ->(value) { value.transform_keys(&:to_sym) },
-            to_gandi: ->(_value) { nil }
+            to_gandi: ->(_value) {}
           )
         )
 
