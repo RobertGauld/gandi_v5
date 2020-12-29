@@ -1,0 +1,65 @@
+name: Commit Checks
+
+on:
+  push:
+    branches:
+    - 'main'
+    - 'issue[0-9]+'
+    - 'dev_ver_[0-9]*'
+  pull_request:
+    types:
+    - opened
+    - edited
+    - reopened
+    branches:
+    - 'main'
+    - 'issue[0-9]+'
+    - 'dev_ver_[0-9]*'
+
+jobs:
+  rubocop:
+    name: Rubocop
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+
+    - name: Install rubocop
+      run: gem install --no-document rubocop rubocop-performance rubocop-rspec rubocop-rake # rubocop-i18n rubocop-rails
+
+    - name: Run rubocop
+#      id: rubocop
+      run: rubocop
+
+#    - name: Adding comment
+#      if: always()
+#      run: |
+#        echo "::debug::${{steps.rubocop.outcome}}"
+#        if ${{ steps.rubocop.outcome == 'failure' }}; then
+#          echo "Rubocop is sad"
+#        else
+#          echo "Rubocop is happy"
+#        fi
+
+  bundle-audit:
+    name: Bundle Audit
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+
+    - name: Install bundler-audit
+      run: gem install --no-document bundler-audit
+
+    - name: Run audit
+      run: |
+        bundle update
+        bundle audit check --update
