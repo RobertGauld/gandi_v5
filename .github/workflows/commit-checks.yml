@@ -16,6 +16,7 @@ on:
     - 'issue[0-9]+'
     - 'dev_ver_[0-9]*'
 
+
 jobs:
   rubocop:
     name: Rubocop
@@ -45,6 +46,7 @@ jobs:
 #          echo "Rubocop is happy"
 #        fi
 
+
   bundle-audit:
     name: Bundle Audit
     runs-on: ubuntu-latest
@@ -63,3 +65,29 @@ jobs:
       run: |
         bundle update
         bundle audit check --update
+
+
+  rspec:
+    name: Rspec on Ruby ${{ matrix.ruby }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby: [
+          '2.6.0', '2.6.1', '2.6.2', '2.6.3', '2.6.4', '2.6.5', '2.6.6',
+          '2.7.0', '2.7.1', '2.7.2',
+          '3.0.0',
+          'truffleruby-20.1.0', 'truffleruby-20.2.0'
+        ]
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+
+    - name: Install bundle
+      run: bundle install
+
+    - name: Run tests
+      run: rspec
