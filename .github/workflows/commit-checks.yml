@@ -100,3 +100,17 @@ jobs:
         github-token: ${{ secrets.github_token }}
         path-to-lcov: ./coverage/lcov/gandi_v5.lcov
         parallel-finished: true
+
+  gem-build:
+    name: Check gem(s) build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+
+    - name: Check gem builds
+      run: gem build *.gemspec --strict
