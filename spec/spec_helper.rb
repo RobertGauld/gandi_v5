@@ -21,6 +21,7 @@ else
 end
 SimpleCov.start do
   add_filter 'spec/'
+  add_filter '.github/'
 end
 
 RSpec.configure do |config|
