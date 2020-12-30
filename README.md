@@ -11,8 +11,11 @@ This gem supports the following versions of ruby, it may work on other versions 
   * 2.7.0 - 2.7.2
   * 3.0.0
   * truffleruby 20.1.0 - 20.2.0
-* jruby, once it's reached parity with ruby 2.6.x
-* rubinius, once it's reached parity with ruby 2.6.x
+
+This gem doesn't yet support the following versions of ruby, although hopefully it soon will.
+
+* jruby - not yet at parity with ruby 2.6.x
+* rubinius - not yet at parity with ruby 2.6.x
 
 
 ## Gandi V5
