@@ -91,3 +91,23 @@ jobs:
 
     - name: Run tests
       run: rspec
+
+    - name: Prepare coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.github_token }}
+        flag-name: run-${{ matrix.ruby }}
+        path-to-lcov: ./coverage/lcov/gandi_v5.lcov
+        parallel: true
+
+
+  coveralls:
+    name: Send coverage to coveralls.io
+    needs: rspec
+    runs-on: ubuntu-latest
+    steps:
+    - uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.github_token }}
+        path-to-lcov: ./coverage/lcov/gandi_v5.lcov
+        parallel-finished: true

@@ -43,7 +43,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'rest-client', '>= 2', '< 3'
   gem.add_dependency 'zeitwerk', '~> 2.1'
 
-  gem.add_development_dependency 'coveralls', '~> 0.8'
   gem.add_development_dependency 'guard', '~> 2.15'
   gem.add_development_dependency 'guard-bundler', '~> 2.2'
   gem.add_development_dependency 'guard-rspec', '~> 4.2', '>= 4.2.5'
@@ -56,7 +55,8 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rubocop-performance', '~> 1.7'
   gem.add_development_dependency 'rubocop-rake', '~> 0.5.1'
   gem.add_development_dependency 'rubocop-rspec', '~> 2.1'
-  gem.add_development_dependency 'simplecov', '~> 0.7'
+  gem.add_development_dependency 'simplecov', '~> 0.18'
+  gem.add_development_dependency 'simplecov-lcov', '~> 0.8'
   gem.add_development_dependency 'timecop', '~> 0.5'
   gem.add_development_dependency 'vcr', '~> 4.0'
   gem.add_development_dependency 'webmock', '~> 3.6'

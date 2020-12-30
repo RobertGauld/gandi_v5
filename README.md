@@ -1,5 +1,5 @@
 [![Gem Version](https://badge.fury.io/rb/gandi_v5.png)](http://badge.fury.io/rb/gandi_v5)
-[![Build Status](https://secure.travis-ci.org/robertgauld/gandi_v5.png?branch=main)](http://travis-ci.org/robertgauld/gandi_v5)
+[![Commit Checks](https://github.com/robertgauld/gandi_v5/workflows/Commit%20Checks/badge.svg)](https://github.com/robertgauld/gandi_v5/actions?query=workflow%3A%22Commit+Checks%22)
 [![Coveralls Status](https://coveralls.io/repos/robertgauld/gandi_v5/badge.png?branch=main)](https://coveralls.io/r/robertgauld/gandi_v5)
 [![Code Climate](https://codeclimate.com/github/robertgauld/gandi_v5.png?branch=main)](https://codeclimate.com/github/robertgauld/gandi_v5)
 

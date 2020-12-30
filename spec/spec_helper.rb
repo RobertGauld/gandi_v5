@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'dotenv'
-require 'coveralls'
 require 'rspec/its'
 require 'simplecov'
+require 'simplecov-lcov'
 require 'timecop'
 require 'vcr'
 require 'webmock/rspec'
@@ -13,14 +13,14 @@ allow_http_connections_to = %w[localhost 127.0.0.1]
 
 Dotenv.load File.join(__dir__, 'test.env')
 
-SimpleCov.coverage_dir(File.join('tmp', 'coverage')) unless ENV.key?('TRAVIS')
+if ENV.key?('GITHUB_ACTIONS')
+  SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
+  SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
+else
+  SimpleCov.coverage_dir File.join('tmp', 'coverage')
+end
 SimpleCov.start do
   add_filter 'spec/'
-end
-
-if ENV.key?('TRAVIS')
-  Coveralls.wear!
-  allow_http_connections_to.push 'coveralls.io'
 end
 
 RSpec.configure do |config|
