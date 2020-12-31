@@ -494,6 +494,44 @@ describe GandiV5::Domain do
     end
   end
 
+  describe '#transfer_lock' do
+    it 'Passing nothing' do
+      expect(GandiV5).to receive(:patch).with(
+        'https://api.gandi.net/v5/domain/domains/example.com/status',
+        '{"clientTransferProhibited":true}'
+      ).and_return([nil, { 'message' => 'Confirmation message.' }])
+      expect(subject.transfer_lock).to eq 'Confirmation message.'
+      expect(subject.status).to eq 'clientTransferProhibited'
+    end
+
+    it 'Passing true' do
+      expect(GandiV5).to receive(:patch).with(
+        'https://api.gandi.net/v5/domain/domains/example.com/status',
+        '{"clientTransferProhibited":true}'
+      ).and_return([nil, { 'message' => 'Confirmation message.' }])
+      expect(subject.transfer_lock(true)).to eq 'Confirmation message.'
+      expect(subject.status).to eq 'clientTransferProhibited'
+    end
+
+    it 'Passing false' do
+      expect(GandiV5).to receive(:patch).with(
+        'https://api.gandi.net/v5/domain/domains/example.com/status',
+        '{"clientTransferProhibited":false}'
+      ).and_return([nil, { 'message' => 'Confirmation message.' }])
+      expect(subject.transfer_lock(false)).to eq 'Confirmation message.'
+      expect(subject.status).to be nil
+    end
+  end
+
+  it '#transfer_unlock' do
+    expect(GandiV5).to receive(:patch).with(
+      'https://api.gandi.net/v5/domain/domains/example.com/status',
+      '{"clientTransferProhibited":false}'
+    ).and_return([nil, { 'message' => 'Confirmation message.' }])
+    expect(subject.transfer_unlock).to eq 'Confirmation message.'
+    expect(subject.status).to be nil
+  end
+
   describe '#glue_records' do
     let(:glue_records) { double Hash }
 

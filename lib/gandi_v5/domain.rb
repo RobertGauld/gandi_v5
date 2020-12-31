@@ -252,6 +252,29 @@ class GandiV5
       data['message']
     end
 
+    # Lock this domain - preventing it from being transfered.
+    # @see https://api.gandi.net/docs/domains/#patch-v5-domain-domains-domain-status
+    # Most extensions have a transfer protection mechanism, that consists of a lock that can be put
+    # on the domain. When the transfer lock is enabled, the domain can't be transferred.
+    # @params lock [Boolean] whether the domain should be locked (true) or unlocked (false)
+    # @return [String] The confirmation message from Gandi.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    # rubocop:disable Style/OptionalBooleanParameter
+    def transfer_lock(lock = true)
+      _response, data = GandiV5.patch url('status'), { 'clientTransferProhibited' => lock }.to_json
+      @status = lock ? 'clientTransferProhibited' : nil
+      data['message']
+    end
+    # rubocop:enable Style/OptionalBooleanParameter
+
+    # Unlock this domain - allowing it to be transfered.
+    # @see https://api.gandi.net/docs/domains/#patch-v5-domain-domains-domain-status
+    # @return [String] The confirmation message from Gandi.
+    # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+    def transfer_unlock
+      transfer_lock false
+    end
+
     # Requery Gandi fo this domain's information.
     # @return [GandiV5::Domain]
     # @raise [GandiV5::Error::GandiError] if Gandi returns an error.

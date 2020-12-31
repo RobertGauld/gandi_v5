@@ -5,6 +5,8 @@
   * Add .create (aliased as GandiV5::SimpleHosting::Instance#create_virtual_host)
   * Add \#delete
   * Add \#update
+* GandiV5::Domain
+  * Add \#transfer_lock(lock = true) and \#transfer_unlock
 
 ## Version 0.9.1
 
