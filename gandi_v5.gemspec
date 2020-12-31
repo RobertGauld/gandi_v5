@@ -5,7 +5,7 @@ require File.join(File.dirname(__FILE__), 'lib', 'gandi_v5', 'version')
 
 Gem::Specification.new do |gem|
   gem.name        = 'gandi_v5'
-  gem.license     = 'BSD 3 clause'
+  gem.license     = 'BSD-3-Clause'
   gem.version     = GandiV5::VERSION
   gem.authors     = ['Robert Gauld']
   gem.email       = ['robert@robertgauld.uk']
