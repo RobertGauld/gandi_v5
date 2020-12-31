@@ -1,5 +1,11 @@
 # Gandi V5 API Gem Changelog
 
+
+* GandiV5::SimpleHosting::Instance::VirtualHost: (I don't use simple hosting myself so it's possible I've misread the docs and a bug is waiting to be found, please add an issue if I have)
+  * .create (aliased as GandiV5::SimpleHosting::Instance#create_virtual_host)
+  * \#delete
+  * \#update
+
 ## Version 0.9.1
 
 * Add testing against ruby 2.7.2 and 3.0.0

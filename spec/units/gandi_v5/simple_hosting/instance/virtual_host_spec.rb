@@ -28,6 +28,85 @@ describe GandiV5::SimpleHosting::Instance::VirtualHost do
     expect(subject.linked_dns_zone.cname).to_not be nil
   end
 
+  describe '#update' do
+    describe 'application' do
+      it 'Given a GandiV5::SimpleHosting::Instance::Application' do
+        application = GandiV5::SimpleHosting::Instance::Application.new(
+          name: 'app-name',
+          parameters: {}
+        )
+
+        expect(GandiV5).to receive(:put).with(
+          'https://api.gandi.net/v5/simplehosting/instances/instance-uuid/vhosts/vh.example.com',
+          '{"application":{"name":"app-name","parameters":{}}}'
+        ).and_return([nil, body_fetch])
+        subject.update(application: application)
+
+        expect(subject.application.name).to eq 'app-name'
+        expect(subject.application.parameters).to eq({})
+      end
+
+      it 'Given a Hash' do
+        expect(GandiV5).to receive(:put).with(
+          'https://api.gandi.net/v5/simplehosting/instances/instance-uuid/vhosts/vh.example.com',
+          '{"application":{"name":"app-name"}}'
+        ).and_return([nil, body_fetch])
+        subject.update(application: { name: 'app-name' })
+      end
+    end
+
+    describe 'https_strategy' do
+      it ':redirect_http_to_https' do
+        expect(GandiV5).to receive(:put).with(
+          'https://api.gandi.net/v5/simplehosting/instances/instance-uuid/vhosts/vh.example.com',
+          '{"https_strategy":"redirect_HTTP_to_HTTPS"}'
+        ).and_return([nil, body_fetch])
+        subject.update(https_strategy: :redirect_http_to_https)
+        expect(subject.https_strategy).to be :redirect_http_to_https
+      end
+
+      it ':allow_http_and_https' do
+        expect(GandiV5).to receive(:put).with(
+          'https://api.gandi.net/v5/simplehosting/instances/instance-uuid/vhosts/vh.example.com',
+          '{"https_strategy":"allow_HTTP_and_HTTPS"}'
+        ).and_return([nil, body_fetch])
+        subject.update(https_strategy: :allow_http_and_https)
+        expect(subject.https_strategy).to be :redirect_http_to_https
+      end
+
+      it ':http_only' do
+        expect(GandiV5).to receive(:put).with(
+          'https://api.gandi.net/v5/simplehosting/instances/instance-uuid/vhosts/vh.example.com',
+          '{"https_strategy":"HTTP_only"}'
+        ).and_return([nil, body_fetch])
+        subject.update(https_strategy: :http_only)
+        expect(subject.https_strategy).to be :redirect_http_to_https
+      end
+
+      it 'invalid' do
+        expect(GandiV5).not_to receive(:put)
+        expect { subject.update(https_strategy: :invalid) }.to \
+          raise_error ArgumentError, 'https_strategy :invalid is invalid'
+      end
+    end
+
+    it 'linked_dns_zone' do
+      expect(GandiV5).to receive(:put).with(
+        'https://api.gandi.net/v5/simplehosting/instances/instance-uuid/vhosts/vh.example.com',
+        '{"linked_dns_zone":{"allow_alteration":false,"allow_alteration_override":true}}'
+      ).and_return([nil, body_fetch])
+      subject.update(linked_dns_zone_allow_alteration: false, linked_dns_zone_allow_alteration_override: true)
+      expect(subject.linked_dns_zone.allow_alteration).to be true
+    end
+  end
+
+  it '#delete' do
+    expect(GandiV5).to receive(:delete).with(
+      'https://api.gandi.net/v5/simplehosting/instances/instance-uuid/vhosts/vh.example.com'
+    ).and_return([nil, { 'message' => 'Confirmation message.' }])
+    expect(subject.delete).to eq 'Confirmation message.'
+  end
+
   describe 'Helper methods' do
     describe 'Status' do
       context 'being_created' do
@@ -127,6 +206,52 @@ describe GandiV5::SimpleHosting::Instance::VirtualHost do
         its('http?') { should be false }
         its('https?') { should be false }
       end
+    end
+  end
+
+  describe '.create' do
+    it 'With just fqdn' do
+      expect(GandiV5).to receive(:post).with(
+        'https://api.gandi.net/v5/simplehosting/instances/instance-uuid/vhosts',
+        '{"fqdn":"vh.example.com"}'
+      ).and_return([nil, nil])
+
+      url = 'https://api.gandi.net/v5/simplehosting/instances/instance-uuid/vhosts/vh.example.com'
+      expect(GandiV5).to receive(:get).with(url).and_return([nil, body_fetch])
+
+      subject = described_class.create('instance-uuid', 'vh.example.com')
+      expect(subject.created_at).to eq Time.new(2020, 1, 2, 12, 34, 56, 0)
+    end
+
+    it 'Also with application' do
+      expect(GandiV5).to receive(:post).with(
+        'https://api.gandi.net/v5/simplehosting/instances/instance-uuid/vhosts',
+        '{"fqdn":"vh.example.com","application":{"name":"app-name"}}'
+      ).and_return([nil, nil])
+
+      url = 'https://api.gandi.net/v5/simplehosting/instances/instance-uuid/vhosts/vh.example.com'
+      expect(GandiV5).to receive(:get).with(url).and_return([nil, body_fetch])
+
+      subject = described_class.create('instance-uuid', 'vh.example.com', application: { name: 'app-name' })
+      expect(subject.created_at).to eq Time.new(2020, 1, 2, 12, 34, 56, 0)
+    end
+
+    it 'Also with linked_dns_zone' do
+      expect(GandiV5).to receive(:post).with(
+        'https://api.gandi.net/v5/simplehosting/instances/instance-uuid/vhosts',
+        '{"fqdn":"vh.example.com","linked_dns_zone":{"allow_alteration":false,"allow_alteration_override":true}}'
+      ).and_return([nil, nil])
+
+      url = 'https://api.gandi.net/v5/simplehosting/instances/instance-uuid/vhosts/vh.example.com'
+      expect(GandiV5).to receive(:get).with(url).and_return([nil, body_fetch])
+
+      subject = described_class.create(
+        'instance-uuid',
+        'vh.example.com',
+        linked_dns_zone_allow_alteration: false,
+        linked_dns_zone_allow_alteration_override: true
+      )
+      expect(subject.created_at).to eq Time.new(2020, 1, 2, 12, 34, 56, 0)
     end
   end
 

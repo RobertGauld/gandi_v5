@@ -5,7 +5,7 @@ class GandiV5
     class Instance
       class VirtualHost
         # A DNS Zone linked to a virtual host on a simple hosting instance.
-        # @!attribute [r] allow_zone_alteration
+        # @!attribute [r] allow_alteration
         #   @return [Boolean]
         # @!attribute [r] cname
         #   @return [String]

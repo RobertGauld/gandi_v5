@@ -146,6 +146,12 @@ class GandiV5
         data
       end
 
+      # @see GandiV5::SimpleHosting::Instance::VirtualHost.create
+      def create_virtual_host(fqdn, **params)
+        GandiV5::SimpleHosting::Instance::VirtualHost.create(uuid, fqdn, **params)
+        refresh
+      end
+
       # Requery Gandi fo this instance's information.
       # @return [GandiV5::SimpleHosting::Instance]
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error.

@@ -179,4 +179,12 @@ describe GandiV5::SimpleHosting::Instance do
     its('upgrade_to.first.type') { should eq 'database' }
     its('upgrade_to.first.version') { should eq 'upgrade to version' }
   end
+
+  it '.create_virtual_host' do
+    returns = double Object
+    expect(GandiV5::SimpleHosting::Instance::VirtualHost).to receive(:create).with('instance-uuid', 'fqdn', key: :value)
+                                                                             .and_return(returns)
+    expect(subject).to receive(:refresh)
+    subject.create_virtual_host 'fqdn', key: :value
+  end
 end

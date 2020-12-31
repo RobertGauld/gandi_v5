@@ -57,13 +57,66 @@ class GandiV5
           converter: GandiV5::SimpleHosting::Instance::VirtualHost::LinkedDnsZone
         )
 
-        # Requery Gandi fo this hosts's information.
+        # Requery Gandi fo this virtual hosts's information.
         # @return [GandiV5::SimpleHosting::Instance::VirtualHost]
         # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
         def refresh
           _response, data = GandiV5.get url
           from_gandi data
         end
+
+        # Delete the virtual host.
+        # @see https://api.gandi.net/docs/simplehosting/#delete-v5-simplehosting-instances-instance_id-vhosts-vhost_fqdn
+        # @return [String] The confirmation message from Gandi.
+        # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+        def delete
+          _response, data = GandiV5.delete url
+          data['message']
+        end
+
+        # Update the virtual host.
+        # @see https://api.gandi.net/docs/simplehosting/#patch-v5-simplehosting-instances-instance_id-vhosts-vhost_fqdn
+        # @param application [GandiV5::SimpleHosting::Instance::Application, Hash]
+        # @param https_strategy [:http_only, :allow_http_and_https, :redirect_http_to_https]
+        # @param linked_dns_zone_allow_alteration [Boolean]
+        #   authorize Gandi to modify your DNS zone so that your vhost points to their
+        #   Simple Hosting public endpoints.
+        # @param linked_dns_zone_allow_alteration_override [Boolean]
+        #   authorize Gandi to override your DNS zone if there already is a record to
+        #   link your instance to your vhost fqdn.
+        # @return [GandiV5::SimpleHosting::Instance::VirtualHost] self.
+        # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+        # rubocop:disable Metrics/MethodLength
+        def update(
+          application: nil,
+          https_strategy: nil,
+          linked_dns_zone_allow_alteration: nil,
+          linked_dns_zone_allow_alteration_override: false
+        )
+          https_strategy = case https_strategy
+                           when nil then nil
+                           when :http_only then 'HTTP_only'
+                           when :allow_http_and_https then 'allow_HTTP_and_HTTPS'
+                           when :redirect_http_to_https then 'redirect_HTTP_to_HTTPS'
+                           else
+                             fail ArgumentError,
+                                  "https_strategy #{https_strategy.inspect} is invalid"
+                           end
+
+          body = {}
+          body[:application] = application.to_h.slice(:name, :parameters) if application
+          body[:https_strategy] = https_strategy if https_strategy
+          unless linked_dns_zone_allow_alteration.nil?
+            body[:linked_dns_zone] = {
+              allow_alteration: linked_dns_zone_allow_alteration,
+              allow_alteration_override: linked_dns_zone_allow_alteration_override
+            }
+          end
+
+          _response, data = GandiV5.put url, body.to_json
+          from_gandi data
+        end
+        # rubocop:enable Metrics/MethodLength
 
         # Check if the virtual host is being created
         # @return [Boolean]
@@ -148,7 +201,39 @@ class GandiV5
           from_gandi data.merge('instance_uuid' => instance_uuid)
         end
 
-        # List instances.
+        # Create a new virtual host for an instance
+        # @see https://api.gandi.net/docs/simplehosting/#post-v5-simplehosting-instances-instance_id-vhosts
+        # @param fqdn [String, #to_s] the fully qualified domain of the virtual host to create.
+        # @param application [GandiV5::SimpleHosting::Instance::Application, Hash]
+        # @param linked_dns_zone_allow_alteration [Boolean]
+        #   authorize Gandi to modify your DNS zone so that your vhost points to their
+        #   Simple Hosting public endpoints.
+        # @param linked_dns_zone_allow_alteration_override [Boolean]
+        #   authorize Gandi to override your DNS zone if there already is a record to
+        #   link your instance to your vhost fqdn.
+        # @return [GandiV5::SimpleHosting::Instance::VirtualHost]
+        # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
+        def self.create(
+          instance_uuid,
+          fqdn,
+          application: nil,
+          linked_dns_zone_allow_alteration: nil,
+          linked_dns_zone_allow_alteration_override: false
+        )
+          body = { fqdn: fqdn }
+          body[:application] = application.to_h.slice(:name, :parameters) if application
+          unless linked_dns_zone_allow_alteration.nil?
+            body[:linked_dns_zone] = {
+              allow_alteration: linked_dns_zone_allow_alteration,
+              allow_alteration_override: linked_dns_zone_allow_alteration_override
+            }
+          end
+
+          _response, _data = GandiV5.post url(instance_uuid), body.to_json
+          fetch instance_uuid, fqdn
+        end
+
+        # List virtual hosts for an instance.
         # @see https://api.gandi.net/docs/simplehosting#get-v5-simplehosting-instances-instance_id-vhosts
         # @param page [#each<Integer, #to_s>] the page(s) of results to retrieve.
         #   If page is not provided keep querying until an empty list is returned.
