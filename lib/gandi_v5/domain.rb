@@ -481,6 +481,8 @@ class GandiV5
     #   List of nameservers. Gandi's LiveDNS nameservers are used if omitted..
     # @param price [Numeric, #to_gandi, #to_json] (optional) unknown - not documented at Gandi.
     # @param resellee_id [String, #to_gandi, #to_json] (optional) unknown - not documented at Gandi.
+    # @param template_id [String, #to_gandi] (optional)
+    #   Template to be applied when the domain is created.
     # @param smd [String, #to_gandi, #to_json] (optional)
     #   Contents of a Signed Mark Data file (used for newgtld sunrises, tld_period must be sunrise).
     # @param tld_period ["sunrise", "landrush", "eap1", "eap2", "eap3", "eap4", "eap5", "eap6",

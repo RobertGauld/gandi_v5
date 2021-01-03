@@ -1,12 +1,15 @@
 # Gandi V5 API Gem Changelog
 
 
+* GandiV5::Domain
+  * Add \#transfer_lock(lock = true) and \#transfer_unlock
+  * Add template_id argument to .create
+* GandiV5::Domain::TransferIn
+  * Add template_id argument to .create
 * GandiV5::SimpleHosting::Instance::VirtualHost: (I don't use simple hosting myself so it's possible I've misread the docs and a bug is waiting to be found, please add an issue if I have)
   * Add .create (aliased as GandiV5::SimpleHosting::Instance#create_virtual_host)
   * Add \#delete
   * Add \#update
-* GandiV5::Domain
-  * Add \#transfer_lock(lock = true) and \#transfer_unlock
 
 ## Version 0.9.1
 

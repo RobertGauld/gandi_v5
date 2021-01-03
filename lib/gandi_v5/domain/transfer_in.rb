@@ -105,6 +105,8 @@ class GandiV5
       # @param change_owner [Boolean] (optional)
       #   whether the change the domain's owner during the transfer.
       # @param auth_code [String] (optional) authorization code (if required).
+      # @param template_id [String, #to_gandi] (optional)
+      #   Template to be applied when the transfer is done.
       # @return [String] the confirmation message from Gandi
       # @return [Hash] if doing a dry run, you get what Gandi returns
       # @raise [GandiV5::Error::GandiError] if Gandi returns an error
