@@ -1,0 +1,49 @@
+---
+attempt: 1
+created_at: '2020-11-29T14:57:14Z'
+id: dispatch-uuid
+sharing_id: sharing-uuid
+state: 10
+state_msg: state message
+task_updated_at: '2020-11-29T14:57:15Z'
+template_id: template-uuid
+template_name: template
+target:
+  name: domain-api-test1.net
+  type: domain
+target_id: target-uuid
+task_history:
+- namespace: 'domain:nameservers'
+  date: '2020-11-29T16:57:47Z'
+  status: 20
+  message: ''
+task_status:
+  'dns:records':
+    status: 0
+  'domain:mailboxes':
+    status: 10
+  'domain:nameservers':
+    status: 20
+  'domain:webredirs':
+    status: 30
+payload:
+  'dns:records':
+    default: false
+    records:
+    - name: record-name
+      type: TXT
+      values: ['record-value']
+      ttl: 600
+  'domain:mailboxes':
+    values:
+    - login: user-name
+  'domain:nameservers':
+    addresses: ['1.1.1.1']
+    service: custom
+  'domain:webredirs':
+    values:
+    - type: http301
+      url: https://example.com/here
+      host: here.example.com
+      override: true
+      protocol: https

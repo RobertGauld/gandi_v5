@@ -1,0 +1,20 @@
+---
+- description: description of template
+  editable: true
+  href: https://api.gandi.net/v5/template/templates/template-uuid
+  id: template-uuid
+  name: template name
+  namespaces:
+  - dns:record
+  - domain:mailboxes
+  - domain:nameservers
+  - domain:webredirs
+  orgname: org-name
+  sharing_space:
+    id: sharing-space-uuid
+    name: sharing-space-name
+    reseller: true
+    type: user
+    sharing_space:
+      id: reseller-uuid
+      name: reseller-name

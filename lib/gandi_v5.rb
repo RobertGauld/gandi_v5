@@ -14,6 +14,8 @@ class MyInflector < Zeitwerk::Inflector
   # @return [String] the class name
   def camelize(basename, _abspath)
     case basename
+    when 'dns_record'
+      'DNSRecord'
     when 'live_dns'
       'LiveDNS'
     when 'tld'

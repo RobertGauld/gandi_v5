@@ -10,6 +10,8 @@
   * Add .create (aliased as GandiV5::SimpleHosting::Instance#create_virtual_host)
   * Add \#delete
   * Add \#update
+* GandiV5::Template
+* GandiV5::Template::Dispatch
 
 ## Version 0.9.1
 

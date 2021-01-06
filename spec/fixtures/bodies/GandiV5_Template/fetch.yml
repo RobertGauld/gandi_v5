@@ -1,0 +1,42 @@
+---
+description: description of template
+editable: true
+href: https://api.gandi.net/v5/template/templates/template-uuid
+id: template-uuid
+name: template name
+namespaces:
+- dns:record
+- domain:mailboxes
+- domain:nameservers
+- domain:webredirs
+orgname: org-name
+sharing_space:
+  id: sharing-space-uuid
+  name: sharing-space-name
+  reseller: true
+  type: user
+  sharing_space:
+    id: reseller-uuid
+    name: reseller-name
+variables: []
+payload:
+  'dns:records':
+    default: false
+    records:
+    - name: record-name
+      type: TXT
+      values: ['record-value']
+      ttl: 600
+  'domain:mailboxes':
+    values:
+    - login: user-name
+  'domain:nameservers':
+    addresses: ['1.1.1.1']
+    service: custom
+  'domain:webredirs':
+    values:
+    - type: http301
+      url: https://example.com/here
+      host: here.example.com
+      override: true
+      protocol: https
