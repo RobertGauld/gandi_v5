@@ -1,6 +1,5 @@
 # Gandi V5 API Gem Changelog
 
-
 * GandiV5::Domain
   * Add \#transfer_lock(lock = true) and \#transfer_unlock
   * Add template_id argument to .create

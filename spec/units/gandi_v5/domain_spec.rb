@@ -208,6 +208,18 @@ describe GandiV5::Domain do
     expect(subject.email_forwards(param: :value)).to be returns
   end
 
+  it '.webredirections' do
+    returns = double Array
+    expect(GandiV5::Domain::WebRedirection).to receive(:list).with('example.com', param: :value).and_return(returns)
+    expect(subject.web_redirections(param: :value)).to be returns
+  end
+
+  it '.webredirection' do
+    returns = double Array
+    expect(GandiV5::Domain::WebRedirection).to receive(:fetch).with('example.com', 'host').and_return(returns)
+    expect(subject.web_redirection('host')).to be returns
+  end
+
   describe '#to_s' do
     it 'Has identical fqdn and fqdn_unicode' do
       domain = described_class.new fqdn: 'example.com', fqdn_unicode: 'example.com'

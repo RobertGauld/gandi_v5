@@ -440,6 +440,19 @@ class GandiV5
       GandiV5::Email::Forward.list(**params, fqdn: fqdn)
     end
 
+    # Get web redirections for the domain.
+    # @see GandiV5::Domain::WebRedirection.list
+    def web_redirections(**params)
+      GandiV5::Domain::WebRedirection.list(fqdn, **params)
+    end
+
+    # Get a web redirection.
+    # @see GandiV5::Domain::WebRedirection.fetch
+    # @param host [String, #to_s] the host the redirection is setup on.
+    def web_redirection(host)
+      GandiV5::Domain::WebRedirection.fetch(fqdn, host)
+    end
+
     # Create (register) a new domain.
     # @note This is not a free operation. Please ensure your prepaid account has enough credit.
     # @see https://api.gandi.net/docs/domains#post-v5-domain-domains
