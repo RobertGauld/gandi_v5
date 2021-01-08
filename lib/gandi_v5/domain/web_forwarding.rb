@@ -2,7 +2,7 @@
 
 class GandiV5
   class Domain
-    # Manage web redirections.
+    # Manage web forwarding.
     # @!attribute [r] created_at
     #   @return [Time, nil]
     # @!attribute [r] updated_at
@@ -19,7 +19,7 @@ class GandiV5
     #   @return [String, nil]
     # @!attribute [r] cert_uuid
     #   @return [String, nil]
-    class WebRedirection
+    class WebForwarding
       include GandiV5::Data
 
       members :cert_uuid, :cert_status

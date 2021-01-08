@@ -36,12 +36,12 @@ describe GandiV5::Template do
 
     its('payload.name_servers') { should eq ['1.1.1.1'] }
 
-    its('payload.web_redirects.count') { should eq 1 }
-    its('payload.web_redirects.first.type') { should eq :http301 }
-    its('payload.web_redirects.first.target') { should eq 'https://example.com/here' }
-    its('payload.web_redirects.first.fqdn') { should eq 'here.example.com' }
-    its('payload.web_redirects.first.override') { should be true }
-    its('payload.web_redirects.first.protocol') { should eq :https }
+    its('payload.web_forwardings.count') { should eq 1 }
+    its('payload.web_forwardings.first.type') { should eq :http301 }
+    its('payload.web_forwardings.first.target') { should eq 'https://example.com/here' }
+    its('payload.web_forwardings.first.fqdn') { should eq 'here.example.com' }
+    its('payload.web_forwardings.first.override') { should be true }
+    its('payload.web_forwardings.first.protocol') { should eq :https }
   end
 
   describe '#update' do
@@ -82,9 +82,9 @@ describe GandiV5::Template do
       expect(subject.update(name_servers: :livedns)).to be updated_template
     end
 
-    it 'web redirects' do
+    it 'web forwardings' do
       expect(GandiV5).to receive(:patch).with(url, '{"payload":{"domain:webredirs":{"values":[]}}}')
-      expect(subject.update(web_redirects: [])).to be updated_template
+      expect(subject.update(web_forwardings: [])).to be updated_template
     end
   end
 
@@ -161,12 +161,12 @@ describe GandiV5::Template do
 
     its('payload.name_servers') { should eq ['1.1.1.1'] }
 
-    its('payload.web_redirects.count') { should eq 1 }
-    its('payload.web_redirects.first.type') { should eq :http301 }
-    its('payload.web_redirects.first.target') { should eq 'https://example.com/here' }
-    its('payload.web_redirects.first.fqdn') { should eq 'here.example.com' }
-    its('payload.web_redirects.first.override') { should be true }
-    its('payload.web_redirects.first.protocol') { should eq :https }
+    its('payload.web_forwardings.count') { should eq 1 }
+    its('payload.web_forwardings.first.type') { should eq :http301 }
+    its('payload.web_forwardings.first.target') { should eq 'https://example.com/here' }
+    its('payload.web_forwardings.first.fqdn') { should eq 'here.example.com' }
+    its('payload.web_forwardings.first.override') { should be true }
+    its('payload.web_forwardings.first.protocol') { should eq :https }
   end
 
   describe '.fetch' do
@@ -227,14 +227,14 @@ describe GandiV5::Template do
         'dns_records': [{ name: 'host', ttl: 600, type: 'TXT', values: ['value'] }],
         'mailboxes': %w[user1 user2],
         'name_servers': ['1.1.1.1', '2.2.2.2'],
-        'web_redirects': [
+        'web_forwardings': [
           { type: :http302, target: 'example.com', host: 'here', override: true, protocol: :https_only }
         ]
       }
       expect(described_class.create(**create)).to be created_template
     end
 
-    it 'With a :permanent web redirect' do
+    it 'With a :permanent web forwarding' do
       url = 'https://api.gandi.net/v5/template/templates'
       body = '{"name":"n","description":"d","payload":{"domain:webredirs":{"values":[{"type":"http301","url":""}]}}}'
       response = double(
@@ -247,11 +247,11 @@ describe GandiV5::Template do
       described_class.create(
         name: 'n',
         description: 'd',
-        web_redirects: [{ type: :permanent, target: '' }]
+        web_forwardings: [{ type: :permanent, target: '' }]
       )
     end
 
-    it 'With a :temporary web redirect' do
+    it 'With a :temporary web forwarding' do
       url = 'https://api.gandi.net/v5/template/templates'
       body = '{"name":"n","description":"d","payload":{"domain:webredirs":{"values":[{"type":"http302","url":""}]}}}'
       response = double(
@@ -264,11 +264,11 @@ describe GandiV5::Template do
       described_class.create(
         name: 'n',
         description: 'd',
-        web_redirects: [{ type: :temporary, target: '' }]
+        web_forwardings: [{ type: :temporary, target: '' }]
       )
     end
 
-    it 'With a :found web redirect' do
+    it 'With a :found web forwarding' do
       url = 'https://api.gandi.net/v5/template/templates'
       body = '{"name":"n","description":"d","payload":{"domain:webredirs":{"values":[{"type":"http302","url":""}]}}}'
       response = double(
@@ -281,7 +281,7 @@ describe GandiV5::Template do
       described_class.create(
         name: 'n',
         description: 'd',
-        web_redirects: [{ type: :found, target: '' }]
+        web_forwardings: [{ type: :found, target: '' }]
       )
     end
 

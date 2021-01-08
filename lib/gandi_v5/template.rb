@@ -72,15 +72,15 @@ class GandiV5
     #   @option dns_records [Integer] :ttl The TTL for the created record (300-2592000)
     # @param mailboxes [Array<String>] The mailboxes to create (as Gandi's docs)
     # @param name_servers [Array<String>, :livedns] The name servers to create (as Gandi's docs)
-    # @param web_redirects [Array<Hash>] The web redirects to create (as Gandi's docs)
-    #   @option web_redirects [:cloak, :http301, :http302, :permanent, :temporary, :found] :type
-    #   @option web_redirects [String] :target
-    #   @option web_redirects [String] :source_host (optional)
-    #   @option web_redirects [Boolean] :override (optional, default false)
+    # @param web_forwardings [Array<Hash>] The web redirects to create (as Gandi's docs)
+    #   @option web_forwardings [:cloak, :http301, :http302, :permanent, :temporary, :found] :type
+    #   @option web_forwardings [String] :target
+    #   @option web_forwardings [String] :source_host (optional)
+    #   @option web_forwardings [Boolean] :override (optional, default false)
     #      When you create a redirection on a domain, a DNS record is created if it does not exist.
     #      When the record already exists and this parameter is set to true it will overwrite the
     #      record. Otherwise it will trigger an error.
-    #   @option web_redirects [:http, :https, :https_only] :protocol (optional)
+    #   @option web_forwardings [:http, :https, :https_only] :protocol (optional)
     # @return [GandiV5::Template]
     # @raise [GandiV5::Error::GandiError] if Gandi returns an error
     # rubocop:disable Metrics/AbcSize
@@ -90,7 +90,7 @@ class GandiV5
       dns_records: nil,
       mailboxes: nil,
       name_servers: nil,
-      web_redirects: nil
+      web_forwardings: nil
     )
 
       body = Hash.new { |hash, key| hash[key] = {} }
@@ -99,7 +99,9 @@ class GandiV5
       body['payload']['dns:records'] = gandify_dns_records(dns_records) if dns_records
       body['payload']['domain:mailboxes'] = gandify_mailboxes(mailboxes) if mailboxes
       body['payload']['domain:nameservers'] = gandify_name_servers(name_servers) if name_servers
-      body['payload']['domain:webredirs'] = gandify_web_redirects(web_redirects) if web_redirects
+      if web_forwardings
+        body['payload']['domain:webredirs'] = gandify_web_forwardings(web_forwardings)
+      end
 
       GandiV5.patch url, body.to_json
       refresh
@@ -156,15 +158,15 @@ class GandiV5
     #   Generate domain:mailboxes from the passed list of mail names.
     # @option payload [Array<String>, :livedns] :name_servers
     #   Generate domain:nameservers from the passed list of addresses, or set to Gandi's livedns.
-    # @option payload [Array<Hash>] :web_redirects Generate domain:webredirs from the passed list.
-    #   @option web_redirects [:cloak, :http301, :http302, :permanent, :temporary, :found] :type
-    #   @option web_redirects [String] :target
-    #   @option web_redirects [String] :host (optional)
-    #   @option web_redirects [Boolean] :override (optional, default false)
+    # @option payload [Array<Hash>] :web_forwardings Generate domain:webredirs from the passed list.
+    #   @option web_forwardings [:cloak, :http301, :http302, :permanent, :temporary, :found] :type
+    #   @option web_forwardings [String] :target
+    #   @option web_forwardings [String] :host (optional)
+    #   @option web_forwardings [Boolean] :override (optional, default false)
     #      When you create a redirection on a domain, a DNS record is created if it does not exist.
     #      When the record already exists and this parameter is set to true it will overwrite the
     #      record. Otherwise it will trigger an error.
-    #   @option web_redirects [:http, :https, :https_only] :protocol (optional)
+    #   @option web_forwardings [:http, :https, :https_only] :protocol (optional)
     # @return [GandiV5::Template] the created template
     # @raise [GandiV5::Error::GandiError] if Gandi returns an error
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -178,8 +180,8 @@ class GandiV5
       if payload.key? :name_servers
         payload['domain:nameservers'] = gandify_name_servers(payload.delete(:name_servers))
       end
-      if payload.key? :web_redirects
-        payload['domain:webredirs'] = gandify_web_redirects(payload.delete(:web_redirects))
+      if payload.key? :web_forwardings
+        payload['domain:webredirs'] = gandify_web_forwardings(payload.delete(:web_forwardings))
       end
 
       url_ = sharing_id ? "#{url}?sharing_id=#{sharing_id}" : url
@@ -233,7 +235,7 @@ class GandiV5
       self.class.send :gandify_name_servers, value
     end
 
-    def self.gandify_web_redirects(value)
+    def self.gandify_web_forwardings(value)
       type_map = {
         'permanent' => 'http301',
         'temporary' => 'http302',
@@ -251,10 +253,10 @@ class GandiV5
         end
       }
     end
-    private_class_method :gandify_web_redirects
+    private_class_method :gandify_web_forwardings
 
-    def gandify_web_redirects(value)
-      self.class.send :gandify_web_redirects, value
+    def gandify_web_forwardings(value)
+      self.class.send :gandify_web_forwardings, value
     end
 
     def url

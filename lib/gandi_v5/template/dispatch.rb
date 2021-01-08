@@ -63,7 +63,7 @@ class GandiV5
               'dns:records' => :dns_records,
               'domain:mailboxes' => :mailboxes,
               'domain:nameservers' => :name_servers,
-              'domain:webredirs' => :web_redirects
+              'domain:webredirs' => :web_forwardings
             }
             values = { 0 => :pending, 10 => :running, 20 => :done, 30 => :error }
             hash.transform_keys { |key| keys.fetch(key) }
@@ -80,7 +80,7 @@ class GandiV5
               'dns:records' => :dns_records,
               'domain:mailboxes' => :mailboxes,
               'domain:nameservers' => :name_servers,
-              'domain:webredirs' => :web_redirects
+              'domain:webredirs' => :web_forwardings
             }
             status = { 0 => :pending, 10 => :running, 20 => :done, 30 => :error }
             array.map do |item|

@@ -3,11 +3,11 @@
 * GandiV5::Domain
   * Add \#transfer_lock(lock = true) and \#transfer_unlock
   * Add template_id argument to .create
-  * Add \#web_redirections -> GandiV5::Domain::WebRedirection.list
-  * Add \#new_web_redirection -> GandiV5::Domain::WebRedirection.create
+  * Add \#web_forwardings -> GandiV5::Domain::WebForwarding.list
+  * Add \#new_web_forwarding -> GandiV5::Domain::WebForwarding.create
 * GandiV5::Domain::TransferIn
   * Add template_id argument to .create
-* GandiV5::Domain::WebRedirection
+* GandiV5::Domain::WebForwarding
 * GandiV5::SimpleHosting::Instance::VirtualHost: (I don't use simple hosting myself so it's possible I've misread the docs and a bug is waiting to be found, please add an issue if I have)
   * Add .create (aliased as GandiV5::SimpleHosting::Instance#create_virtual_host)
   * Add \#delete

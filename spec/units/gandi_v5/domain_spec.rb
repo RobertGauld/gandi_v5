@@ -208,16 +208,16 @@ describe GandiV5::Domain do
     expect(subject.email_forwards(param: :value)).to be returns
   end
 
-  it '.webredirections' do
+  it '.webforwardings' do
     returns = double Array
-    expect(GandiV5::Domain::WebRedirection).to receive(:list).with('example.com', param: :value).and_return(returns)
-    expect(subject.web_redirections(param: :value)).to be returns
+    expect(GandiV5::Domain::WebForwarding).to receive(:list).with('example.com', param: :value).and_return(returns)
+    expect(subject.web_forwardings(param: :value)).to be returns
   end
 
-  it '.webredirection' do
+  it '.webforwarding' do
     returns = double Array
-    expect(GandiV5::Domain::WebRedirection).to receive(:fetch).with('example.com', 'host').and_return(returns)
-    expect(subject.web_redirection('host')).to be returns
+    expect(GandiV5::Domain::WebForwarding).to receive(:fetch).with('example.com', 'host').and_return(returns)
+    expect(subject.web_forwarding('host')).to be returns
   end
 
   describe '#to_s' do

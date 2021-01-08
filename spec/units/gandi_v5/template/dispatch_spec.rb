@@ -45,7 +45,7 @@ describe GandiV5::Template::Dispatch do
           dns_records: :pending,
           mailboxes: :running,
           name_servers: :done,
-          web_redirects: :error
+          web_forwardings: :error
         }
       )
     end
@@ -60,11 +60,11 @@ describe GandiV5::Template::Dispatch do
 
     its('payload.name_servers') { should eq ['1.1.1.1'] }
 
-    its('payload.web_redirects.count') { should eq 1 }
-    its('payload.web_redirects.first.type') { should eq :http301 }
-    its('payload.web_redirects.first.target') { should eq 'https://example.com/here' }
-    its('payload.web_redirects.first.fqdn') { should eq 'here.example.com' }
-    its('payload.web_redirects.first.override') { should be true }
-    its('payload.web_redirects.first.protocol') { should eq :https }
+    its('payload.web_forwardings.count') { should eq 1 }
+    its('payload.web_forwardings.first.type') { should eq :http301 }
+    its('payload.web_forwardings.first.target') { should eq 'https://example.com/here' }
+    its('payload.web_forwardings.first.fqdn') { should eq 'here.example.com' }
+    its('payload.web_forwardings.first.override') { should be true }
+    its('payload.web_forwardings.first.protocol') { should eq :https }
   end
 end

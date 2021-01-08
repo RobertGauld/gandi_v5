@@ -440,17 +440,17 @@ class GandiV5
       GandiV5::Email::Forward.list(**params, fqdn: fqdn)
     end
 
-    # Get web redirections for the domain.
+    # Get web forwardings for the domain.
     # @see GandiV5::Domain::WebRedirection.list
-    def web_redirections(**params)
-      GandiV5::Domain::WebRedirection.list(fqdn, **params)
+    def web_forwardings(**params)
+      GandiV5::Domain::WebForwarding.list(fqdn, **params)
     end
 
-    # Get a web redirection.
+    # Get a web forwarding.
     # @see GandiV5::Domain::WebRedirection.fetch
     # @param host [String, #to_s] the host the redirection is setup on.
-    def web_redirection(host)
-      GandiV5::Domain::WebRedirection.fetch(fqdn, host)
+    def web_forwarding(host)
+      GandiV5::Domain::WebForwarding.fetch(fqdn, host)
     end
 
     # Create (register) a new domain.

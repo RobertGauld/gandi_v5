@@ -1,40 +1,40 @@
 # frozen_string_literal: true
 
-describe GandiV5::Domain::WebRedirection do
+describe GandiV5::Domain::WebForwarding do
   subject { described_class.new fqdn: 'host.example.com' }
 
   describe '#update' do
     let(:url) { 'https://api.gandi.net/v5/domain/domains/example.com/webredirs/host.example.com' }
-    let(:updated_redirect) { double GandiV5::Domain::WebRedirection }
+    let(:updated_forwarding) { double GandiV5::Domain::WebForwarding }
 
     before :each do
-      expect(subject).to receive(:refresh).and_return(updated_redirect)
+      expect(subject).to receive(:refresh).and_return(updated_forwarding)
       subject.instance_exec { @domain = 'example.com' }
     end
 
     it 'nothing' do
       expect(GandiV5).to receive(:patch).with(url, '{}')
-      expect(subject.update).to be updated_redirect
+      expect(subject.update).to be updated_forwarding
     end
 
     it 'target' do
       expect(GandiV5).to receive(:patch).with(url, '{"url":"new"}')
-      expect(subject.update(target: 'new')).to be updated_redirect
+      expect(subject.update(target: 'new')).to be updated_forwarding
     end
 
     it 'override' do
       expect(GandiV5).to receive(:patch).with(url, '{"override":false}')
-      expect(subject.update(override: false)).to be updated_redirect
+      expect(subject.update(override: false)).to be updated_forwarding
     end
 
     it 'protocol' do
       expect(GandiV5).to receive(:patch).with(url, '{"protocol":"httpsonly"}')
-      expect(subject.update(protocol: :httpsonly)).to be updated_redirect
+      expect(subject.update(protocol: :httpsonly)).to be updated_forwarding
     end
 
     it 'type' do
       expect(GandiV5).to receive(:patch).with(url, '{"type":"http302"}')
-      expect(subject.update(type: :http302)).to be updated_redirect
+      expect(subject.update(type: :http302)).to be updated_forwarding
     end
   end
 
@@ -90,7 +90,7 @@ describe GandiV5::Domain::WebRedirection do
     subject { described_class.fetch 'example.com', 'host' }
 
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_WebRedirection', 'fetch.yml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_WebForwarding', 'fetch.yml'))
       url = 'https://api.gandi.net/v5/domain/domains/example.com/webredirs/host.example.com'
       expect(GandiV5).to receive(:get).with(url).and_return([nil, YAML.load_file(body_fixture)])
     end
@@ -109,7 +109,7 @@ describe GandiV5::Domain::WebRedirection do
     subject { described_class.list 'example.com' }
 
     before :each do
-      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_WebRedirection', 'list.yml'))
+      body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_WebForwarding', 'list.yml'))
       url = 'https://api.gandi.net/v5/domain/domains/example.com/webredirs'
       expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100)
                                                 .and_yield(YAML.load_file(body_fixture))
@@ -133,9 +133,9 @@ describe GandiV5::Domain::WebRedirection do
       RestClient::Response,
       headers: { location: ' https://api.gandi.net/v5/domain/domains/example.com/webredirs/host.example.com' }
     )
-    created_redirection = double GandiV5::Domain::WebRedirection
+    created_forwarding = double GandiV5::Domain::WebForwarding
     expect(GandiV5).to receive(:post).with(url, body).and_return([response, 'Confirmation message'])
-    expect(described_class).to receive(:fetch).with('example.com', 'host').and_return(created_redirection)
+    expect(described_class).to receive(:fetch).with('example.com', 'host').and_return(created_forwarding)
 
     create = {
       domain: 'example.com',
@@ -145,6 +145,6 @@ describe GandiV5::Domain::WebRedirection do
       type: :http302,
       override: true
     }
-    expect(described_class.create(**create)).to be created_redirection
+    expect(described_class.create(**create)).to be created_forwarding
   end
 end

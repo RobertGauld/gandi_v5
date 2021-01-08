@@ -3,7 +3,7 @@
 class GandiV5
   class Template
     class Payload
-      # DNS Record details of a configuration template.
+      # Web forwarding details of a configuration template.
       # @!attribute [r] type
       #   @return [:cloak, :http301, :http302]
       # @!attribute [r] target
@@ -17,7 +17,7 @@ class GandiV5
       #     overwrite the record. Otherwise it will trigger an error.
       # @!attribute [r] protocol
       #   @return [:http, :https, :https_only, nil]
-      class WebRedirect
+      class WebForwarding
         include GandiV5::Data
 
         member :type, converter: GandiV5::Data::Converter::Symbol

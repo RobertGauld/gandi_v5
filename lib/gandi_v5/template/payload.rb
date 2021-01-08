@@ -49,12 +49,12 @@ class GandiV5
       )
 
       member(
-        :web_redirects,
+        :web_forwardings,
         gandi_key: 'domain:webredirs',
         converter: GandiV5::Data::Converter.new(
           from_gandi: lambda { |hash|
             hash.fetch('values').map do |item|
-              GandiV5::Template::Payload::WebRedirect.from_gandi item
+              GandiV5::Template::Payload::WebForwarding.from_gandi item
             end
           }
         )

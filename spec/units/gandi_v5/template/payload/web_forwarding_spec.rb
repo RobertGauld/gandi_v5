@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe GandiV5::Template::Payload::WebRedirect do
+describe GandiV5::Template::Payload::WebForwarding do
   describe 'helper methods' do
     context 'an HTTP 301 redirect' do
       subject { described_class.new type: :http301 }
