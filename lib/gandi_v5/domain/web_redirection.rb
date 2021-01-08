@@ -95,6 +95,21 @@ class GandiV5
         type == :http302
       end
 
+      # Check if it's an http end point
+      def http?
+        protocol == :http || protocol == :https
+      end
+
+      # Check if it's an https end point
+      def https?
+        protocol == :https || protocol == :https_only
+      end
+
+      # Check if it's an https only
+      def https_only?
+        protocol == :https_only
+      end
+
       # Create a new web redirection.
       # @see https://api.gandi.net/docs/domains/#post-v5-domain-domains-domain-webredirs
       # @param domain [String, #to_s] the domain name to create the redirection in.

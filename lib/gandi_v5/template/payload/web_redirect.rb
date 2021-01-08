@@ -36,6 +36,46 @@ class GandiV5
             }
           )
         )
+
+        # Check if this is an HTTP 301 (permanent) redirection.
+        def http301?
+          type == :http301
+        end
+
+        # Check if this is an HTTP 302 (found) redirection.
+        def http302?
+          type == :http302
+        end
+
+        # Check if this is an HTTP 301 (permanent) redirection.
+        def permanent?
+          type == :http301
+        end
+
+        # Check if this is an HTTP 302 (found) redirection.
+        def found?
+          type == :http302
+        end
+
+        # Check if this is a temporary redirection.
+        def temporary?
+          type == :http302
+        end
+
+        # Check if it's an http end point
+        def http?
+          protocol == :http || protocol == :https
+        end
+
+        # Check if it's an https end point
+        def https?
+          protocol == :https || protocol == :https_only
+        end
+
+        # Check if it's an https only
+        def https_only?
+          protocol == :https_only
+        end
       end
     end
   end

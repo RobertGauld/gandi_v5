@@ -63,6 +63,27 @@ describe GandiV5::Domain::WebRedirection do
       it('#http302?') { expect(subject.http302?).to be true }
       it('#found?') { expect(subject.found?).to be true }
     end
+
+    context 'an http endpoint' do
+      subject { described_class.new protocol: :http }
+      it('#http?') { expect(subject.http?).to be true }
+      it('#https?') { expect(subject.https?).to be false }
+      it('#https_only?') { expect(subject.https_only?).to be false }
+    end
+
+    context 'an https endpoint' do
+      subject { described_class.new protocol: :https }
+      it('#http?') { expect(subject.http?).to be true }
+      it('#https?') { expect(subject.https?).to be true }
+      it('#https_only?') { expect(subject.https_only?).to be false }
+    end
+
+    context 'an https_only endpoint' do
+      subject { described_class.new protocol: :https_only }
+      it('#http?') { expect(subject.http?).to be false }
+      it('#https?') { expect(subject.https?).to be true }
+      it('#https_only?') { expect(subject.https_only?).to be true }
+    end
   end
 
   describe '.fetch' do
