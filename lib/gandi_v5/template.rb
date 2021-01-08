@@ -65,7 +65,6 @@ class GandiV5
     # @see https://api.gandi.net/docs/template/#patch-v5-template-templates-id
     # @param name [String, #to_s] the name to give the created template.
     # @param description [String, #to_s] description of what the template achieves.
-
     # @param dns_records [Array<Hash>, :default] The DNS records to create (as Gandi's docs)
     #   @option dns_records [String] :name The name of the DNS record to create.
     #   @option dns_records [String] :type The type of the DNS record to create.

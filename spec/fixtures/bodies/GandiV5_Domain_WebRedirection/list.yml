@@ -1,0 +1,9 @@
+---
+- created_at: '2020-11-29T14:57:14Z'
+  updated_at: '2020-11-29T14:57:15Z'
+  type: http301
+  host: here.example.com
+  protocol: https
+  url: https://example.com/here
+  cert_status: '?'
+  cert_uuid: cert-uuid
