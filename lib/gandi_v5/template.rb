@@ -73,14 +73,14 @@ class GandiV5
     # @param mailboxes [Array<String>] The mailboxes to create (as Gandi's docs)
     # @param name_servers [Array<String>, :livedns] The name servers to create (as Gandi's docs)
     # @param web_redirects [Array<Hash>] The web redirects to create (as Gandi's docs)
-    #   @option web_redirects [:cloak, :http301, :http302] :type
-    #   @option web_redirects [String] :target_url
+    #   @option web_redirects [:cloak, :http301, :http302, :permanent, :temporary, :found] :type
+    #   @option web_redirects [String] :target
     #   @option web_redirects [String] :source_host (optional)
     #   @option web_redirects [Boolean] :override (optional, default false)
     #      When you create a redirection on a domain, a DNS record is created if it does not exist.
     #      When the record already exists and this parameter is set to true it will overwrite the
     #      record. Otherwise it will trigger an error.
-    #   @option web_redirects [:http, :https, :https_only] :target_protocol (optional)
+    #   @option web_redirects [:http, :https, :https_only] :protocol (optional)
     # @return [GandiV5::Template]
     # @raise [GandiV5::Error::GandiError] if Gandi returns an error
     # rubocop:disable Metrics/AbcSize
@@ -157,14 +157,14 @@ class GandiV5
     # @option payload [Array<String>, :livedns] :name_servers
     #   Generate domain:nameservers from the passed list of addresses, or set to Gandi's livedns.
     # @option payload [Array<Hash>] :web_redirects Generate domain:webredirs from the passed list.
-    #   @option web_redirects [:cloak, :http301, :http302] :type
-    #   @option web_redirects [String] :target_url
-    #   @option web_redirects [String] :source_host (optional)
+    #   @option web_redirects [:cloak, :http301, :http302, :permanent, :temporary, :found] :type
+    #   @option web_redirects [String] :target
+    #   @option web_redirects [String] :host (optional)
     #   @option web_redirects [Boolean] :override (optional, default false)
     #      When you create a redirection on a domain, a DNS record is created if it does not exist.
     #      When the record already exists and this parameter is set to true it will overwrite the
     #      record. Otherwise it will trigger an error.
-    #   @option web_redirects [:http, :https, :https_only] :target_protocol (optional)
+    #   @option web_redirects [:http, :https, :https_only] :protocol (optional)
     # @return [GandiV5::Template] the created template
     # @raise [GandiV5::Error::GandiError] if Gandi returns an error
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -234,14 +234,19 @@ class GandiV5
     end
 
     def self.gandify_web_redirects(value)
+      type_map = {
+        'permanent' => 'http301',
+        'temporary' => 'http302',
+        'found' => 'http302'
+      }
+
       {
         values: value.map do |redirect|
-          new_redirect = { type: redirect.fetch(:type), url: redirect.fetch(:target_url) }
-          new_redirect[:host] = redirect[:source_host] if redirect.key?(:source_host)
+          type = redirect.fetch(:type).to_s
+          new_redirect = { type: type_map.fetch(type, type), url: redirect.fetch(:target) }
+          new_redirect[:host] = redirect[:host] if redirect.key?(:host)
           new_redirect[:override] = redirect[:override] if redirect.key?(:override)
-          if redirect.key?(:target_protocol)
-            new_redirect[:protocol] = redirect[:target_protocol].to_s.delete('_')
-          end
+          new_redirect[:protocol] = redirect[:protocol].to_s.delete('_') if redirect.key?(:protocol)
           new_redirect
         end
       }

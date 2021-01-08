@@ -62,9 +62,9 @@ describe GandiV5::Template::Dispatch do
 
     its('payload.web_redirects.count') { should eq 1 }
     its('payload.web_redirects.first.type') { should eq :http301 }
-    its('payload.web_redirects.first.target_url') { should eq 'https://example.com/here' }
-    its('payload.web_redirects.first.source_host') { should eq 'here.example.com' }
+    its('payload.web_redirects.first.target') { should eq 'https://example.com/here' }
+    its('payload.web_redirects.first.fqdn') { should eq 'here.example.com' }
     its('payload.web_redirects.first.override') { should be true }
-    its('payload.web_redirects.first.target_protocol') { should eq :https }
+    its('payload.web_redirects.first.protocol') { should eq :https }
   end
 end

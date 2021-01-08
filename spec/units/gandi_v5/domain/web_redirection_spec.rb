@@ -45,6 +45,26 @@ describe GandiV5::Domain::WebRedirection do
     expect(subject.delete).to eq 'Confirmation message.'
   end
 
+  describe 'helper methods' do
+    context 'an HTTP 301 redirect' do
+      subject { described_class.new type: :http301 }
+      it('#permanent?') { expect(subject.permanent?).to be true }
+      it('#http301?') { expect(subject.http301?).to be true }
+      it('#temporary?') { expect(subject.temporary?).to be false }
+      it('#http302?') { expect(subject.http302?).to be false }
+      it('#found?') { expect(subject.found?).to be false }
+    end
+
+    context 'an HTTP 302 redirect' do
+      subject { described_class.new type: :http302 }
+      it('#permanent?') { expect(subject.permanent?).to be false }
+      it('#http301?') { expect(subject.http301?).to be false }
+      it('#temporary?') { expect(subject.temporary?).to be true }
+      it('#http302?') { expect(subject.http302?).to be true }
+      it('#found?') { expect(subject.found?).to be true }
+    end
+  end
+
   describe '.fetch' do
     subject { described_class.fetch 'example.com', 'host' }
 

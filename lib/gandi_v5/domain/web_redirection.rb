@@ -70,6 +70,31 @@ class GandiV5
         data['message']
       end
 
+      # Check if this is an HTTP 301 (permanent) redirection.
+      def http301?
+        type == :http301
+      end
+
+      # Check if this is an HTTP 302 (found) redirection.
+      def http302?
+        type == :http302
+      end
+
+      # Check if this is an HTTP 301 (permanent) redirection.
+      def permanent?
+        type == :http301
+      end
+
+      # Check if this is an HTTP 302 (found) redirection.
+      def found?
+        type == :http302
+      end
+
+      # Check if this is a temporary redirection.
+      def temporary?
+        type == :http302
+      end
+
       # Create a new web redirection.
       # @see https://api.gandi.net/docs/domains/#post-v5-domain-domains-domain-webredirs
       # @param domain [String, #to_s] the domain name to create the redirection in.

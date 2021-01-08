@@ -38,10 +38,10 @@ describe GandiV5::Template do
 
     its('payload.web_redirects.count') { should eq 1 }
     its('payload.web_redirects.first.type') { should eq :http301 }
-    its('payload.web_redirects.first.target_url') { should eq 'https://example.com/here' }
-    its('payload.web_redirects.first.source_host') { should eq 'here.example.com' }
+    its('payload.web_redirects.first.target') { should eq 'https://example.com/here' }
+    its('payload.web_redirects.first.fqdn') { should eq 'here.example.com' }
     its('payload.web_redirects.first.override') { should be true }
-    its('payload.web_redirects.first.target_protocol') { should eq :https }
+    its('payload.web_redirects.first.protocol') { should eq :https }
   end
 
   describe '#update' do
@@ -163,10 +163,10 @@ describe GandiV5::Template do
 
     its('payload.web_redirects.count') { should eq 1 }
     its('payload.web_redirects.first.type') { should eq :http301 }
-    its('payload.web_redirects.first.target_url') { should eq 'https://example.com/here' }
-    its('payload.web_redirects.first.source_host') { should eq 'here.example.com' }
+    its('payload.web_redirects.first.target') { should eq 'https://example.com/here' }
+    its('payload.web_redirects.first.fqdn') { should eq 'here.example.com' }
     its('payload.web_redirects.first.override') { should be true }
-    its('payload.web_redirects.first.target_protocol') { should eq :https }
+    its('payload.web_redirects.first.protocol') { should eq :https }
   end
 
   describe '.fetch' do
@@ -228,10 +228,61 @@ describe GandiV5::Template do
         'mailboxes': %w[user1 user2],
         'name_servers': ['1.1.1.1', '2.2.2.2'],
         'web_redirects': [
-          { type: :http302, target_url: 'example.com', source_host: 'here', override: true, target_protocol: :https_only }
+          { type: :http302, target: 'example.com', host: 'here', override: true, protocol: :https_only }
         ]
       }
       expect(described_class.create(**create)).to be created_template
+    end
+
+    it 'With a :permanent web redirect' do
+      url = 'https://api.gandi.net/v5/template/templates'
+      body = '{"name":"n","description":"d","payload":{"domain:webredirs":{"values":[{"type":"http301","url":""}]}}}'
+      response = double(
+        RestClient::Response,
+        headers: { location: 'https://api.gandi.net/v5/template/templates/template-uuid' }
+      )
+      expect(GandiV5).to receive(:post).with(url, body).and_return([response, 'Confirmation message'])
+      expect(described_class).to receive(:fetch).with('template-uuid').and_return(double(GandiV5::Template))
+
+      described_class.create(
+        name: 'n',
+        description: 'd',
+        web_redirects: [{ type: :permanent, target: '' }]
+      )
+    end
+
+    it 'With a :temporary web redirect' do
+      url = 'https://api.gandi.net/v5/template/templates'
+      body = '{"name":"n","description":"d","payload":{"domain:webredirs":{"values":[{"type":"http302","url":""}]}}}'
+      response = double(
+        RestClient::Response,
+        headers: { location: 'https://api.gandi.net/v5/template/templates/template-uuid' }
+      )
+      expect(GandiV5).to receive(:post).with(url, body).and_return([response, 'Confirmation message'])
+      expect(described_class).to receive(:fetch).with('template-uuid').and_return(double(GandiV5::Template))
+
+      described_class.create(
+        name: 'n',
+        description: 'd',
+        web_redirects: [{ type: :temporary, target: '' }]
+      )
+    end
+
+    it 'With a :found web redirect' do
+      url = 'https://api.gandi.net/v5/template/templates'
+      body = '{"name":"n","description":"d","payload":{"domain:webredirs":{"values":[{"type":"http302","url":""}]}}}'
+      response = double(
+        RestClient::Response,
+        headers: { location: 'https://api.gandi.net/v5/template/templates/template-uuid' }
+      )
+      expect(GandiV5).to receive(:post).with(url, body).and_return([response, 'Confirmation message'])
+      expect(described_class).to receive(:fetch).with('template-uuid').and_return(double(GandiV5::Template))
+
+      described_class.create(
+        name: 'n',
+        description: 'd',
+        web_redirects: [{ type: :found, target: '' }]
+      )
     end
 
     it 'With sharing_id' do
