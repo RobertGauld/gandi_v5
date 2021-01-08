@@ -92,7 +92,7 @@ describe GandiV5::Template do
     url = 'https://api.gandi.net/v5/template/templates/template-uuid'
     expect(GandiV5).to receive(:delete).with(url)
                                        .and_return([nil, { 'message' => 'Confirmation message.' }])
-    expect(subject.delete).to eq 'Confirmation message.'
+    expect(subject.delete).to be nil
   end
 
   it '#apply' do

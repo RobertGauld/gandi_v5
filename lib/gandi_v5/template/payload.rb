@@ -21,7 +21,7 @@ class GandiV5
         gandi_key: 'dns:records',
         converter: GandiV5::Data::Converter.new(
           from_gandi: lambda { |hash|
-            if hash.fetch('default')
+            if hash['default']
               :default
             else
               hash.fetch('records').map do |item|

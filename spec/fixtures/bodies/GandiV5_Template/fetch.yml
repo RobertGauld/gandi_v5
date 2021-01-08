@@ -21,7 +21,6 @@ sharing_space:
 variables: []
 payload:
   'dns:records':
-    default: false
     records:
     - name: record-name
       type: TXT

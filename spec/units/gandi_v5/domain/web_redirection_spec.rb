@@ -4,7 +4,7 @@ describe GandiV5::Domain::WebRedirection do
   subject { described_class.new fqdn: 'host.example.com' }
 
   describe '#update' do
-    let(:url) { 'https://api.gandi.net/v5/domain/domains/example.com/webredirs/host' }
+    let(:url) { 'https://api.gandi.net/v5/domain/domains/example.com/webredirs/host.example.com' }
     let(:updated_redirect) { double GandiV5::Domain::WebRedirection }
 
     before :each do
@@ -39,7 +39,7 @@ describe GandiV5::Domain::WebRedirection do
   end
 
   it '#delete' do
-    url = 'https://api.gandi.net/v5/domain/domains/example.com/webredirs/host'
+    url = 'https://api.gandi.net/v5/domain/domains/example.com/webredirs/host.example.com'
     expect(GandiV5).to receive(:delete).with(url).and_return([nil, { 'message' => 'Confirmation message.' }])
     subject.instance_exec { @domain = 'example.com' }
     expect(subject.delete).to eq 'Confirmation message.'
@@ -70,7 +70,7 @@ describe GandiV5::Domain::WebRedirection do
 
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_WebRedirection', 'fetch.yml'))
-      url = 'https://api.gandi.net/v5/domain/domains/example.com/webredirs/host'
+      url = 'https://api.gandi.net/v5/domain/domains/example.com/webredirs/host.example.com'
       expect(GandiV5).to receive(:get).with(url).and_return([nil, YAML.load_file(body_fixture)])
     end
 
@@ -110,7 +110,7 @@ describe GandiV5::Domain::WebRedirection do
     body = '{"host":"host","protocol":"httpsonly","type":"http302","url":"example.com","override":true}'
     response = double(
       RestClient::Response,
-      headers: { location: ' https://api.gandi.net/v5/domain/domains/example.com/webredirs/host' }
+      headers: { location: ' https://api.gandi.net/v5/domain/domains/example.com/webredirs/host.example.com' }
     )
     created_redirection = double GandiV5::Domain::WebRedirection
     expect(GandiV5).to receive(:post).with(url, body).and_return([response, 'Confirmation message'])

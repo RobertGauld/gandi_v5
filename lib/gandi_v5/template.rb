@@ -43,11 +43,11 @@ class GandiV5
 
     # Delete this template from Gandi.
     # @see https://api.gandi.net/docs/template/#delete-v5-template-templates-id
-    # @return [String] The confirmation message from Gandi.
+    # @return [nil]
     # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def delete
-      _response, data = GandiV5.delete url
-      data['message']
+      GandiV5.delete url
+      nil
     end
 
     # Applies the template to a domain.

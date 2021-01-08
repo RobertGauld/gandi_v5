@@ -154,13 +154,12 @@ class GandiV5
       private
 
       def url
-        host = fqdn[0..-(@domain.length + 2)]
-        "#{BASE}domain/domains/#{CGI.escape @domain}/webredirs/#{CGI.escape host}"
+        "#{BASE}domain/domains/#{CGI.escape @domain}/webredirs/#{fqdn}"
       end
 
       def self.url(domain, host = nil)
         "#{BASE}domain/domains/#{CGI.escape domain}/webredirs" +
-          (host ? "/#{CGI.escape host}" : '')
+          (host ? "/#{CGI.escape host}.#{CGI.escape domain}" : '')
       end
       private_class_method :url
     end
