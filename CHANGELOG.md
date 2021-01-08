@@ -12,6 +12,7 @@
   * Add \#update
 * GandiV5::Template
 * GandiV5::Template::Dispatch
+* Add testing against truffleruby-20.3.0
 
 ## Version 0.9.1
 

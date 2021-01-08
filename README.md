@@ -10,7 +10,7 @@ This gem supports the following versions of ruby, it may work on other versions 
   * 2.6.0 - 2.6.6
   * 2.7.0 - 2.7.2
   * 3.0.0
-  * truffleruby 20.1.0 - 20.2.0
+  * truffleruby 20.1.0 - 20.3.0
 
 This gem doesn't yet support the following versions of ruby, although hopefully it soon will.
 
@@ -40,12 +40,12 @@ Details of the gem's API can be found at <https://rubydoc.info/github/robertgaul
 If you're using bundler then add it to your Gemfile and run the bundle command.
 
 ```ruby
-gem 'gandi_v5', '~> 0.8'
+gem 'gandi_v5', '~> 0.9'
 ```
 
 If you're not using bundler then install it from the command line.
 ```bash
-gem install gandi_v5 -v '~> 0.8'
+gem install gandi_v5 -v '~> 0.9'
 ```
 
 ## Usage
