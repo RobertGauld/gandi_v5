@@ -40,12 +40,12 @@ Details of the gem's API can be found at <https://rubydoc.info/github/robertgaul
 If you're using bundler then add it to your Gemfile and run the bundle command.
 
 ```ruby
-gem 'gandi_v5', '~> 0.9'
+gem 'gandi_v5', '~> 0.10'
 ```
 
 If you're not using bundler then install it from the command line.
 ```bash
-gem install gandi_v5 -v '~> 0.9'
+gem install gandi_v5 -v '~> 0.10'
 ```
 
 ## Usage
@@ -124,7 +124,7 @@ We follow the [Semantic Versioning](http://semver.org/) concept.
 
 | Gem Version     | Gandi API Release Date   |
 | --------------- | ------------------------ |
-|                 | 2020-12-10               |
+| 0.10.0          | 2020-12-10               |
 | 0.9.0           | 2020-07-29               |
 | 0.8.0           | 2020-07-10               |
 | 0.7.0           | 2020-05-07               |
