@@ -1,0 +1,178 @@
+# See the following addresses to change this to be web driven, will need the ability to commit
+# a change to the version.rb and insert version heading into the changelog.
+# Also see https://riggaroo.dev/using-github-actions-to-automate-our-release-process/
+# Also see https://github.com/actions/create-release
+
+# When "rake release" is run a tag of the form 'v[0-9]*.[0.9]*.*' is pushed to the repo.
+# When that tag is pushed it causes this action to run, which:
+#   * Ensures the gem's version (via version.rb) matches the pushed tag before doing anything.
+#   * Builds the gem.
+#   * Creates a draft release in GitHub with:
+#      * The built gem attached.
+#      * The relevant lines from the changelog in the description.
+#      * Named the same as the tag.
+#   * Publishes the gem to GitHub Package Registry.
+
+
+name: Create Release
+
+on:
+  push:
+    tags:
+    - 'v[0-9]+.[0-9]+.*'
+
+jobs:
+  setup:
+    name: Checks & Setup
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{steps.versions.outputs.gem}}
+      gem_file: ${{steps.files.outputs.gem}}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+
+    - name: Get versions
+      id: versions
+      run: |
+        echo "::set-output name=gem::$(ruby -r ./lib/gandi_v5/version -e 'puts GandiV5::VERSION')"
+        echo "::set-output name=tag::$(echo ${{github.ref}} | cut -c 12-)"
+
+    - name: Set files
+      id: files
+      run: |
+        echo "::set-output name=gem::gandi_v5-${{steps.versions.outputs.gem}}.gem"
+
+    - name: Check gem version matches git tag
+      id: check-version
+      run: |
+        if [ "${{steps.versions.outputs.gem}}" == "${{steps.versions.outputs.tag}}" ]; then
+          echo "::debug::gem version (${{steps.versions.outputs.gem}}) and tag version (${{steps.versions.outputs.tag}}) match!"
+          exit 0
+        else
+          echo "::error::gem version (${{steps.versions.outputs.gem}}) and tag version (${{steps.versions.outputs.tag}}) DO NOT match!"
+          exit 1
+        fi
+
+  build_gem:
+    name: Build gem
+    needs: setup
+    runs-on: ubuntu-latest
+    outputs:
+      gem_file: ${{steps.build.outputs.gem_file}}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+
+    - name: Build gem
+      id: build
+      run: gem build gandi_v5.gemspec --output ${{needs.setup.outputs.gem_file}}
+
+    - name: Upload built gem
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{needs.setup.outputs.gem_file}}
+        path: ${{needs.setup.outputs.gem_file}}
+        if-no-files-found: error
+
+  github-release:
+    name: GitHub Release
+    needs: ["setup", "build_gem"]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+
+    - name: Download built gem
+      uses: actions/download-artifact@v2
+      with:
+        name: ${{needs.setup.outputs.gem_file}}
+
+    - name: Get changes from changelog
+      id: changes
+      run: |
+        echo "::set-output name=text::$(
+          ruby -r json -e "
+            lines = []
+            File.readlines('CHANGELOG.md')
+                .map(&:strip)
+                .reduce(false) do |output, line|
+                  output = false if line.start_with?('## Version')
+                  lines.push line if output && !line.empty?
+                  output = true if line.eql?('## Version ${{needs.setup.outputs.version}}')
+                  output
+                end
+            puts lines.join(\"\n\").to_json
+          "
+        )"
+
+    - name: Create release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+        tag_name: ${{github.ref}}
+        release_name: ${{github.ref}}
+        body: ${{fromJSON(steps.changes.outputs.text)}}
+        draft: true
+        prerelease: false
+
+    - name: Upload release asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+        upload_url: ${{steps.create_release.outputs.upload_url}}
+        asset_path: ${{needs.setup.outputs.gem_file}}
+        asset_name: ${{needs.setup.outputs.gem_file}}
+        asset_content_type: application/x-tar
+
+  github-package-registry:
+    name: Publish gem(s) to GitHub Package Registry
+    needs: ["setup", "build_gem"]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Download built gem
+      uses: actions/download-artifact@v2
+      with:
+        name: ${{needs.setup.outputs.gem_file}}
+
+    - name: Publish gem(s) to GitHub Package Registry
+      run: |
+        mkdir -p $HOME/.gem
+        touch $HOME/.gem/credentials
+        chmod 0600 $HOME/.gem/credentials
+        printf -- "---\n:github: Bearer ${{secrets.GITHUB_TOKEN}}\n" > $HOME/.gem/credentials
+        gem push --KEY github \
+                 --host https://rubygems.pkg.github.com/${{github.repository_owner}} \
+                 ${{needs.setup.outputs.gem_file}}
+
+#    - name: Publish gem(s) to RubyGems
+#      needs: ["setup", "build_gem"]
+#      run: |
+#        mkdir -p $HOME/.gem
+#        touch $HOME/.gem/credentials
+#        chmod 0600 $HOME/.gem/credentials
+#        printf -- "---\n:rubygems_api_key: ${{secrets.RUBYGEMS_AUTH_TOKEN}}\n" > $HOME/.gem/credentials
+#        gem build *.gemspec
+#        gem push *.gem
