@@ -75,6 +75,7 @@ class GandiV5
       # @overload fetch_zone_lines()
       #   Fetch all records for this domain.
       #   @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn-records
+      #   @see https://rubygems.org/gems/dns-zonefile dns-zonefile gem may be helpful too
       # @overload fetch_zone_lines(name)
       #   Fetch records for a name.
       #   @see https://api.gandi.net/docs/livedns/#get-v5-livedns-domains-fqdn-records-rrset_name
