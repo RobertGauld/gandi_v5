@@ -19,8 +19,8 @@ describe 'Examples', :vcr do
       mailboxes.each do |mailbox|
         mailbox.refresh
         emails["#{mailbox.login}@#{domain.fqdn}"] = "#{mailbox.type} mailbox " \
-                                             "(#{mailbox.quota_usage.to_i}% " \
-                                             "of #{(mailbox.quota / 1024**3).round}GB used)"
+                                                    "(#{mailbox.quota_usage.to_i}% " \
+                                                    "of #{(mailbox.quota / (1024**3)).round}GB used)"
         mailbox.aliases.each do |alias_name|
           emails["#{alias_name}@#{domain.fqdn}"] = "alias for #{mailbox.login}@#{domain.fqdn}"
         end

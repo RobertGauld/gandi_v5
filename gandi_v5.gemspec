@@ -17,7 +17,8 @@ Gem::Specification.new do |gem|
     'changelog_uri' => 'https://github.com/robertgauld/gandi_v5/blob/main/CHANGELOG.md',
     'documentation_uri' => 'https://rubydoc.info/github/robertgauld/gandi_v5/main',
     'homepage_uri' => gem.homepage,
-    'source_code_uri' => 'https://github.com/robertgauld/gandi_v5'
+    'source_code_uri' => 'https://github.com/robertgauld/gandi_v5',
+    'rubygems_mfa_required' => 'true'
   }
   # Also: mailing_list_uri, wiki_uri, funding_uri
 

@@ -29,7 +29,7 @@ class GandiV5
       member(
         :capacity,
         converter: GandiV5::Data::Converter.new(
-          from_gandi: ->(value) { value * 1_024**2 }
+          from_gandi: ->(value) { value * (1_024**2) }
         )
       )
       member :created_at, converter: GandiV5::Data::Converter::Time

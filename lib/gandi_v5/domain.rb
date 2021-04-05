@@ -84,10 +84,10 @@ class GandiV5
       hash = hash.transform_keys(&:to_sym)
                  .transform_values { |value| GandiV5::Domain::Contact.from_gandi value }
 
-      hash.define_singleton_method(:owner) { send :'[]', :owner }
-      hash.define_singleton_method(:admin) { send :'[]', :admin }
-      hash.define_singleton_method(:bill) { send :'[]', :bill }
-      hash.define_singleton_method(:tech) { send :'[]', :tech }
+      hash.define_singleton_method(:owner) { send :[], :owner }
+      hash.define_singleton_method(:admin) { send :[], :admin }
+      hash.define_singleton_method(:bill) { send :[], :bill }
+      hash.define_singleton_method(:tech) { send :[], :tech }
 
       hash
     }
@@ -138,10 +138,8 @@ class GandiV5
 
     alias domain_uuid uuid
 
-    # rubocop:disable Style/AsciiComments
     # Returns the string representation of the domain.
     # @return [String] e.g. "example.com", "😀.com (xn--e28h.uk.com)"
-    # rubocop:enable Style/AsciiComments
     def to_s
       string = fqdn_unicode
       string += " (#{fqdn})" unless fqdn == fqdn_unicode

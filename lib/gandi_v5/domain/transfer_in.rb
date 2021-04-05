@@ -136,7 +136,7 @@ class GandiV5
         transfer.instance_exec { @duration = data.dig('params', 'duration') }
         if data.key?('foa')
           transfer.instance_exec do
-            @foa_status = Hash[data['foa'].map { |hash| hash.values_at('email', 'answer') }]
+            @foa_status = data['foa'].map { |hash| hash.values_at('email', 'answer') }.to_h
           end
         end
         transfer

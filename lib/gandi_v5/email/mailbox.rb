@@ -29,9 +29,9 @@ class GandiV5
 
       TYPES = %i[standard premium free].freeze
       QUOTAS = {
-        free: 3 * 1024**3,
-        standard: 3 * 1024**3,
-        premium: 50 * 1024**3
+        free: 3 * (1024**3),
+        standard: 3 * (1024**3),
+        premium: 50 * (1024**3)
       }.freeze
 
       members :address, :login, :quota_used, :aliases, :fallback_email

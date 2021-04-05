@@ -7,10 +7,10 @@
 This gem supports the following versions of ruby, it may work on other versions but is not tested against them so don't rely on it.
 
 * ruby:
-  * 2.6.0 - 2.6.6
-  * 2.7.0 - 2.7.2
-  * 3.0.0
-  * truffleruby 20.1.0 - 20.3.0
+  * 2.6.0 - 2.6.7
+  * 2.7.0 - 2.7.3
+  * 3.0.0 - 3.0.1
+  * truffleruby 20.1.0 - 21.0.0
 
 This gem doesn't yet support the following versions of ruby, although hopefully it soon will.
 
