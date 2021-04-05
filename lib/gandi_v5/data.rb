@@ -22,19 +22,17 @@ class GandiV5
     # Get a hash representation of the object.
     # @return [Hash<Symbol => Object>]
     def to_h
-      Hash[
-        data_members.map do |key|
-          value = send(key)
-          next [key, value] if value.nil?
+      data_members.map do |key|
+        value = send(key)
+        next [key, value] if value.nil?
 
-          if value.is_a?(Enumerable)
-            value = to_h_transform_enumerable(value)
-          elsif value.respond_to?(:to_h)
-            value = value.to_h
-          end
-          [key, value]
+        if value.is_a?(Enumerable)
+          value = to_h_transform_enumerable(value)
+        elsif value.respond_to?(:to_h)
+          value = value.to_h
         end
-      ]
+        [key, value]
+      end.to_h
     end
 
     # Get a hash representation of this object suitable for passing back to Gandi.

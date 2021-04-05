@@ -1,9 +1,10 @@
+---
 name: Slack Bot - Action Ran
 
 on:
   workflow_run:
     workflows:
-    - "Commit Checks"
+    - 'Commit Checks'
     types:
     - completed
 
@@ -17,14 +18,15 @@ jobs:
         CONCLUSION=$(jq '.workflow_run.conclusion' $GITHUB_EVENT_PATH | tr -d '"')
         LINK_HREF=$(jq '.workflow_run.html_url' $GITHUB_EVENT_PATH | tr -d '"')
         WORKFLOW=$(jq '.workflow_run.name' $GITHUB_EVENT_PATH | tr -d '"')
-        REPOSITORY=$(jq '.workflow_run.head_repository.full_name' $GITHUB_EVENT_PATH  | tr -d '"')
+        REPOSITORY=$(jq '.workflow_run.head_repository.full_name' $GITHUB_EVENT_PATH | tr -d '"')
         BRANCH=$(jq '.workflow_run.head_branch' $GITHUB_EVENT_PATH | tr -d '"')
         COMMIT=$(jq '.workflow_run.head_sha' $GITHUB_EVENT_PATH | tr -d '"')
+        CHANNEL=$(([ -z "${{ secrets.SLACK_BOT_CHANNEL }}" ] && echo "$(jq '.workflow_run.head_repository.full_name|split("/")|.[1]' $GITHUB_EVENT_PATH | tr -d '"')") || echo "${{ secrets.SLACK_BOT_CHANNEL }}")
         slackMsg() {
           title=$1
           color=$2
           msg="{
-            \"channel\":\"gandi_v5\",
+            \"channel\":\"$CHANNEL\",
             \"attachments\": [
               {
                 \"title\":\"$title: $WORKFLOW on $REPOSITORY/$BRANCH\",
@@ -34,8 +36,11 @@ jobs:
               }
             ]
           }"
-          echo $msg
-          curl -X POST -H "Content-type: application/json; charset=utf-8" -H "Authorization: Bearer ${{ secrets.SLACK_BOT_TOKEN }}" -d "$msg" https://slack.com/api/chat.postMessage
+          result=$(curl -X POST -H "Content-type: application/json; charset=utf-8" -H "Authorization: Bearer ${{ secrets.SLACK_BOT_TOKEN }}" -d "$msg" https://slack.com/api/chat.postMessage)
+
+          # echo $msg
+          echo $result
+          echo $result | grep '"ok":true'
         }
         if [ $CONCLUSION = 'success' ]; then
           slackMsg "SUCCESS" "#00FF00"
@@ -44,4 +49,3 @@ jobs:
         else
           slackMsg "FAILED" "#FF0000"
         fi
-

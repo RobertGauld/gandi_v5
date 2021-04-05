@@ -224,10 +224,10 @@ describe GandiV5::Template do
       create = {
         name: 'template name',
         description: 'description of template',
-        'dns_records': [{ name: 'host', ttl: 600, type: 'TXT', values: ['value'] }],
-        'mailboxes': %w[user1 user2],
-        'name_servers': ['1.1.1.1', '2.2.2.2'],
-        'web_forwardings': [
+        dns_records: [{ name: 'host', ttl: 600, type: 'TXT', values: ['value'] }],
+        mailboxes: %w[user1 user2],
+        name_servers: ['1.1.1.1', '2.2.2.2'],
+        web_forwardings: [
           { type: :http302, target: 'example.com', host: 'here', override: true, protocol: :https_only }
         ]
       }

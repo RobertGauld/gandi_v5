@@ -84,10 +84,10 @@ class GandiV5
       hash = hash.transform_keys(&:to_sym)
                  .transform_values { |value| GandiV5::Domain::Contact.from_gandi value }
 
-      hash.define_singleton_method(:owner) { send :'[]', :owner }
-      hash.define_singleton_method(:admin) { send :'[]', :admin }
-      hash.define_singleton_method(:bill) { send :'[]', :bill }
-      hash.define_singleton_method(:tech) { send :'[]', :tech }
+      hash.define_singleton_method(:owner) { send :[], :owner }
+      hash.define_singleton_method(:admin) { send :[], :admin }
+      hash.define_singleton_method(:bill) { send :[], :bill }
+      hash.define_singleton_method(:tech) { send :[], :tech }
 
       hash
     }
