@@ -1,5 +1,7 @@
 # Gandi V5 API Gem Changelog
 
+* Fix issue with json not being included
+
 ## Version 0.10.0
 
 * GandiV5::Domain
