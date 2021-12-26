@@ -49,8 +49,13 @@ describe GandiV5::LiveDNS::Domain::Snapshot do
     let(:url) { 'https://api.gandi.net/v5/livedns/domains/example.com/snapshots' }
 
     it 'With default parameters' do
-      expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100, params: {})
-                                                .and_yield(YAML.load_file(body_fixture))
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100, params: {})
+                                                  .and_yield(YAML.load_file(body_fixture, permitted_classes: [Time]))
+      else
+        expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100, params: {})
+                                                  .and_yield(YAML.load_file(body_fixture))
+      end
       results = described_class.list('example.com')
       result = results.first
       expect(results.count).to eq 1
@@ -83,8 +88,13 @@ describe GandiV5::LiveDNS::Domain::Snapshot do
       body_fixture = File.expand_path(
         File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Domain_Snapshot', 'fetch.yml')
       )
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/livedns/domains/example.com/snapshots/snapshot-uuid')
-                                      .and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/livedns/domains/example.com/snapshots/snapshot-uuid')
+                                        .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/livedns/domains/example.com/snapshots/snapshot-uuid')
+                                        .and_return([nil, YAML.load_file(body_fixture)])
+      end
     end
 
     its('created_at') { should eq Time.new(2016, 12, 16, 16, 51, 26, 0) }

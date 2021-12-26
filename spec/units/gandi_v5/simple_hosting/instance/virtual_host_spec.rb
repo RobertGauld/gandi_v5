@@ -2,18 +2,36 @@
 
 describe GandiV5::SimpleHosting::Instance::VirtualHost do
   let :body_list do
-    YAML.load_file(
-      File.expand_path(
-        File.join('spec', 'fixtures', 'bodies', 'GandiV5_SimpleHosting_Instance_VirtualHost', 'list.yml')
+    if RUBY_VERSION >= '3.1.0'
+      YAML.load_file(
+        File.expand_path(
+          File.join('spec', 'fixtures', 'bodies', 'GandiV5_SimpleHosting_Instance_VirtualHost', 'list.yml')
+        ),
+        permitted_classes: [Time]
       )
-    )
+    else
+      YAML.load_file(
+        File.expand_path(
+          File.join('spec', 'fixtures', 'bodies', 'GandiV5_SimpleHosting_Instance_VirtualHost', 'list.yml')
+        )
+      )
+    end
   end
   let :body_fetch do
-    YAML.load_file(
-      File.expand_path(
-        File.join('spec', 'fixtures', 'bodies', 'GandiV5_SimpleHosting_Instance_VirtualHost', 'fetch.yml')
+    if RUBY_VERSION >= '3.1.0'
+      YAML.load_file(
+        File.expand_path(
+          File.join('spec', 'fixtures', 'bodies', 'GandiV5_SimpleHosting_Instance_VirtualHost', 'fetch.yml')
+        ),
+        permitted_classes: [Time]
       )
-    )
+    else
+      YAML.load_file(
+        File.expand_path(
+          File.join('spec', 'fixtures', 'bodies', 'GandiV5_SimpleHosting_Instance_VirtualHost', 'fetch.yml')
+        )
+      )
+    end
   end
 
   subject do

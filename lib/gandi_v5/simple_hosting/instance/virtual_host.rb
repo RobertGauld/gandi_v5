@@ -48,7 +48,7 @@ class GandiV5
         member(
           :certificates,
           converter: GandiV5::Data::Converter.new(
-            from_gandi: ->(array) { array.map { |h| [h['id'], h['pending']] }.to_h }
+            from_gandi: ->(array) { array.to_h { |h| [h['id'], h['pending']] } }
           )
         )
 

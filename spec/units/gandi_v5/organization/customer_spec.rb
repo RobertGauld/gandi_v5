@@ -45,8 +45,18 @@ describe GandiV5::Organization::Customer do
 
       before :each do
         url = 'https://api.gandi.net/v5/organization/organizations/uuid/customers'
-        expect(GandiV5).to receive(:get).with(url, params: {})
-                                        .and_return([nil, YAML.load_file(File.join(body_fixtures, 'list.yml'))])
+        if RUBY_VERSION >= '3.1.0'
+          expect(GandiV5).to receive(:get).with(url, params: {})
+                                          .and_return(
+                                            [
+                                              nil,
+                                              YAML.load_file(File.join(body_fixtures, 'list.yml'), permitted_classes: [Time])
+                                            ]
+                                          )
+        else
+          expect(GandiV5).to receive(:get).with(url, params: {})
+                                          .and_return([nil, YAML.load_file(File.join(body_fixtures, 'list.yml'))])
+        end
       end
 
       its('count') { should eq 1 }

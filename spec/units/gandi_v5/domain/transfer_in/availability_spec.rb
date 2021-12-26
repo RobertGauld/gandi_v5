@@ -11,8 +11,13 @@ describe GandiV5::Domain::TransferIn::Availability do
 
       before(:each) do
         url = 'https://api.gandi.net/v5/domain/transferin/example.com/available'
-        expect(GandiV5).to receive(:post).with(url, {})
-                                         .and_return([nil, YAML.load_file(body_fixture)])
+        if RUBY_VERSION >= '3.1.0'
+          expect(GandiV5).to receive(:post).with(url, {})
+                                           .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+        else
+          expect(GandiV5).to receive(:post).with(url, {})
+                                           .and_return([nil, YAML.load_file(body_fixture)])
+        end
       end
 
       its('available') { should be true }
@@ -31,8 +36,13 @@ describe GandiV5::Domain::TransferIn::Availability do
 
       before(:each) do
         url = 'https://api.gandi.net/v5/domain/transferin/example.com/available'
-        expect(GandiV5).to receive(:post).with(url, { 'authinfo' => 'auth-code' })
-                                         .and_return([nil, YAML.load_file(body_fixture)])
+        if RUBY_VERSION >= '3.1.0'
+          expect(GandiV5).to receive(:post).with(url, { 'authinfo' => 'auth-code' })
+                                           .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+        else
+          expect(GandiV5).to receive(:post).with(url, { 'authinfo' => 'auth-code' })
+                                           .and_return([nil, YAML.load_file(body_fixture)])
+        end
       end
 
       its('available') { should be true }

@@ -3,8 +3,13 @@
 describe GandiV5::Domain::TLD do
   it '.list' do
     body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_TLD', 'list.yml'))
-    expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/tlds')
-                                    .and_return([nil, YAML.load_file(body_fixture)])
+    if RUBY_VERSION >= '3.1.0'
+      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/tlds')
+                                      .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+    else
+      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/tlds')
+                                      .and_return([nil, YAML.load_file(body_fixture)])
+    end
     expect(described_class.list.map(&:name)).to match_array %w[a b c]
   end
 
@@ -13,8 +18,13 @@ describe GandiV5::Domain::TLD do
 
     before(:each) do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_TLD', 'fetch.yml'))
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/tlds/name')
-                                      .and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/tlds/name')
+                                        .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/tlds/name')
+                                        .and_return([nil, YAML.load_file(body_fixture)])
+      end
     end
 
     its('category') { should eq :ccTLD }

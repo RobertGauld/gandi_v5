@@ -10,8 +10,13 @@ describe GandiV5::Email::Mailbox do
   describe '#refresh' do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Email_Mailbox', 'fetch.yml'))
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com/mailbox-uuid')
-                                      .and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com/mailbox-uuid')
+                                        .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/email/mailboxes/example.com/mailbox-uuid')
+                                        .and_return([nil, YAML.load_file(body_fixture)])
+      end
       subject.refresh
     end
 

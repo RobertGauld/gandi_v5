@@ -8,8 +8,13 @@ describe GandiV5::LiveDNS::Domain do
   describe '#refresh' do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Domain', 'fetch.yml'))
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/livedns/domains/example.com')
-                                      .and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/livedns/domains/example.com')
+                                        .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/livedns/domains/example.com')
+                                        .and_return([nil, YAML.load_file(body_fixture)])
+      end
       subject.refresh
     end
 
@@ -203,8 +208,13 @@ describe GandiV5::LiveDNS::Domain do
       File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Domain', 'nameservers.yml')
     )
 
-    expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/livedns/domains/example.com/nameservers')
-                                    .and_return([nil, YAML.load_file(body_fixture)])
+    if RUBY_VERSION >= '3.1.0'
+      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/livedns/domains/example.com/nameservers')
+                                      .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+    else
+      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/livedns/domains/example.com/nameservers')
+                                      .and_return([nil, YAML.load_file(body_fixture)])
+    end
 
     expect(subject.fetch_name_servers).to match_array ['a.example.com', 'b.example.com']
   end
@@ -254,7 +264,11 @@ describe GandiV5::LiveDNS::Domain do
     )
     url = 'https://api.gandi.net/v5/livedns/domains/example.com/axfr/tsig'
 
-    expect(GandiV5).to receive(:get).with(url).and_return([nil, YAML.load_file(body_fixture)])
+    if RUBY_VERSION >= '3.1.0'
+      expect(GandiV5).to receive(:get).with(url).and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+    else
+      expect(GandiV5).to receive(:get).with(url).and_return([nil, YAML.load_file(body_fixture)])
+    end
     results = subject.fetch_tsig_keys
     result = results.first
     expect(results.count).to eq 1
@@ -343,8 +357,13 @@ describe GandiV5::LiveDNS::Domain do
 
     it 'With default parameters' do
       headers = { params: { page: 1, per_page: 100 } }
-      expect(GandiV5).to receive(:get).with(url, headers)
-                                      .and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with(url, headers)
+                                        .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with(url, headers)
+                                        .and_return([nil, YAML.load_file(body_fixture)])
+      end
 
       subject = described_class.list
       expect(subject.count).to eq 1
@@ -354,9 +373,15 @@ describe GandiV5::LiveDNS::Domain do
     it 'Keeps fetching until no more to get' do
       headers1 = { params: { page: 1, per_page: 1 } }
       headers2 = { params: { page: 2, per_page: 1 } }
-      expect(GandiV5).to receive(:get).with(url, headers1)
-                                      .ordered
-                                      .and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with(url, headers1)
+                                        .ordered
+                                        .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with(url, headers1)
+                                        .ordered
+                                        .and_return([nil, YAML.load_file(body_fixture)])
+      end
       expect(GandiV5).to receive(:get).with(url, headers2)
                                       .ordered
                                       .and_return([nil, []])
@@ -366,8 +391,13 @@ describe GandiV5::LiveDNS::Domain do
 
     it 'Given a range as page number' do
       headers = { params: { page: 1, per_page: 1 } }
-      expect(GandiV5).to receive(:get).with(url, headers)
-                                      .and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with(url, headers)
+                                        .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with(url, headers)
+                                        .and_return([nil, YAML.load_file(body_fixture)])
+      end
 
       described_class.list(page: (1..1), per_page: 1)
     end
@@ -394,8 +424,13 @@ describe GandiV5::LiveDNS::Domain do
 
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Domain', 'fetch.yml'))
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/livedns/domains/example.com')
-                                      .and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/livedns/domains/example.com')
+                                        .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/livedns/domains/example.com')
+                                        .and_return([nil, YAML.load_file(body_fixture)])
+      end
     end
 
     its('fqdn') { should eq 'example.com' }

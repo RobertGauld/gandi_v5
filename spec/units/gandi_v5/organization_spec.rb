@@ -8,8 +8,23 @@ describe GandiV5::Organization do
       subject { described_class.list }
 
       before :each do
-        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/organization/organizations', params: {})
-                                        .and_return([nil, YAML.load_file(File.join(body_fixtures, 'list.yml'))])
+        if RUBY_VERSION >= '3.1.0'
+          expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/organization/organizations', params: {})
+                                          .and_return(
+                                            [
+                                              nil,
+                                              YAML.load_file(File.join(body_fixtures, 'list.yml'), permitted_classes: [Time])
+                                            ]
+                                          )
+        else
+          expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/organization/organizations', params: {})
+                                          .and_return(
+                                            [
+                                              nil,
+                                              YAML.load_file(File.join(body_fixtures, 'list.yml'))
+                                            ]
+                                          )
+        end
       end
 
       its('count') { should eq 1 }
@@ -43,8 +58,23 @@ describe GandiV5::Organization do
   describe '.fetch' do
     subject { described_class.fetch }
     before :each do
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/organization/user-info')
-                                      .and_return([nil, YAML.load_file(File.join(body_fixtures, 'fetch.yml'))])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/organization/user-info')
+                                        .and_return(
+                                          [
+                                            nil,
+                                            YAML.load_file(File.join(body_fixtures, 'fetch.yml'), permitted_classes: [Time])
+                                          ]
+                                        )
+      else
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/organization/user-info')
+                                        .and_return(
+                                          [
+                                            nil,
+                                            YAML.load_file(File.join(body_fixtures, 'fetch.yml'))
+                                          ]
+                                        )
+      end
     end
 
     its('uuid') { should eq 'organization-uuid' }

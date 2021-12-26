@@ -22,7 +22,7 @@ class GandiV5
     # Get a hash representation of the object.
     # @return [Hash<Symbol => Object>]
     def to_h
-      data_members.map do |key|
+      data_members.to_h do |key|
         value = send(key)
         next [key, value] if value.nil?
 
@@ -32,7 +32,7 @@ class GandiV5
           value = value.to_h
         end
         [key, value]
-      end.to_h
+      end
     end
 
     # Get a hash representation of this object suitable for passing back to Gandi.

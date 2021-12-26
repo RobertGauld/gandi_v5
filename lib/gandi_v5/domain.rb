@@ -368,7 +368,7 @@ class GandiV5
     # @raise [GandiV5::Error::GandiError] if Gandi returns an error.
     def fetch_glue_records
       _response, data = GandiV5.get url('hosts')
-      @glue_records = data.map { |record| record.values_at('name', 'ips') }.to_h
+      @glue_records = data.to_h { |record| record.values_at('name', 'ips') }
     end
 
     # Add a new glue record to the domain in Gandi.

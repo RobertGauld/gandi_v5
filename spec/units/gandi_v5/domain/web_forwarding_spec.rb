@@ -92,7 +92,11 @@ describe GandiV5::Domain::WebForwarding do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_WebForwarding', 'fetch.yml'))
       url = 'https://api.gandi.net/v5/domain/domains/example.com/webredirs/host.example.com'
-      expect(GandiV5).to receive(:get).with(url).and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with(url).and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with(url).and_return([nil, YAML.load_file(body_fixture)])
+      end
     end
 
     its('created_at') { should eq Time.new(2020, 11, 29, 14, 57, 14) }
@@ -111,8 +115,13 @@ describe GandiV5::Domain::WebForwarding do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_WebForwarding', 'list.yml'))
       url = 'https://api.gandi.net/v5/domain/domains/example.com/webredirs'
-      expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100)
-                                                .and_yield(YAML.load_file(body_fixture))
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100)
+                                                  .and_yield(YAML.load_file(body_fixture, permitted_classes: [Time]))
+      else
+        expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100)
+                                                  .and_yield(YAML.load_file(body_fixture))
+      end
     end
 
     its('count') { should eq 1 }

@@ -9,7 +9,11 @@ describe GandiV5::Template::Dispatch do
     subject { described_class.fetch('dispatch-uuid') }
 
     before :each do
-      expect(GandiV5).to receive(:get).with(url).and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with(url).and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with(url).and_return([nil, YAML.load_file(body_fixture)])
+      end
     end
 
     let(:url) { 'https://api.gandi.net/v5/template/dispatch/dispatch-uuid' }

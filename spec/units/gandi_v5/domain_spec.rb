@@ -11,8 +11,13 @@ describe GandiV5::Domain do
       subject { described_class.list }
 
       before :each do
-        expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100, params: {})
-                                                  .and_yield(YAML.load_file(body_fixture))
+        if RUBY_VERSION >= '3.1.0'
+          expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100, params: {})
+                                                    .and_yield(YAML.load_file(body_fixture, permitted_classes: [Time]))
+        else
+          expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100, params: {})
+                                                    .and_yield(YAML.load_file(body_fixture))
+        end
       end
 
       its('count') { should eq 1 }
@@ -59,8 +64,13 @@ describe GandiV5::Domain do
 
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch.yml'))
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com')
-                                      .and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com')
+                                        .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com')
+                                        .and_return([nil, YAML.load_file(body_fixture)])
+      end
     end
 
     its('uuid') { should eq 'domain-uuid' }
@@ -235,8 +245,13 @@ describe GandiV5::Domain do
   describe '#refresh' do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch.yml'))
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com')
-                                      .and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com')
+                                        .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com')
+                                        .and_return([nil, YAML.load_file(body_fixture)])
+      end
       subject.refresh
     end
 
@@ -291,8 +306,13 @@ describe GandiV5::Domain do
 
       before(:each) do
         body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch_contacts.yml'))
-        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/contacts')
-                                        .and_return([nil, YAML.load_file(body_fixture)])
+        if RUBY_VERSION >= '3.1.0'
+          expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/contacts')
+                                          .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+        else
+          expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/contacts')
+                                          .and_return([nil, YAML.load_file(body_fixture)])
+        end
       end
 
       its('owner.country') { should eq 'GB' }
@@ -348,8 +368,13 @@ describe GandiV5::Domain do
 
       before(:each) do
         body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch_renewal_info.yml'))
-        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/renew')
-                                        .and_return([nil, YAML.load_file(body_fixture)])
+        if RUBY_VERSION >= '3.1.0'
+          expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/renew')
+                                          .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+        else
+          expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/renew')
+                                          .and_return([nil, YAML.load_file(body_fixture)])
+        end
       end
 
       its('begins_at') { should eq Time.new(2012, 1, 1, 0, 0, 0) }
@@ -478,8 +503,13 @@ describe GandiV5::Domain do
         before(:each) do
           body_fixture = File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch_restore_info.yml')
           body_fixture = File.expand_path(body_fixture)
-          expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/restore')
-                                          .and_return([nil, YAML.load_file(body_fixture)])
+          if RUBY_VERSION >= '3.1.0'
+            expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/restore')
+                                            .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+          else
+            expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/restore')
+                                            .and_return([nil, YAML.load_file(body_fixture)])
+          end
         end
 
         its('restorable') { should be true }
@@ -562,8 +592,13 @@ describe GandiV5::Domain do
   it '#fetch_glue_records' do
     body_fixture = File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch_glue_records.yml')
     body_fixture = File.expand_path(body_fixture)
-    expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/hosts')
-                                    .and_return([nil, YAML.load_file(body_fixture)])
+    if RUBY_VERSION >= '3.1.0'
+      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/hosts')
+                                      .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+    else
+      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/hosts')
+                                      .and_return([nil, YAML.load_file(body_fixture)])
+    end
     expect(subject.fetch_glue_records).to eq(
       'ns1' => ['1.2.3.4']
     )
@@ -661,8 +696,13 @@ describe GandiV5::Domain do
     before(:each) do
       body_fixture = File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch_livedns.yml')
       body_fixture = File.expand_path(body_fixture)
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/livedns')
-                                      .and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/livedns')
+                                        .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/livedns')
+                                        .and_return([nil, YAML.load_file(body_fixture)])
+      end
     end
 
     describe 'Returned live_dns' do
@@ -711,8 +751,13 @@ describe GandiV5::Domain do
   it '#fetch_name_servers' do
     body_fixture = File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain', 'fetch_name_servers.yml')
     body_fixture = File.expand_path(body_fixture)
-    expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/nameservers')
-                                    .and_return([nil, YAML.load_file(body_fixture)])
+    if RUBY_VERSION >= '3.1.0'
+      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/nameservers')
+                                      .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+    else
+      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/domains/example.com/nameservers')
+                                      .and_return([nil, YAML.load_file(body_fixture)])
+    end
     expect(subject.fetch_name_servers).to match_array ['1.2.3.4']
   end
 

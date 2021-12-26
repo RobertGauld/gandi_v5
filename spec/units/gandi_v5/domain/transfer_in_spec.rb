@@ -8,8 +8,13 @@ describe GandiV5::Domain::TransferIn do
 
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Domain_TransferIn', 'fetch.yml'))
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/transferin/example.com')
-                                      .and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/transferin/example.com')
+                                        .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/domain/transferin/example.com')
+                                        .and_return([nil, YAML.load_file(body_fixture)])
+      end
     end
 
     its('fqdn') { should eq 'example.com' }

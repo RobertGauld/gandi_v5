@@ -87,7 +87,11 @@ describe GandiV5::LiveDNS::Domain::DnssecKey do
     )
     url = 'https://api.gandi.net/v5/livedns/domains/example.com/keys'
 
-    expect(GandiV5).to receive(:get).with(url).and_return([nil, YAML.load_file(body_fixture)])
+    if RUBY_VERSION >= '3.1.0'
+      expect(GandiV5).to receive(:get).with(url).and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+    else
+      expect(GandiV5).to receive(:get).with(url).and_return([nil, YAML.load_file(body_fixture)])
+    end
     results = described_class.list('example.com')
     result = results.first
     expect(results.count).to eq 1
@@ -109,8 +113,13 @@ describe GandiV5::LiveDNS::Domain::DnssecKey do
         File.join('spec', 'fixtures', 'bodies', 'GandiV5_LiveDNS_Domain_DnssecKey', 'fetch.yml')
       )
       url = 'https://api.gandi.net/v5/livedns/domains/example.com/keys/key-uuid'
-      expect(GandiV5).to receive(:get).with(url)
-                                      .and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with(url)
+                                        .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with(url)
+                                        .and_return([nil, YAML.load_file(body_fixture)])
+      end
     end
 
     its('uuid') { should eq 'key-uuid' }

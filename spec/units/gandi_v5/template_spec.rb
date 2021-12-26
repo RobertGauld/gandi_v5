@@ -8,8 +8,13 @@ describe GandiV5::Template do
   describe '#refresh' do
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Template', 'fetch.yml'))
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/template/templates/template-uuid')
-                                      .and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/template/templates/template-uuid')
+                                        .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/template/templates/template-uuid')
+                                        .and_return([nil, YAML.load_file(body_fixture)])
+      end
       subject.refresh
     end
 
@@ -107,8 +112,13 @@ describe GandiV5::Template do
     subject { described_class.list }
 
     before :each do
-      expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100)
-                                                .and_yield(YAML.load_file(body_fixture))
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100)
+                                                  .and_yield(YAML.load_file(body_fixture, permitted_classes: [Time]))
+      else
+        expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100)
+                                                  .and_yield(YAML.load_file(body_fixture))
+      end
     end
 
     let(:body_fixture) { File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Template', 'list.yml')) }
@@ -134,8 +144,13 @@ describe GandiV5::Template do
 
     before :each do
       body_fixture = File.expand_path(File.join('spec', 'fixtures', 'bodies', 'GandiV5_Template', 'fetch.yml'))
-      expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/template/templates/template-uuid')
-                                      .and_return([nil, YAML.load_file(body_fixture)])
+      if RUBY_VERSION >= '3.1.0'
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/template/templates/template-uuid')
+                                        .and_return([nil, YAML.load_file(body_fixture, permitted_classes: [Time])])
+      else
+        expect(GandiV5).to receive(:get).with('https://api.gandi.net/v5/template/templates/template-uuid')
+                                        .and_return([nil, YAML.load_file(body_fixture)])
+      end
     end
 
     its('description') { should eq 'description of template' }

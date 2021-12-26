@@ -69,8 +69,13 @@ describe GandiV5::Email::Forward do
       subject { described_class.list 'example.com' }
 
       before :each do
-        expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100, params: {})
-                                                  .and_yield(YAML.load_file(body_fixture))
+        if RUBY_VERSION >= '3.1.0'
+          expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100, params: {})
+                                                    .and_yield(YAML.load_file(body_fixture, permitted_classes: [Time]))
+        else
+          expect(GandiV5).to receive(:paginated_get).with(url, (1..), 100, params: {})
+                                                    .and_yield(YAML.load_file(body_fixture))
+        end
       end
 
       its('count') { should eq 1 }
