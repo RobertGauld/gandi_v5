@@ -1,6 +1,6 @@
 # Gandi V5 API Gem Changelog
 
-* Add testing against rubies 3.0.2, 3.0.3, 3.1.0
+* Add testing against rubies 3.0.2, 3.0.3, 3.1.0, 3.1.1
 
 ## Version 0.10.1
 
