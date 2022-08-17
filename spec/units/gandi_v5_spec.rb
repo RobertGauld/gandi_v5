@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe GandiV5 do
-  let(:api_key) { ENV['GANDI_API_KEY'] }
+  let(:api_key) { ENV.fetch('GANDI_API_KEY') }
 
   it '.domain' do
     returns = double GandiV5::Domain

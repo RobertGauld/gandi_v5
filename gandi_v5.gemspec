@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
   # Also: mailing_list_uri, wiki_uri, funding_uri
 
   gem.files         = Dir.glob('lib/**/*', File::FNM_DOTMATCH)
-  gem.test_files    = Dir.glob('spec/**/*', File::FNM_DOTMATCH)
+  # gem.test_files    = Dir.glob('spec/**/*', File::FNM_DOTMATCH)
   # gem.executables   = Dir.glob('exe/**/*', File::FNM_DOTMATCH).map { |f| File.basename(f) }
   gem.require_paths = ['lib']
   gem.bindir        = 'exe'

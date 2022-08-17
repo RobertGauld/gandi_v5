@@ -4,6 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/robertgauld/gandi_v5.png?branch=main)](https://codeclimate.com/github/robertgauld/gandi_v5)
 
 ## Ruby Versions
+
 This gem supports the following versions of ruby, it may work on other versions but is not tested against them so don't rely on it.
 
 * ruby:
@@ -11,11 +12,11 @@ This gem supports the following versions of ruby, it may work on other versions 
   * 2.7.0 - 2.7.3
   * 3.0.0 - 3.0.3
   * 3.1.0 - 3.1.1
-  * truffleruby 20.1.0 - 21.0.0
+  * truffleruby 20.1.0 - 22.2.0 **(Except: 21.3.0, and 22.0.0.2 due to "truffleruby: an internal exception escaped out of the interpreter")**
+  * jruby 9.3.7.0
 
 This gem doesn't yet support the following versions of ruby, although hopefully it soon will.
 
-* jruby - not yet at parity with ruby 2.6.x
 * rubinius - not yet at parity with ruby 2.6.x
 
 
@@ -64,6 +65,7 @@ GandiV5.api_key = '…' # Unless you've set it in the environment variable GANDI
 ### Examples
 
 #### List renewal dates and costs for all domains
+
 ```ruby
 # For each domain (sorted by assending renewal date) print <date>\t<cost>\t<fqdn>
 GandiV5::Domain.list.each do |domain|
