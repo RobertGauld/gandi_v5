@@ -9,11 +9,11 @@ This gem supports the following versions of ruby, it may work on other versions 
 
 * ruby:
   * 2.6.0 - 2.6.7
-  * 2.7.0 - 2.7.3
-  * 3.0.0 - 3.0.3
-  * 3.1.0 - 3.1.1
-  * truffleruby 20.1.0 - 22.2.0 **(Except: 21.3.0, and 22.0.0.2 due to "truffleruby: an internal exception escaped out of the interpreter")**
-  * jruby 9.3.7.0
+  * 2.7.0 - 2.7.7
+  * 3.0.0 - 3.0.5
+  * 3.1.0 - 3.1.3
+  * truffleruby 20.1.0 - 22.3.0 **(Except: 21.3.0, and 22.0.0.2 due to "truffleruby: an internal exception escaped out of the interpreter")**
+  * jruby 9.3.7.0 - jruby-9.4.0.0
 
 This gem doesn't yet support the following versions of ruby, although hopefully it soon will.
 
