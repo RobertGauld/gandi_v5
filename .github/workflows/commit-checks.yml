@@ -58,7 +58,7 @@ jobs:
 
   rspec:
     name: Rspec on Ruby ${{ matrix.ruby }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         ruby: [
