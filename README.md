@@ -3,6 +3,16 @@
 [![Coveralls Status](https://coveralls.io/repos/robertgauld/gandi_v5/badge.png?branch=main)](https://coveralls.io/r/robertgauld/gandi_v5)
 [![Code Climate](https://codeclimate.com/github/robertgauld/gandi_v5.png?branch=main)](https://codeclimate.com/github/robertgauld/gandi_v5)
 
+## Basically Abandonware !!!!
+
+It's become apparent to me that my limited freetime doesn't allow me to continue with this gem as I initially
+intended. Whilst I'll contiune to fix any bugs which appear in what's here it won't be getting and updates to
+add features or plug the gaps between its functionallity and that of Gandi's API.
+(That's why I've closed all the issues which address those gaps).
+
+If anyone wishes to either take over this project, or gave the gem name in order to do a version 2 using their
+own implementation then please do get in contact with me.
+
 ## Ruby Versions
 
 This gem supports the following versions of ruby, it may work on other versions but is not tested against them so don't rely on it.
@@ -12,6 +22,7 @@ This gem supports the following versions of ruby, it may work on other versions 
   * 2.7.0 - 2.7.7
   * 3.0.0 - 3.0.5
   * 3.1.0 - 3.1.3
+  * 3.2.0
   * truffleruby 20.1.0 - 22.3.0 **(Except: 21.3.0, and 22.0.0.2 due to "truffleruby: an internal exception escaped out of the interpreter")**
   * jruby 9.3.7.0 - jruby-9.4.0.0
 
